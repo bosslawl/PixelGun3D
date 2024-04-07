@@ -45,6 +45,7 @@ namespace Variables {
 	inline bool ScoreModifier = false;
 	inline bool AOEBullets = false;
 	inline bool NoSpread = false;
+	inline bool FrostAura = false;
 
 	// WeaponSounds->ForceEffects
 	inline bool PoisonEffect = false;
@@ -57,5 +58,10 @@ namespace Variables {
 
 	// PlayerMoveC
 	inline bool XRay = false;
+	inline bool HealOnline = false;
+	inline bool AmmoOnline = false;
+	inline bool Invisibility = false;
 
+	// Misc
+	inline bool PlayerSpeed = false;
 }

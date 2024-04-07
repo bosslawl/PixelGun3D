@@ -12,20 +12,6 @@ namespace Internal {
 		return 0;
 	}
 
-	inline bool isMine(void* SkinName) {
-		return *(bool*)((uint64_t)SkinName + 0xC0);
-	}
-	inline bool isDead(void* player)
-	{
-		bool (*IsDead)(void* player) = (bool(*)(void*))(UnitySDK::UnityGameAssembly + "0x473C00C"); // PlayerDamageable$$IsDead
-		return IsDead(player);
-	}
-	inline bool isEnemy(void* player, void* enemy)
-	{
-		bool (*isEnemy)(void* player, void* enemy) = (bool(*)(void*, void*))(UnitySDK::UnityGameAssembly + "0x473BCB0"); // PlayerDamageable$$IsEnemyTo
-		return isEnemy(player, enemy);
-	}
-
 	inline void ShowXray(void* obj, bool a1, int a2, int a3) {
 		if (!obj) return;
 		static const auto fn = (void(*)(void*, bool, int, int)) (getAbsolute(Offsets::XRay));
@@ -35,6 +21,30 @@ namespace Internal {
 	inline void NextHitCritical(void* obj, bool a1) {
 		if (!obj) return;
 		static const auto fn = (void(*)(void*, bool)) (getAbsolute(Offsets::NextHitCritical));
+		return fn(obj, a1);
+	}
+
+	inline float AddHealthFromWeaponOnline(void* obj, float a1, std::string a2) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float, std::string)) (getAbsolute(Offsets::AddHealthFromWeaponOnline));
+		return fn(obj, a1, a2);
+	}
+
+	inline float AddAmmoFromWeaponOnline(void* obj, float a1) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::AddAmmoFromWeaponOnline));
+		return fn(obj, a1);
+	}
+
+	inline float Invisibility(void* obj, float a1) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::Invisibility));
+		return fn(obj, a1);
+	}
+
+	inline float InvisibilityRPC(void* obj, float a1) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::InvisibilityRPC));
 		return fn(obj, a1);
 	}
 }
@@ -57,7 +67,7 @@ namespace GameFunctions {
 	inline void(__stdcall* OWeaponSounds)(void* obj);
 	inline void __stdcall WeaponSounds(void* obj)
 	{
-		if (&Variables::NoRecoil)
+		if (Variables::NoRecoil)
 		{
 			*(float*)((uint64_t)obj + 0xC0) = 0.0f; // recoilCeoff
 			*(float*)((uint64_t)obj + 0x124) = 0.0f; // recoilCeoffZoom
@@ -65,13 +75,13 @@ namespace GameFunctions {
 			*(float*)((uint64_t)obj + 0x11C) = 0.0f; // moveScatterCoeffZoom
 		}
 
-		if (&Variables::InfiniteRange)
+		if (Variables::InfiniteRange)
 		{
 			*(float*)((uint64_t)obj + 0x658) = 999999.0f; // range
 			*(float*)((uint64_t)obj + 0x5E8) = 999999.0f; // damageRange
 		}
 
-		if (&Variables::FullAuto)
+		if (Variables::FullAuto)
 		{
 			*(float*)((uint64_t)obj + 0x1AC) = 0.000001f; // shootDelay
 			*(float*)((uint64_t)obj + 0x1B0) = 0.000001f; // bulletDelay
@@ -79,63 +89,63 @@ namespace GameFunctions {
 			*(float*)((uint64_t)obj + 0x1E4) = 0.000001f; // chargeTime
 		}
 
-		if (&Variables::ZoomXRay)
+		if (Variables::ZoomXRay)
 			*(bool*)((uint64_t)obj + 0xC6) = true; // zoomXray
 
 		if (&Variables::InstantADS)
 			*(float*)((uint64_t)obj + 0xF8) = 999999.0f; // scopeSpeed
 
-		if (&Variables::ForceCriticals)
+		if (Variables::ForceCriticals)
 		{
 			*(bool*)((uint64_t)obj + 0x388) = true; // firstKillCritical
 			Internal::NextHitCritical(obj, true); // SetNextHitCritical
 		}
 
-		if (&Variables::ForceEffects)
+		if (Variables::ForceEffects)
 		{
-			if (&Variables::PoisonEffect)
+			if (Variables::PoisonEffect)
 			{
 				*(bool*)((uint64_t)obj + 0x1F8) = true; // isPoisoning
 				*(int*)((uint64_t)obj + 0x1FC) = 999999; // poisonCount
-				*(float*)((uint64_t)obj + 0x200) = 7.0f; // poisonDamageMultiplier
+				*(float*)((uint64_t)obj + 0x200) = 5.0f; // poisonDamageMultiplier
 				*(float*)((uint64_t)obj + 0x204) = 999999.0f; // poisonTime
 			}
-			if (&Variables::StunEffect)
+			if (Variables::StunEffect)
 			{
 				*(bool*)((uint64_t)obj + 0x238) = true; // isStun
-				*(float*)((uint64_t)obj + 0x23C) = 7.0f; // stunCeoff
+				*(float*)((uint64_t)obj + 0x23C) = 5.0f; // stunCeoff
 				*(float*)((uint64_t)obj + 0x240) = 999999.0f; // stunTime
 				*(float*)((uint64_t)obj + 0x244) = 999999.0f; // stunRadius
 			}
-			if (&Variables::CurseEffect)
+			if (Variables::CurseEffect)
 			{
 				*(bool*)((uint64_t)obj + 0x214) = true; // isCursing
 				*(float*)((uint64_t)obj + 0x218) = 999999.0f; // curseTime
-				*(float*)((uint64_t)obj + 0x21C) = 7.0f; // curseDamageMultiplier
+				*(float*)((uint64_t)obj + 0x21C) = 5.0f; // curseDamageMultiplier
 			}
-			if (&Variables::CharmEffect)
+			if (Variables::CharmEffect)
 			{
 				*(bool*)((uint64_t)obj + 0x274) = true; // isCharm
 				*(float*)((uint64_t)obj + 0x278) = 999999.0f; // charmTime
 			}
-			if (&Variables::WeaknessEffect)
+			if (Variables::WeaknessEffect)
 			{
 				*(bool*)((uint64_t)obj + 0x27C) = true; // isWeaknessEffect
 				*(float*)((uint64_t)obj + 0x280) = 999999.0f; // weaknessEffectTime
 			}
-			if (&Variables::BlindEffect)
+			if (Variables::BlindEffect)
 			{
 				*(bool*)((uint64_t)obj + 0x268) = true; // isBlindEffect
 				*(float*)((uint64_t)obj + 0x270) = 999999.0f; // isBlindEffectTime
 			}
-			if (&Variables::LightningEffect)
+			if (Variables::LightningEffect)
 				*(bool*)((uint64_t)obj + 0x155) = true; // isLightning
 		}
 
-		if (&Variables::InfiniteAmmo)
+		if (Variables::InfiniteAmmo)
 			*(bool*)((uint64_t)obj + 0x469) = true; // isUnlimitedAmmo
 
-		if (&Variables::InstantCharge)
+		if (Variables::InstantCharge)
 		{
 			*(bool*)((uint64_t)obj + 0x1D8) = true; // chargeLoop
 			*(int*)((uint64_t)obj + 0x1E0) = 999999; // chargeMax
@@ -143,7 +153,7 @@ namespace GameFunctions {
 			*(bool*)((uint64_t)obj + 0x1CA) = false; // isCharging
 		}
 
-		if (&Variables::ScoreModifier)
+		if (Variables::ScoreModifier)
 		{
 			*(bool*)((uint64_t)obj + 0x390) = true; // isBuffPoints
 			*(bool*)((uint64_t)obj + 0x3A0) = true; // buffPointsKIllDesigner
@@ -154,7 +164,7 @@ namespace GameFunctions {
 			*(float*)((uint64_t)obj + 0x394) = 999999.0f; // buffPointsRevenge 
 		}
 
-		if (&Variables::AOEBullets)
+		if (Variables::AOEBullets)
 		{
 			*(bool*)((uint64_t)obj + 0x3C0) = true; // isSectorsAOE 
 			*(bool*)((uint64_t)obj + 0x34C) = false; // flamethrower 
@@ -169,7 +179,7 @@ namespace GameFunctions {
 			*(float*)((uint64_t)obj + 0x3D8) = 999999.0f; // sectorsAOERadiusSectorsAoE 
 		}
 
-		if (&Variables::NoSpread) 
+		if (Variables::NoSpread) 
 		{
 			*(float*)((uint64_t)obj + 0x104) = 0; // maxKoofZoom
 			*(float*)((uint64_t)obj + 0x108) = 0; // upKoofFireZoom
@@ -187,24 +197,60 @@ namespace GameFunctions {
 			*(Vector2*)((uint64_t)obj + 0x84) = Vector2(0, 0); // startZone
 		}
 
+		if (Variables::FrostAura)
+		{
+			*(bool*)((uint64_t)obj + 0x369) = true; // isFrostSword 
+			*(bool*)((uint64_t)obj + 0x374) = true; // isFrostSwordUseAngle 
+			*(float*)((uint64_t)obj + 0x3EC) = 999999.0f; // frostRadius 
+			*(float*)((uint64_t)obj + 0x378) = 5.0f; // frostDamageMultiplier
+			*(float*)((uint64_t)obj + 0x37C) = 0.33f; // frostSwordnTime
+		}
+
 		return OWeaponSounds(obj);
 	}
 
 	inline void(__stdcall* OPlayerMoveC)(void* obj);
 	inline void __stdcall PlayerMoveC(void* obj)
 	{
-		void* SkinName = *(void**)((uint64_t)obj + 0x678);
-
-		if (SkinName != nullptr) {
-			if (Internal::isMine(SkinName)) {
-				MyPlayer = SkinName;
-				enemyPlayer = obj;
-			}
-		}
-
-		if (&Variables::XRay)
+		if (Variables::XRay)
 			Internal::ShowXray(obj, true, 0, 0); // method_205
 
+		if (Variables::Invisibility)
+		{
+			Variables::Invisibility = !Variables::Invisibility;
+			Internal::Invisibility(obj, 999999.0f); // MakeInvisibleForSeconds
+			Internal::InvisibilityRPC(obj, 999999.0f); // MakeInvisibleForSecondsRPC
+		}
+
+		void* playerDamageable = *(void**)((uintptr_t)obj + 0x650);
+
+		if (Variables::HealOnline)
+			Internal::AddHealthFromWeaponOnline(playerDamageable, 999999.0f, ""); // AddHealthFromWeaponOnline
+
+		if (Variables::AmmoOnline)
+			Internal::AddAmmoFromWeaponOnline(playerDamageable, 999999.0f); // AddAmmoFromWeaponOnline
+
 		return OPlayerMoveC(obj);
-	}				
+	}		
+
+	inline float(__stdcall* OSpeedModifier)(void* obj);
+	inline float __stdcall SpeedModifier(void* obj)
+	{
+		if (Variables::PlayerSpeed)
+			return 999999.0f;
+
+		return OSpeedModifier(obj);
+	}
+
+	inline int(__stdcall* OMovePlayer)(void* obj, Vector3 motion);
+	inline int __stdcall MovePlayer(void* obj, Vector3 motion)
+	{
+		if (Variables::InfiniteJump)
+		{
+			if (Utils::KeyPressed(VK_SPACE))
+				motion = Vector3(0, 0.5f, 0);
+		}
+
+		return OMovePlayer(obj, motion);
+	}
 }

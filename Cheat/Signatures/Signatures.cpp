@@ -16,6 +16,10 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::WeaponSoundsUpdate, "WeaponSoundsUpdate");
         Utils::AddressLog(Offsets::XRay, "XRay");
         Utils::AddressLog(Offsets::NextHitCritical, "NextHitCritical");
+        Utils::AddressLog(Offsets::AddHealthFromWeaponOnline, "AddHealthFromWeaponOnline");
+        Utils::AddressLog(Offsets::AddAmmoFromWeaponOnline, "AddAmmoFromWeaponOnline");
+        Utils::AddressLog(Offsets::Invisibility, "Invisibility");
+        Utils::AddressLog(Offsets::SpeedModifier, "SpeedModifier");
     }
     return true;
 }

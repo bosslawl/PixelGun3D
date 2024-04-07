@@ -47,6 +47,12 @@ void Hooks::LoadMinHookHooks()
 
 	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate), &GameFunctions::WeaponSounds, (LPVOID*)&GameFunctions::OWeaponSounds);
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate));
+
+	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::SpeedModifier), &GameFunctions::SpeedModifier, (LPVOID*)&GameFunctions::OSpeedModifier);
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::SpeedModifier));
+
+	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MovePlayer), &GameFunctions::MovePlayer, (LPVOID*)&GameFunctions::OMovePlayer);
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MovePlayer));
 }
 
 void Hooks::UnloadMinHookHooks()
