@@ -13,6 +13,20 @@ QWORD WINAPI PlayerCacheThread(LPVOID param)
 	{
 		void* IL2CPPPlayerCacheThread = IL2CPP::Thread::Attach(IL2CPP::Domain::Get());
 
+		std::vector<Player_move_c_o> playerList;
+		Player_move_c_o player;
+
+		if (playerList.empty())
+			return 0;
+
+		auto it = std::find_if(playerList.begin(), playerList.end(),
+			[](const Player_move_c_o& p) { 
+				return p.fields.nickLabel != nullptr && p.fields.nickLabel == "1111";
+			});
+
+		if (it != playerList.end())
+			player = *it;
+
 		IL2CPP::Thread::Detach(IL2CPPPlayerCacheThread);
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
