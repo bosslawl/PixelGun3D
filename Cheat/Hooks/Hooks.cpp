@@ -43,6 +43,9 @@ void Hooks::LoadMinHookHooks()
 	{
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild));
 	}
+
+	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC);
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate));
 }
 
 void Hooks::UnloadMinHookHooks()

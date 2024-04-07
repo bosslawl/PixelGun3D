@@ -4,4 +4,5 @@
 namespace Offsets {
 	inline uintptr_t TimeOffset = 0x0;
 	inline uintptr_t IsDebugBuild = 0x0;
+	inline uintptr_t PlayerMoveCUpdate = 0x0;
 }

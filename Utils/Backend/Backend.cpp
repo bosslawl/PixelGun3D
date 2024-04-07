@@ -7,6 +7,8 @@ Backend::presentVariable hookedPresent;
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 static bool init = false;
+bool isWindowVisible = true;
+WNDPROC oWndProc;
 
 Backend RunBackend;
 
@@ -104,11 +106,86 @@ bool Backend::DirectXPresentHook()
 	return true;
 }
 
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	if (RunBackend.m_bOpenMenu && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) // if menu open then handle imgui events
-		return true;
+void ShowMouseCursor(bool show) {
+	if (show) {
+		while (ShowCursor(TRUE) < 0);
+	}
+	else {
+		while (ShowCursor(FALSE) >= 0);
+	}
+}
 
-	return CallWindowProc(RunBackend.m_goriginalWndProc, hWnd, uMsg, wParam, lParam);
+void HandleMouseInputs(HWND hWnd, ImGuiIO& io) {
+	if (!isWindowVisible)
+		return;
+
+	POINT mousePos;
+	GetCursorPos(&mousePos);
+	ScreenToClient(hWnd, &mousePos);
+	io.MousePos = ImVec2(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+	io.MouseDown[0] = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+	io.MouseDown[1] = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+	io.MouseDown[2] = (GetAsyncKeyState(VK_MBUTTON) & 0x8000) != 0;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	ImGuiIO& io = ImGui::GetIO();
+	switch (msg) {
+	case WM_MOUSEMOVE:
+		HandleMouseInputs(hWnd, io);
+		break;
+	case WM_LBUTTONDOWN:
+		if (isWindowVisible)
+			io.MouseDown[0] = true;
+		break;
+	case WM_LBUTTONUP:
+		if (isWindowVisible)
+			io.MouseDown[0] = false;
+		break;
+	case WM_RBUTTONDOWN:
+		if (isWindowVisible)
+			io.MouseDown[1] = true;
+		break;
+	case WM_RBUTTONUP:
+		if (isWindowVisible)
+			io.MouseDown[1] = false;
+		break;
+	case WM_MBUTTONDOWN:
+		if (isWindowVisible)
+			io.MouseDown[2] = true;
+		break;
+	case WM_MBUTTONUP:
+		if (isWindowVisible)
+			io.MouseDown[2] = false;
+		break;
+	case WM_KEYDOWN:
+		if (wParam == VK_INSERT) {
+			if (!isWindowVisible) {
+				ShowMouseCursor(true);
+			}
+			else {
+				ShowMouseCursor(false);
+			}
+			isWindowVisible = !isWindowVisible;
+		}
+
+		if (wParam == VK_MENU && VK_F4) {
+			abort();
+		}
+		break;
+	}
+
+	if (!isWindowVisible) {
+		RECT rect;
+		GetClientRect(hWnd, &rect);
+		POINT center = { (rect.right - rect.left) / 2, (rect.bottom - rect.top) / 2 };
+		ClientToScreen(hWnd, &center);
+		SetCursorPos(center.x, center.y);
+		return CallWindowProc(oWndProc, hWnd, msg, wParam, lParam);
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
 void Backend::LoadImGui(HWND window, ID3D11Device* device, ID3D11DeviceContext* context)
@@ -118,6 +195,7 @@ void Backend::LoadImGui(HWND window, ID3D11Device* device, ID3D11DeviceContext* 
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange; // dont change cursors
 	ImGui_ImplWin32_Init(window);
 	ImGui_ImplDX11_Init(device, context); // u need the device's context since u can't draw with only device, thanx dx11
+	ShowMouseCursor(false);
 } // loading the imgui
 
 namespace Tabs {
@@ -134,6 +212,7 @@ namespace Tabs {
 			ImGui::ColorEdit3("Circle Colour", (float*)&Variables::CircleColour);
 			ImGui::Checkbox("Rainbow?", &Variables::EnableRainbowCircle);
 		}
+		ImGui::Separator();
 		ImGui::Checkbox("Crosshair", &Variables::EnableCrosshair);
 		if (Variables::EnableCrosshair)
 		{
@@ -141,6 +220,7 @@ namespace Tabs {
 			ImGui::ColorEdit3("Crosshair Colour", (float*)&Variables::CrosshairColor);
 			ImGui::Checkbox("Rainbow?", &Variables::EnableRainbowCrosshair);
 		}
+		ImGui::Separator();
 		ImGui::Checkbox("Watermark", &Variables::EnableWatermark);
 		if (Variables::EnableWatermark)
 		{
@@ -153,79 +233,13 @@ namespace Tabs {
 		bool isSettingHotkey = false;
 
 		ImGui::Checkbox("Game Speed", &Variables::GameSpeed);
-		if (ImGui::Button("[-]")) {
-			isSettingHotkey = !isSettingHotkey;
-		}
-		
-		if (isSettingHotkey) {
-			ImGui::SameLine();
-			ImGui::Text("Press a key to set as hotkey...");
-
-			for (int key = 1; key < 512; key++)
-			{
-				if (Utils::KeyPressed(key) & 0x8000)
-				{
-					Variables::GameSpeedKey = key;
-					isSettingHotkey = false;
-					break;
-				}
-			}
-		}
-		else {
-			const char* keyName = "None";
-			switch (Variables::GameSpeedKey)
-			{
-				case VK_LBUTTON: keyName = "Left Mouse Button"; break;
-				case VK_RBUTTON: keyName = "Right Mouse Button"; break;
-				case VK_CANCEL: keyName = "Control-break processing"; break;
-				case VK_MBUTTON: keyName = "Middle Mouse Button"; break;
-				case VK_XBUTTON1: keyName = "X1 Mouse Button"; break;
-				case VK_XBUTTON2: keyName = "X2 Mouse Button"; break;
-				case VK_BACK: keyName = "Backspace"; break;
-				case VK_TAB: keyName = "Tab"; break;
-				case VK_CLEAR: keyName = "Clear"; break;
-				case VK_RETURN: keyName = "Enter"; break;
-				case VK_SHIFT: keyName = "Shift"; break;
-				case VK_CONTROL: keyName = "Ctrl"; break;
-				case VK_MENU: keyName = "Alt"; break;
-				case VK_PAUSE: keyName = "Pause"; break;
-				case VK_CAPITAL: keyName = "Caps Lock"; break;
-				case VK_ESCAPE: keyName = "Escape"; break;
-				case VK_SPACE: keyName = "Spacebar"; break;
-				case VK_PRIOR: keyName = "Page Up"; break;
-				case VK_NEXT: keyName = "Page Down"; break;
-				case 0x41: keyName = "A"; break;
-				case 0x42: keyName = "B"; break;
-				case 0x43: keyName = "C"; break;
-				case 0x44: keyName = "D"; break;
-				case 0x45: keyName = "E"; break;
-				case 0x46: keyName = "F"; break;
-				case 0x47: keyName = "G"; break;
-				case 0x48: keyName = "H"; break;
-				case 0x49: keyName = "I"; break;
-				case 0x4A: keyName = "J"; break;
-				case 0x4B: keyName = "K"; break;
-				case 0x4C: keyName = "L"; break;
-				case 0x4D: keyName = "M"; break;
-				case 0x4E: keyName = "N"; break;
-				case 0x4F: keyName = "O"; break;
-				case 0x50: keyName = "P"; break;
-				case 0x51: keyName = "Q"; break;
-				case 0x52: keyName = "R"; break;
-				case 0x53: keyName = "S"; break;
-				case 0x54: keyName = "T"; break;
-				case 0x55: keyName = "U"; break;
-				case 0x56: keyName = "V"; break;
-				case 0x57: keyName = "W"; break;
-				case 0x58: keyName = "X"; break;
-				case 0x59: keyName = "Y"; break;
-				case 0x5A: keyName = "Z"; break;
-			}
-			ImGui::SameLine();
-			ImGui::Text("GameSpeed key: %s", keyName);
-		}
+		ImGui::Text("Game Speed Hotkey", &Variables::GameSpeedKey);
 		if (Variables::GameSpeed)
+		{
 			ImGui::SliderFloat("##SpeedMultiplier", &Variables::SpeedMultipler, 0.1f, 10.0f, "Speed Multiplier: %.1f");
+			ImGui::Text("If you change the Speed Multiplier, toggle Game Speed off and back on.");
+		}
+
 	}
 
 	void Settings() {

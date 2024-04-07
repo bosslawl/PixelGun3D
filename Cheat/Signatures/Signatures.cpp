@@ -12,6 +12,7 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     {
         Utils::AddressLog(Offsets::TimeOffset - UnitySDK::UnityGameAssembly, "TimeOffset");
         Utils::AddressLog(Offsets::IsDebugBuild - UnitySDK::UnityGameAssembly, "IsDebugBuild");
+        Utils::AddressLog(Offsets::PlayerMoveCUpdate, "PlayerMoveCUpdate");
     }
     return true;
 }
