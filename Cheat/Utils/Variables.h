@@ -61,7 +61,10 @@ namespace Variables {
 	inline bool HealOnline = false;
 	inline bool AmmoOnline = false;
 	inline bool Invisibility = false;
+	inline bool JetpackFly = true;
 
 	// Misc
 	inline bool PlayerSpeed = false;
+	inline float InfiniteJump = false;
+	inline int AirStuck = true;
 }

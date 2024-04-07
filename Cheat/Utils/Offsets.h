@@ -14,4 +14,5 @@ namespace Offsets {
 	inline uintptr_t InvisibilityRPC = 0x1ABF780;
 	inline uintptr_t SpeedModifier = 0x774D40;
 	inline uintptr_t MovePlayer = 0x43C5CB0;
+	inline uintptr_t JetpackFly = 0x1B17E60;
 }

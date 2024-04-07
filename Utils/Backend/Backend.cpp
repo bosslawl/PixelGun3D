@@ -145,10 +145,7 @@ namespace Tabs {
 		ImGui::Separator();
 		ImGui::Checkbox("Watermark", &Variables::EnableWatermark);
 		if (Variables::EnableWatermark)
-		{
 			ImGui::Checkbox("FPS?", &Variables::EnableFPS);
-			ImGui::Checkbox("Rainbow?", &Variables::EnableRainbowWatermark);
-		}
 	}
 
 	void Player() {
@@ -245,9 +242,9 @@ void Backend::RenderCheat()
 		Variables::GameSpeed = !Variables::GameSpeed;
 
 		if (Variables::GameSpeed)
-			GameFunctions::SetTimeScale(Variables::SpeedMultipler);
+			Internal::SetTimeScale(Variables::SpeedMultipler);
 		else
-			GameFunctions::SetTimeScale(1.0f);
+			Internal::SetTimeScale(1.0f);
 	}
 
 	if (Variables::EnableCircleFov && Variables::EnableRainbowCircle)
@@ -261,9 +258,9 @@ void Backend::RenderCheat()
 		Utils::UseCrosshair(false);
 
 	if (Variables::EnableWatermark && Variables::EnableFPS)
-		Utils::Watermark("@bosslawl", true); // text to set the watermark, and true/false to show fps
+		Utils::Watermark(true, "@bosslawl", Variables::WatermarkColor, ImVec4(255, 255, 255, 0));
 	else if (Variables::EnableWatermark && !Variables::EnableFPS)
-		Utils::Watermark("@bosslawl", false); // text to set the watermark, and true/false to show fps
+		Utils::Watermark(false, "@bosslawl", Variables::WatermarkColor, ImVec4(255, 255, 255, 0));
 }
 
 static long __stdcall PresentHook(IDXGISwapChain* pointerSwapChain, UINT sync, UINT flags)

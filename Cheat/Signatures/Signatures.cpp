@@ -20,6 +20,8 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::AddAmmoFromWeaponOnline, "AddAmmoFromWeaponOnline");
         Utils::AddressLog(Offsets::Invisibility, "Invisibility");
         Utils::AddressLog(Offsets::SpeedModifier, "SpeedModifier");
+        Utils::AddressLog(Offsets::MovePlayer, "MovePlayer");
+        Utils::AddressLog(Offsets::JetpackFly, "JetpackFly");
     }
     return true;
 }

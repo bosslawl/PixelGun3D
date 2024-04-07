@@ -47,18 +47,25 @@ namespace Internal {
 		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::InvisibilityRPC));
 		return fn(obj, a1);
 	}
-}
 
-namespace GameFunctions {
-	inline bool (UNITY_CALLING_CONVENTION isdebug)();
-	inline bool isdebug_h() {
-		return true;
+	inline void JetpackFly (void* obj, bool a1) {
+		if (!obj) return;
+		static const auto fn = (void(*)(void*, bool)) (getAbsolute(Offsets::JetpackFly));
+		return fn(obj, a1);
 	}
 
 	inline void SetTimeScale(float TimeScale)
 	{
 		void (UNITY_CALLING_CONVENTION set_time_scale)(float TimeScale);
 		reinterpret_cast<decltype(set_time_scale)>(Offsets::TimeOffset)(TimeScale);
+	}
+
+}
+
+namespace GameFunctions {
+	inline bool (UNITY_CALLING_CONVENTION isdebug)();
+	inline bool isdebug_h() {
+		return true;
 	}
 
 	inline void* MyPlayer;
@@ -222,6 +229,12 @@ namespace GameFunctions {
 			Internal::InvisibilityRPC(obj, 999999.0f); // MakeInvisibleForSecondsRPC
 		}
 
+		if (Variables::JetpackFly)
+		{
+			Internal::JetpackFly(obj, true); // Jetpack?
+			Variables::JetpackFly = false;
+		}
+
 		void* playerDamageable = *(void**)((uintptr_t)obj + 0x650);
 
 		if (Variables::HealOnline)
@@ -237,7 +250,7 @@ namespace GameFunctions {
 	inline float __stdcall SpeedModifier(void* obj)
 	{
 		if (Variables::PlayerSpeed)
-			return 999999.0f;
+			return 999999.0f; // SpeedModifier
 
 		return OSpeedModifier(obj);
 	}
@@ -248,9 +261,13 @@ namespace GameFunctions {
 		if (Variables::InfiniteJump)
 		{
 			if (Utils::KeyPressed(VK_SPACE))
-				motion = Vector3(0, 0.5f, 0);
+				motion = Vector3(0, 0.5f, 0); // UnityEngine.CharacterController->Move
 		}
+
+
 
 		return OMovePlayer(obj, motion);
 	}
+
+	inline void(__stdcall* O)(void* obj);
 }

@@ -82,14 +82,13 @@ namespace Utils {
 		}
 	}
 
-
 	inline void AddressLog(uintptr_t address, const char* name) {
 		printf("[ LOG ] %s: 0x%llX\n", name, address);
 	}
 
 	inline bool World2Screen(Unity::Vector3 world, Vector2& screen)
 	{
-		Unity::CCamera* CameraMain = Unity::Camera::GetMain(); 
+		Unity::CCamera* CameraMain = Unity::Camera::GetMain();
 		if (!CameraMain) {
 			return false;
 		}
@@ -110,24 +109,6 @@ namespace Utils {
 		{
 			return true;
 		}
-	}
-
-	inline auto RectFilled(float x0, float y0, float x1, float y1, ImColor color, float rounding, int rounding_corners_flags) -> VOID
-	{
-		auto vList = ImGui::GetBackgroundDrawList();
-		vList->AddRectFilled(ImVec2(x0, y0), ImVec2(x1, y1), color, rounding, rounding_corners_flags);
-	}
-
-	inline auto HealthBar(float x, float y, float w, float h, int phealth, ImColor col) -> VOID
-	{
-		auto vList = ImGui::GetBackgroundDrawList();
-
-		int healthValue = max(0, min(phealth, 100));
-
-		int barColor = ImColor
-		(min(510 * (100 - healthValue) / 100, 255), min(510 * healthValue / 100, 255), 25, 255);
-		vList->AddRect(ImVec2(x - 1, y - 1), ImVec2(x + w + 1, y + h + 1), col);
-		RectFilled(x, y, x + w, y + (((float)h / 100.0f) * (float)phealth), barColor, 0.0f, 0);
 	}
 
 	inline void UseFov(static bool IsRainbow)
@@ -152,127 +133,26 @@ namespace Utils {
 		}
 	}
 
-	inline auto AddText(ImVec2 pos, char* text, ImColor color) -> void
+	inline void Watermark(bool showFPS, const char* text, ImVec4 color, ImVec4 hoverColor)
 	{
-		auto DrawList = ImGui::GetForegroundDrawList();
-		auto wText = text;
+		bool open = true;
+		const float distance = 10.0f;
+		ImGuiIO& io = ImGui::GetIO();
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBackground;
 
-		auto Size = ImGui::CalcTextSize(wText);
-		pos.x -= Size.x / 2.f;
-		pos.y -= Size.y / 2.f;
+		ImVec2 windowPos = ImVec2(distance, distance);
 
-		//	ImGui::PushFont(m_font);
+		ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
+		ImGui::SetNextWindowBgAlpha(0.0f);
 
-		DrawList->AddText(ImVec2(pos.x + 1, pos.y + 1), ImColor(0, 0, 0, 255), wText);
-		DrawList->AddText(ImVec2(pos.x, pos.y), color, wText);
-
-		//	ImGui::PopFont();
-	}
-
-	inline float DrawOutlinedText(ImFont* pFont, const ImVec2& pos, float size, ImU32 color, bool center, const char* text, ...)
-	{
-		va_list(args);
-		va_start(args, text);
-
-		CHAR wbuffer[256] = { };
-		vsprintf_s(wbuffer, text, args);
-
-		va_end(args);
-
-		auto DrawList = ImGui::GetBackgroundDrawList();
-		std::stringstream stream(text);
-		std::string line;
-
-		float y = 0.0f;
-		int i = 0;
-		while (std::getline(stream, line))
+		if (ImGui::Begin("Watermark", &open, windowFlags))
 		{
-			ImVec2 textSize = pFont->CalcTextSizeA(size, FLT_MAX, 0.0f, wbuffer);
-
-			if (center)
-			{
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) + 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) - 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) + 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) - 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-
-				DrawList->AddText(pFont, size, ImVec2(pos.x - textSize.x / 2.0f, pos.y + textSize.y * i), ImGui::GetColorU32(color), wbuffer);
-			}
+			if (showFPS)
+				ImGui::TextColored(color, "%s | FPS: %i", text, static_cast<int>(io.Framerate));
 			else
-			{
-				DrawList->AddText(pFont, size, ImVec2((pos.x) + 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x) - 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x) + 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x) - 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
+				ImGui::TextColored(color, text);
 
-				DrawList->AddText(pFont, size, ImVec2(pos.x, pos.y + textSize.y * i), ImGui::GetColorU32(color), wbuffer);
-			}
-
-			y = pos.y + textSize.y * (i + 1);
-			i++;
-		}
-		return y;
-	}
-
-	inline float DrawOutlinedTextForeground(ImFont* pFont, const ImVec2& pos, float size, ImU32 color, bool center, const char* text, ...)
-	{
-		va_list(args);
-		va_start(args, text);
-
-		CHAR wbuffer[256] = { };
-		vsprintf_s(wbuffer, text, args);
-
-		va_end(args);
-
-		auto DrawList = ImGui::GetForegroundDrawList();
-
-		std::stringstream stream(text);
-		std::string line;
-
-		float y = 0.0f;
-		int i = 0;
-
-		while (std::getline(stream, line))
-		{
-			ImVec2 textSize = pFont->CalcTextSizeA(size, FLT_MAX, 0.0f, wbuffer);
-
-			if (center)
-			{
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) + 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) - 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) + 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x - textSize.x / 2.0f) - 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-
-				DrawList->AddText(pFont, size, ImVec2(pos.x - textSize.x / 2.0f, pos.y + textSize.y * i), ImGui::GetColorU32(color), wbuffer);
-			}
-			else
-			{
-				DrawList->AddText(pFont, size, ImVec2((pos.x) + 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x) - 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x) + 1, (pos.y + textSize.y * i) - 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-				DrawList->AddText(pFont, size, ImVec2((pos.x) - 1, (pos.y + textSize.y * i) + 1), ImGui::GetColorU32(ImVec4(0, 0, 0, 255)), wbuffer);
-
-				DrawList->AddText(pFont, size, ImVec2(pos.x, pos.y + textSize.y * i), ImGui::GetColorU32(color), wbuffer);
-			}
-
-			y = pos.y + textSize.y * (i + 1);
-			i++;
-		}
-		return y;
-	}
-
-	inline void Watermark(std::string Text, bool ShowFps)
-	{
-		if (Variables::EnableRainbowWatermark)
-		{
-			Utils::DrawOutlinedText(BaseFonts::GameFont, ImVec2(Variables::ScreenCenter.x, Variables::ScreenSize.y - 20), 15.0f, ImColor(Variables::RainbowColor.x, Variables::RainbowColor.y, Variables::RainbowColor.z), true, Text.c_str());
-			if (ShowFps)
-				Utils::DrawOutlinedText(BaseFonts::GameFont, ImVec2(Variables::ScreenCenter.x, 5), 13.0f, ImColor(Variables::RainbowColor.x, Variables::RainbowColor.y, Variables::RainbowColor.z), true, "[ %.1f FPS ]", ImGui::GetIO().Framerate);
-		}
-		else {
-			Utils::DrawOutlinedText(BaseFonts::GameFont, ImVec2(Variables::ScreenCenter.x, Variables::ScreenSize.y - 20), 15.0f, Variables::WatermarkColor, true, Text.c_str());
-			if (ShowFps)
-				Utils::DrawOutlinedText(BaseFonts::GameFont, ImVec2(Variables::ScreenCenter.x, 5), 13.0f, Variables::WatermarkColor, true, "[ %.1f FPS ]", ImGui::GetIO().Framerate);
+			ImGui::End();
 		}
 	}
 
@@ -320,21 +200,4 @@ namespace Utils {
 		}
 		mouse_event(MOUSEEVENTF_MOVE, static_cast<DWORD>(TargetX), static_cast<DWORD>(TargetY), NULL, NULL);
 	}
-
-	inline void DrawOutlineBox(const ImVec2& min, const ImVec2& max, ImU32 color, float thickness = 1.0f) {
-		ImGuiWindow* window = ImGui::GetCurrentWindow();
-		if (window == nullptr)
-			return;
-
-		ImVec2 tl = ImVec2(min.x, min.y);
-		ImVec2 tr = ImVec2(max.x, min.y);
-		ImVec2 bl = ImVec2(min.x, max.y);
-		ImVec2 br = ImVec2(max.x, max.y);
-
-		window->DrawList->AddLine(tl, tr, color, thickness);
-		window->DrawList->AddLine(tr, br, color, thickness);
-		window->DrawList->AddLine(br, bl, color, thickness);
-		window->DrawList->AddLine(bl, tl, color, thickness);
-	}
-
 }
