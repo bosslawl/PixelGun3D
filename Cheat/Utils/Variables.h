@@ -2,19 +2,13 @@
 #include "../../Utils/Utils.h"
 #include "../../Utils/Math/Vectors/Vector2.h"
 
-// put 'inline' keyword to every variable or u getting errors
+// inline
 
 namespace Variables {
 	inline Vector2 ScreenSize = { 0, 0 };
 	inline Vector2 ScreenCenter = { 0, 0 };
 
-	inline std::string SavedHWID;
-
-	inline bool Test = false;
-
-	inline bool EnableFOV = false;
-	inline float FOV = 120.f;
-
+	// Misc
 	inline bool EnableCircleFov = false;
 	inline float CircleFov = 120.f;
 	inline ImColor CircleColour = ImColor(255.0f / 255, 255.0f / 255, 255.0f / 255);
@@ -31,9 +25,37 @@ namespace Variables {
 	inline bool EnableRainbowCrosshair = false;
 	inline bool EnableRainbowWatermark = false;
 
+	inline ImVec4 RainbowColor = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	// UnityEngine
 	inline bool GameSpeed = false;	
 	inline float SpeedMultipler = 2.0f;
 	inline int GameSpeedKey = VK_F1;
 
-	inline ImVec4 RainbowColor = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+	// WeaponSounds
+	inline bool NoRecoil = false;
+	inline bool InfiniteRange = false;
+	inline bool FullAuto = false;
+	inline bool ZoomXRay = false;
+	inline bool InstantADS = false;
+	inline bool ForceCriticals = false;
+	inline bool ForceEffects = false;
+	inline bool InfiniteAmmo = false;
+	inline bool InstantCharge = false;
+	inline bool ScoreModifier = false;
+	inline bool AOEBullets = false;
+	inline bool NoSpread = false;
+
+	// WeaponSounds->ForceEffects
+	inline bool PoisonEffect = false;
+	inline bool CharmEffect = false;
+	inline bool BlindEffect = false;
+	inline bool WeaknessEffect = false;
+	inline bool LightningEffect = false;
+	inline bool CurseEffect = false;
+	inline bool StunEffect = false;
+
+	// PlayerMoveC
+	inline bool XRay = false;
+
 }

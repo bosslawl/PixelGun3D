@@ -7,8 +7,6 @@ Backend::presentVariable hookedPresent;
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 static bool init = false;
-bool isWindowVisible = true;
-WNDPROC oWndProc;
 
 Backend RunBackend;
 
@@ -94,8 +92,8 @@ bool Backend::DirectXPresentHook()
 	m_gSwapChainDescription.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
 	HRESULT createDevice = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, m_gFeatureLevels, 2, D3D11_SDK_VERSION, &m_gSwapChainDescription, &m_gSwapChain, &m_gDevice, nullptr, nullptr);
-		
-	if (FAILED(createDevice)) 
+
+	if (FAILED(createDevice))
 		return false; // dont return false make an endless cycle (only if u wanna go cpu boom) 
 
 	void** DX11Vtable = *reinterpret_cast<void***>(m_gSwapChain);
@@ -106,86 +104,11 @@ bool Backend::DirectXPresentHook()
 	return true;
 }
 
-void ShowMouseCursor(bool show) {
-	if (show) {
-		while (ShowCursor(TRUE) < 0);
-	}
-	else {
-		while (ShowCursor(FALSE) >= 0);
-	}
-}
+LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	if (RunBackend.m_bOpenMenu && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) // if menu open then handle imgui events
+		return true;
 
-void HandleMouseInputs(HWND hWnd, ImGuiIO& io) {
-	if (!isWindowVisible)
-		return;
-
-	POINT mousePos;
-	GetCursorPos(&mousePos);
-	ScreenToClient(hWnd, &mousePos);
-	io.MousePos = ImVec2(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-
-	io.MouseDown[0] = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-	io.MouseDown[1] = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
-	io.MouseDown[2] = (GetAsyncKeyState(VK_MBUTTON) & 0x8000) != 0;
-}
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-	ImGuiIO& io = ImGui::GetIO();
-	switch (msg) {
-	case WM_MOUSEMOVE:
-		HandleMouseInputs(hWnd, io);
-		break;
-	case WM_LBUTTONDOWN:
-		if (isWindowVisible)
-			io.MouseDown[0] = true;
-		break;
-	case WM_LBUTTONUP:
-		if (isWindowVisible)
-			io.MouseDown[0] = false;
-		break;
-	case WM_RBUTTONDOWN:
-		if (isWindowVisible)
-			io.MouseDown[1] = true;
-		break;
-	case WM_RBUTTONUP:
-		if (isWindowVisible)
-			io.MouseDown[1] = false;
-		break;
-	case WM_MBUTTONDOWN:
-		if (isWindowVisible)
-			io.MouseDown[2] = true;
-		break;
-	case WM_MBUTTONUP:
-		if (isWindowVisible)
-			io.MouseDown[2] = false;
-		break;
-	case WM_KEYDOWN:
-		if (wParam == VK_INSERT) {
-			if (!isWindowVisible) {
-				ShowMouseCursor(true);
-			}
-			else {
-				ShowMouseCursor(false);
-			}
-			isWindowVisible = !isWindowVisible;
-		}
-
-		if (wParam == VK_MENU && VK_F4) {
-			abort();
-		}
-		break;
-	}
-
-	if (!isWindowVisible) {
-		RECT rect;
-		GetClientRect(hWnd, &rect);
-		POINT center = { (rect.right - rect.left) / 2, (rect.bottom - rect.top) / 2 };
-		ClientToScreen(hWnd, &center);
-		SetCursorPos(center.x, center.y);
-		return CallWindowProc(oWndProc, hWnd, msg, wParam, lParam);
-	}
-
-	return DefWindowProc(hWnd, msg, wParam, lParam);
+	return CallWindowProc(RunBackend.m_goriginalWndProc, hWnd, uMsg, wParam, lParam);
 }
 
 void Backend::LoadImGui(HWND window, ID3D11Device* device, ID3D11DeviceContext* context)
@@ -195,7 +118,6 @@ void Backend::LoadImGui(HWND window, ID3D11Device* device, ID3D11DeviceContext* 
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange; // dont change cursors
 	ImGui_ImplWin32_Init(window);
 	ImGui_ImplDX11_Init(device, context); // u need the device's context since u can't draw with only device, thanx dx11
-	ShowMouseCursor(false);
 } // loading the imgui
 
 namespace Tabs {
@@ -230,24 +152,19 @@ namespace Tabs {
 	}
 
 	void Player() {
-		bool isSettingHotkey = false;
-
 		ImGui::Checkbox("Game Speed", &Variables::GameSpeed);
-		ImGui::Text("Game Speed Hotkey", &Variables::GameSpeedKey);
+		ImGui::Text("Game Speed Key: %s", Utils::GetKeyNameFromVirtualKey(Variables::GameSpeedKey).c_str());
+	
 		if (Variables::GameSpeed)
-		{
 			ImGui::SliderFloat("##SpeedMultiplier", &Variables::SpeedMultipler, 0.1f, 10.0f, "Speed Multiplier: %.1f");
-			ImGui::Text("If you change the Speed Multiplier, toggle Game Speed off and back on.");
-		}
-
 	}
 
 	void Settings() {
-		#ifdef _DEBUG
+#ifdef _DEBUG
 		ImGui::Text("Developer Logs");
 		ImGui::Text("Screen Size: %.0f x %.0f", Variables::ScreenSize.x, Variables::ScreenSize.y);
 		ImGui::Text("Screen Center: %.0f x %.0f", Variables::ScreenCenter.x, Variables::ScreenCenter.y);
-		#endif
+#endif
 	}
 }
 
@@ -274,7 +191,7 @@ void Backend::DrawImGui(ID3D11DeviceContext* context, ID3D11RenderTargetView* ta
 			{
 				Tabs::Main();
 				ImGui::EndTabItem();
-			}	
+			}
 			if (ImGui::BeginTabItem("Visuals"))
 			{
 				Tabs::Visuals();
@@ -304,7 +221,7 @@ void Backend::DrawImGui(ID3D11DeviceContext* context, ID3D11RenderTargetView* ta
 
 void Backend::UnloadImGui()
 {
-	MH_DisableHook(hookedPresent); 
+	MH_DisableHook(hookedPresent);
 	MH_RemoveHook(hookedPresent);
 	MH_Uninitialize();
 
@@ -315,7 +232,7 @@ void Backend::UnloadImGui()
 
 void Backend::UnloadDevices(bool renderTargetViewReset)
 {
-	if(renderTargetViewReset) if (m_gMainRenderTargetView) { m_gMainRenderTargetView->Release(); m_gMainRenderTargetView = nullptr; }
+	if (renderTargetViewReset) if (m_gMainRenderTargetView) { m_gMainRenderTargetView->Release(); m_gMainRenderTargetView = nullptr; }
 	if (m_gPointerContext) { m_gPointerContext->Release(); m_gPointerContext = nullptr; }
 	if (m_gDevice) { m_gDevice->Release(); m_gDevice = nullptr; }
 	SetWindowLongPtr(m_gWindow, GWLP_WNDPROC, (LONG_PTR)(m_goriginalWndProc));
@@ -345,9 +262,9 @@ void Backend::RenderCheat()
 
 	if (Variables::EnableWatermark && Variables::EnableFPS)
 		Utils::Watermark("@bosslawl", true); // text to set the watermark, and true/false to show fps
-	else if(Variables::EnableWatermark && !Variables::EnableFPS)
+	else if (Variables::EnableWatermark && !Variables::EnableFPS)
 		Utils::Watermark("@bosslawl", false); // text to set the watermark, and true/false to show fps
-}	
+}
 
 static long __stdcall PresentHook(IDXGISwapChain* pointerSwapChain, UINT sync, UINT flags)
 {
@@ -387,14 +304,16 @@ static long __stdcall PresentHook(IDXGISwapChain* pointerSwapChain, UINT sync, U
 	int FrameCount = ImGui::GetFrameCount();
 
 	if (isGreen == 0.01f && isBlue == 0.0f) isRed += 0.01f;
-	if (isRed > 0.99f && isBlue == 0.0f) {isRed = 1.0f; isGreen += 0.01f; }
+	if (isRed > 0.99f && isBlue == 0.0f) { isRed = 1.0f; isGreen += 0.01f; }
 	if (isGreen > 0.99f && isBlue == 0.0f) { isGreen = 1.0f; isRed -= 0.01f; }
-	if (isRed < 0.01f && isGreen == 1.0f){ isRed = 0.0f; isBlue += 0.01f; }
-	if (isBlue > 0.99f && isRed == 0.0f) { isBlue = 1.0f; isGreen -= 0.01f; } // ugliest function ive ever seen
+	if (isRed < 0.01f && isGreen == 1.0f) { isRed = 0.0f; isBlue += 0.01f; }
+	if (isBlue > 0.99f && isRed == 0.0f) { isBlue = 1.0f; isGreen -= 0.01f; }
 	if (isGreen < 0.01f && isBlue == 1.0f) { isGreen = 0.0f; isRed += 0.01f; }
 	if (isRed > 0.99f && isGreen == 0.0f) { isRed = 1.0f; isBlue -= 0.01f; }
-	if (isBlue < 0.01f && isGreen == 0.0f) { isBlue = 0.0f; isRed -= 0.01f;
-		if (isRed < 0.01f) isGreen = 0.01f; }
+	if (isBlue < 0.01f && isGreen == 0.0f) {
+		isBlue = 0.0f; isRed -= 0.01f;
+		if (isRed < 0.01f) isGreen = 0.01f;
+	}
 
 	Variables::RainbowColor = ImVec4(isRed, isGreen, isBlue, 1.0f);
 
@@ -407,7 +326,7 @@ bool Backend::Load()
 	RunBackend.DirectXPresentHook(); // this always okay if game directx11
 	MH_Initialize(); // aint no error checking cuz if minhook bad then its your problem 
 
-	MH_CreateHook(reinterpret_cast<void**>(hookedPresent), &PresentHook, reinterpret_cast<void**>(&originalPresent)); 
+	MH_CreateHook(reinterpret_cast<void**>(hookedPresent), &PresentHook, reinterpret_cast<void**>(&originalPresent));
 	MH_EnableHook(hookedPresent); // hooking present
 
 	return true;

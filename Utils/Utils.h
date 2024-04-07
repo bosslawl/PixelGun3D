@@ -40,6 +40,49 @@ namespace Utils {
 		return (GetAsyncKeyState(vKey) & 1) != 0;
 	}
 
+	inline std::string GetKeyNameFromVirtualKey(int virtualKey) {
+		switch (virtualKey) {
+		case VK_F1: return "F1";
+		case VK_F2: return "F2";
+		case VK_F3: return "F3";
+		case VK_F4: return "F4";
+		case VK_F5: return "F5";
+		case VK_F6: return "F6";
+		case VK_F7: return "F7";
+		case VK_F8: return "F8";
+		case VK_F9: return "F9";
+		case VK_F10: return "F10";
+		case VK_F11: return "F11";
+		case VK_F12: return "F12";
+		case VK_INSERT: return "INSERT";
+		case VK_DELETE: return "DELETE";
+		case VK_HOME: return "HOME";
+		case VK_END: return "END";
+		case VK_PRIOR: return "PAGE UP";
+		case VK_NEXT: return "PAGE DOWN";
+		case VK_UP: return "UP";
+		case VK_DOWN: return "DOWN";
+		case VK_LEFT: return "LEFT";
+		case VK_RIGHT: return "RIGHT";
+		case VK_LBUTTON: return "MOUSE 1";
+		case VK_RBUTTON: return "MOUSE 2";
+		case VK_MBUTTON: return "MOUSE 3";
+		case VK_XBUTTON1: return "MOUSE 4";
+		case VK_XBUTTON2: return "MOUSE 5";
+		case VK_BACK: return "BACKSPACE";
+		case VK_TAB: return "TAB";
+		case VK_RETURN: return "ENTER";
+		case VK_SHIFT: return "SHIFT";
+		case VK_CONTROL: return "CTRL";
+		case VK_MENU: return "ALT";
+		case VK_CAPITAL: return "CAPS LOCK";
+		case VK_ESCAPE: return "ESC";
+		case VK_SPACE: return "SPACE";
+		default: return "Unknown";
+		}
+	}
+
+
 	inline void AddressLog(uintptr_t address, const char* name) {
 		printf("[ LOG ] %s: 0x%llX\n", name, address);
 	}

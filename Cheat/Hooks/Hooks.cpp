@@ -34,18 +34,19 @@ void Hooks::LoadConsole(FILE* f)
 	AttachConsole(GetCurrentProcessId());
 	SetConsoleTitle(L"@bosslawl");
 	freopen_s(&f, "CONOUT$", "w", stdout);
-	system("cls"); // if you using melonloader you gon need this
+	system("cls");
 }
 
 void Hooks::LoadMinHookHooks()
 {
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild), &GameFunctions::isdebug_h, (LPVOID*)&GameFunctions::isdebug) == MH_OK)
-	{
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild));
-	}
 
 	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC);
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate));
+
+	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate), &GameFunctions::WeaponSounds, (LPVOID*)&GameFunctions::OWeaponSounds);
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate));
 }
 
 void Hooks::UnloadMinHookHooks()
