@@ -35,23 +35,26 @@ void Hooks::LoadConsole(FILE* f)
 	SetConsoleTitle(L"@bosslawl");
 	freopen_s(&f, "CONOUT$", "w", stdout);
 	system("cls");
+	ShowWindow(GetConsoleWindow(), SW_MINIMIZE);
 }
 
 void Hooks::LoadMinHookHooks()
 {
+	MH_Initialize();
+
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild), &GameFunctions::isdebug_h, (LPVOID*)&GameFunctions::isdebug) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild));
 
-	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC);
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate));
 
-	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate), &GameFunctions::WeaponSounds, (LPVOID*)&GameFunctions::OWeaponSounds);
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate), &GameFunctions::WeaponSounds, (LPVOID*)&GameFunctions::OWeaponSounds) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate));
 
-	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::SpeedModifier), &GameFunctions::SpeedModifier, (LPVOID*)&GameFunctions::OSpeedModifier);
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::SpeedModifier), &GameFunctions::SpeedModifier, (LPVOID*)&GameFunctions::OSpeedModifier) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::SpeedModifier));
 
-	MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MovePlayer), &GameFunctions::MovePlayer, (LPVOID*)&GameFunctions::OMovePlayer);
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MovePlayer), &GameFunctions::MovePlayer, (LPVOID*)&GameFunctions::OMovePlayer) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MovePlayer));
 }
 

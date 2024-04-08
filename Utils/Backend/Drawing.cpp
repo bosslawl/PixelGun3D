@@ -350,7 +350,7 @@ namespace Tabs {
 		HelpMarker("Changes anyone you shoot to the type selected.");
 		if (Variables::ForcePolymorpher)
 		{
-			ImGui::SliderInt("##PolymorpherType", &Variables::PolymorpherType, 0, 3, "Polymorpher Type: %");
+			ImGui::SliderFloat("##PolymorpherType", &Variables::PolymorpherType, 0, 3, "Polymorpher Type: %.0f");
 			ImGui::SameLine();
 			HelpMarker("Changes the entity you change people to. 0 - Sheep, 1 - Beetle, 2 - Mutant, 3 - Cube.");
 		}

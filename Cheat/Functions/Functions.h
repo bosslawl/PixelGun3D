@@ -176,7 +176,7 @@ namespace GameFunctions {
 			*(bool*)((uint64_t)obj + 0x2EC) = true; // polymorpher 
 			*(float*)((uint64_t)obj + 0x2F0) = Variables::PolymorpherDuration; // polymorphDuarationTime 
 			*(float*)((uint64_t)obj + 0x2F8) = Variables::PolymorpherHealth; // polymorphMaxHealth 
-			*(int*)((uint64_t)obj + 0x2F4) = Variables::PolymorpherType; // polymorphType
+			*(float*)((uint64_t)obj + 0x2F4) = Variables::PolymorpherType; // polymorphType
 		}
 
 		if (Variables::ForceEffects)
@@ -274,6 +274,4 @@ namespace GameFunctions {
 
 		return OMovePlayer(obj, motion);
 	}
-
-	inline void(__stdcall* O)(void* obj);
 }

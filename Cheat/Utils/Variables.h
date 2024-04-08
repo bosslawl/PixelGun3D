@@ -65,10 +65,10 @@ namespace Variables {
 	inline bool FrostAura = false;
 		inline float AuraRadius = 1000000.0f;
 		inline float AuraMultiplier = 5.0f;
-	inline bool ForcePolymorpher = true;
+	inline bool ForcePolymorpher = false;
 		inline float PolymorpherDuration = 1000000.0f;
 		inline float PolymorpherHealth = 1000000.0f;
-		inline int PolymorpherType = 0;
+		inline float PolymorpherType = 0;
 	inline bool ForceEffects = false;
 
 	// WeaponSounds->ForceEffects
