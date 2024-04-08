@@ -12,7 +12,7 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     {
         Utils::AddressLog(Offsets::TimeOffset - UnitySDK::UnityGameAssembly, "TimeOffset");
         Utils::AddressLog(Offsets::IsDebugBuild - UnitySDK::UnityGameAssembly, "IsDebugBuild");
-        Utils::AddressLog(Offsets::PlayerMoveCUpdate, "PlayerMoveCUpdate");
+        Utils::AddressLog(Offsets::PlayerMoveCUpdate - UnitySDK::UnityGameAssembly, "PlayerMoveCUpdate");
         Utils::AddressLog(Offsets::WeaponSoundsUpdate, "WeaponSoundsUpdate");
         Utils::AddressLog(Offsets::XRay, "XRay");
         Utils::AddressLog(Offsets::NextHitCritical, "NextHitCritical");

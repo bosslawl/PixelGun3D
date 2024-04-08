@@ -34,7 +34,7 @@ public:
 public:
 	ImFontConfig g_mFontConfig;
 public:
-	bool m_bOpenMenu = true; // no need to extern it, only used in Backend.cpp
+	bool m_bOpenMenu = false; // no need to extern it, only used in Backend.cpp
 };
 
 extern Backend RunBackend;

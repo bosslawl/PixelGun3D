@@ -10,6 +10,7 @@ static bool init = false;
 
 Backend RunBackend;
 WNDPROC oWndProc;
+static FILE* f;
 
 void HelpMarker(const char* desc)
 {
@@ -118,88 +119,11 @@ bool Backend::DirectXPresentHook()
 	return true;
 }
 
-bool isWindowVisible = true;
+LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	if (RunBackend.m_bOpenMenu && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) // if menu open then handle imgui events
+		return true;
 
-void ShowMouseCursor(bool show) {
-	if (show) {
-		while (ShowCursor(TRUE) < 0);
-	}
-	else {
-		while (ShowCursor(FALSE) >= 0);
-	}
-}
-
-void HandleMouseInputs(HWND hWnd, ImGuiIO& io) {
-	if (!isWindowVisible)
-		return;
-
-	POINT mousePos;
-	GetCursorPos(&mousePos);
-	ScreenToClient(hWnd, &mousePos);
-	io.MousePos = ImVec2(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-
-	io.MouseDown[0] = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-	io.MouseDown[1] = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
-	io.MouseDown[2] = (GetAsyncKeyState(VK_MBUTTON) & 0x8000) != 0;
-}
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-	ImGuiIO& io = ImGui::GetIO();
-	switch (msg) {
-	case WM_MOUSEMOVE:
-		HandleMouseInputs(hWnd, io);
-		break;
-	case WM_LBUTTONDOWN:
-		if (isWindowVisible)
-			io.MouseDown[0] = true;
-		break;
-	case WM_LBUTTONUP:
-		if (isWindowVisible)
-			io.MouseDown[0] = false;
-		break;
-	case WM_RBUTTONDOWN:
-		if (isWindowVisible)
-			io.MouseDown[1] = true;
-		break;
-	case WM_RBUTTONUP:
-		if (isWindowVisible)
-			io.MouseDown[1] = false;
-		break;
-	case WM_MBUTTONDOWN:
-		if (isWindowVisible)
-			io.MouseDown[2] = true;
-		break;
-	case WM_MBUTTONUP:
-		if (isWindowVisible)
-			io.MouseDown[2] = false;
-		break;
-	case WM_KEYDOWN:
-		if (wParam == VK_INSERT) {
-			if (!isWindowVisible) {
-				ShowMouseCursor(true);
-			}
-			else {
-				ShowMouseCursor(false);
-			}
-			isWindowVisible = !isWindowVisible;
-		}
-
-		if (wParam == VK_MENU && VK_F4) {
-			abort();
-		}
-		break;
-	}
-
-	if (!isWindowVisible) {
-		RECT rect;
-		GetClientRect(hWnd, &rect);
-		POINT center = { (rect.right - rect.left) / 2, (rect.bottom - rect.top) / 2 };
-		ClientToScreen(hWnd, &center);
-		SetCursorPos(center.x, center.y);
-		return CallWindowProc(oWndProc, hWnd, msg, wParam, lParam);
-	}
-
-	return DefWindowProc(hWnd, msg, wParam, lParam);
+	return CallWindowProc(RunBackend.m_goriginalWndProc, hWnd, uMsg, wParam, lParam);
 }
 
 void Backend::LoadImGui(HWND window, ID3D11Device* device, ID3D11DeviceContext* context)
@@ -215,6 +139,8 @@ namespace Tabs {
 	void Main() {
 		ImGui::Text("Press INSERT to toggle the menu");
 		ImGui::Text("Press END to close the cheat");
+		ImGui::Separator();
+		ImGui::Text("Leave all values default if you don't know what they do.");
 	}
 
 	void Visuals() {
@@ -275,6 +201,7 @@ namespace Tabs {
 		if (Variables::PlayerSpeed)
 		{
 			ImGui::SliderFloat("##SpeedMultiplier", &Variables::SpeedValue, 0.0f, 1000000.0f, "Speed Hack: %.1f");
+			ImGui::SameLine();
 			HelpMarker("I recommend keeping it at 1000. The Speed Multiplier caps out at some point around 1000.");
 		}
 		ImGui::Separator();
@@ -545,7 +472,14 @@ namespace Tabs {
 	}
 
 	void Settings() {
+		ImGui::Button("Close Cheat", ImVec2(ImGui::GetWindowWidth() - 20, 0));
+		if (ImGui::IsItemClicked()) {
+			RunHooks.Unload(f);;
+			RunBackend.Unload();
+		}
+
 #ifdef _DEBUG
+		ImGui::Seperator();
 		ImGui::Text("Developer Logs");
 #endif
 	}
@@ -553,7 +487,6 @@ namespace Tabs {
 
 void Backend::DrawImGui(ID3D11DeviceContext* context, ID3D11RenderTargetView* targetview)
 {
-	ShowMouseCursor(false);
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
