@@ -59,7 +59,6 @@ namespace Internal {
 		void (UNITY_CALLING_CONVENTION set_time_scale)(float TimeScale);
 		reinterpret_cast<decltype(set_time_scale)>(Offsets::TimeOffset)(TimeScale);
 	}
-
 }
 
 namespace GameFunctions {
@@ -170,6 +169,14 @@ namespace GameFunctions {
 			*(float*)((uint64_t)obj + 0x3EC) = Variables::AuraRadius; // frostRadius 
 			*(float*)((uint64_t)obj + 0x378) = Variables::AuraMultiplier; // frostDamageMultiplier
 			*(float*)((uint64_t)obj + 0x37C) = 0.33f; // frostSwordnTime
+		}
+
+		if (Variables::ForcePolymorpher)
+		{
+			*(bool*)((uint64_t)obj + 0x2EC) = true; // polymorpher 
+			*(float*)((uint64_t)obj + 0x2F0) = Variables::PolymorpherDuration; // polymorphDuarationTime 
+			*(float*)((uint64_t)obj + 0x2F8) = Variables::PolymorpherHealth; // polymorphMaxHealth 
+			*(int*)((uint64_t)obj + 0x2F4) = Variables::PolymorpherType; // polymorphType
 		}
 
 		if (Variables::ForceEffects)

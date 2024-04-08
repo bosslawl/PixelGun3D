@@ -6,8 +6,11 @@
 #include <windows.h>
 #include <iostream>
 #include <WinUser.h>
+#include <tchar.h>
 #include <thread>
 #include <stdlib.h> 
+#include <dwmapi.h>
+#include <TlHelp32.h>
 #include <math.h>
 #include <algorithm>
 #include <string>
@@ -35,6 +38,7 @@
 #pragma comment(lib, "d3d11.lib")
 
 namespace Utils {
+
 	inline bool KeyPressed(int vKey)
 	{
 		return (GetAsyncKeyState(vKey) & 1) != 0;

@@ -27,6 +27,8 @@ namespace Variables {
 
 	inline ImVec4 RainbowColor = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
+	inline bool ImGuiDemo = false;
+
 	// UnityEngine
 	inline bool GameSpeed = false;	
 		inline float GSpeedMultiplier = 2.0f;
@@ -63,6 +65,10 @@ namespace Variables {
 	inline bool FrostAura = false;
 		inline float AuraRadius = 1000000.0f;
 		inline float AuraMultiplier = 5.0f;
+	inline bool ForcePolymorpher = true;
+		inline float PolymorpherDuration = 1000000.0f;
+		inline float PolymorpherHealth = 1000000.0f;
+		inline int PolymorpherType = 0;
 	inline bool ForceEffects = false;
 
 	// WeaponSounds->ForceEffects
@@ -91,7 +97,7 @@ namespace Variables {
 	inline bool AmmoOnline = false;
 	inline bool Invisibility = false;
 		inline bool MatchInvisibility = false;
-	inline bool JetpackFly = true;
+	inline bool JetpackFly = false;
 
 	// Misc
 	inline bool PlayerSpeed = false;

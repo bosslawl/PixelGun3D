@@ -180,7 +180,8 @@
     <ClCompile Include="IL2CPPResolver\Unity\Obfuscators.cpp" />
     <ClCompile Include="IL2CPPResolver\Utils\Helper.cpp" />
     <ClCompile Include="Cheat\Signatures\Signatures.cpp" />
-    <ClCompile Include="Utils\Backend\Backend.cpp" />
+    <ClCompile Include="Utils\Backend\Drawing.cpp" />
+    <ClCompile Include="Utils\Backend\UI.cpp" />
     <ClCompile Include="Utils\ImGui\imgui.cpp" />
     <ClCompile Include="Utils\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Utils\ImGui\imgui_draw.cpp" />
@@ -229,7 +230,8 @@
     <ClInclude Include="IL2CPPResolver\Utils\Joaat.hpp" />
     <ClInclude Include="IL2CPPResolver\Utils\VFunc.hpp" />
     <ClInclude Include="Cheat\Signatures\Signatures.h" />
-    <ClInclude Include="Utils\Backend\Backend.h" />
+    <ClInclude Include="Utils\Backend\Drawing.h" />
+    <ClInclude Include="Utils\Backend\UI.h" />
     <ClInclude Include="Utils\IL2CPPHeader\il2cpp.h" />
     <ClInclude Include="Utils\ImGui\imconfig.h" />
     <ClInclude Include="Utils\ImGui\imgui.h" />
