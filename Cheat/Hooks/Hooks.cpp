@@ -57,7 +57,7 @@ void Hooks::LoadMinHookHooks()
 
 void Hooks::UnloadMinHookHooks()
 {
-
+	MH_DisableHook(MH_ALL_HOOKS);
 }
 
 void Hooks::UnloadConsole(FILE* f)

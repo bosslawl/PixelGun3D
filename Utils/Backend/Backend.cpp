@@ -9,6 +9,20 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 static bool init = false;
 
 Backend RunBackend;
+WNDPROC oWndProc;
+
+void HelpMarker(const char* desc)
+{
+	ImGui::TextDisabled("[?]");
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+		ImGui::TextUnformatted(desc);
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
+}
 
 void StyleInnit()
 {
@@ -104,11 +118,88 @@ bool Backend::DirectXPresentHook()
 	return true;
 }
 
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	if (RunBackend.m_bOpenMenu && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) // if menu open then handle imgui events
-		return true;
+bool isWindowVisible = true;
 
-	return CallWindowProc(RunBackend.m_goriginalWndProc, hWnd, uMsg, wParam, lParam);
+void ShowMouseCursor(bool show) {
+	if (show) {
+		while (ShowCursor(TRUE) < 0);
+	}
+	else {
+		while (ShowCursor(FALSE) >= 0);
+	}
+}
+
+void HandleMouseInputs(HWND hWnd, ImGuiIO& io) {
+	if (!isWindowVisible)
+		return;
+
+	POINT mousePos;
+	GetCursorPos(&mousePos);
+	ScreenToClient(hWnd, &mousePos);
+	io.MousePos = ImVec2(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+	io.MouseDown[0] = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+	io.MouseDown[1] = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+	io.MouseDown[2] = (GetAsyncKeyState(VK_MBUTTON) & 0x8000) != 0;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	ImGuiIO& io = ImGui::GetIO();
+	switch (msg) {
+	case WM_MOUSEMOVE:
+		HandleMouseInputs(hWnd, io);
+		break;
+	case WM_LBUTTONDOWN:
+		if (isWindowVisible)
+			io.MouseDown[0] = true;
+		break;
+	case WM_LBUTTONUP:
+		if (isWindowVisible)
+			io.MouseDown[0] = false;
+		break;
+	case WM_RBUTTONDOWN:
+		if (isWindowVisible)
+			io.MouseDown[1] = true;
+		break;
+	case WM_RBUTTONUP:
+		if (isWindowVisible)
+			io.MouseDown[1] = false;
+		break;
+	case WM_MBUTTONDOWN:
+		if (isWindowVisible)
+			io.MouseDown[2] = true;
+		break;
+	case WM_MBUTTONUP:
+		if (isWindowVisible)
+			io.MouseDown[2] = false;
+		break;
+	case WM_KEYDOWN:
+		if (wParam == VK_INSERT) {
+			if (!isWindowVisible) {
+				ShowMouseCursor(true);
+			}
+			else {
+				ShowMouseCursor(false);
+			}
+			isWindowVisible = !isWindowVisible;
+		}
+
+		if (wParam == VK_MENU && VK_F4) {
+			abort();
+		}
+		break;
+	}
+
+	if (!isWindowVisible) {
+		RECT rect;
+		GetClientRect(hWnd, &rect);
+		POINT center = { (rect.right - rect.left) / 2, (rect.bottom - rect.top) / 2 };
+		ClientToScreen(hWnd, &center);
+		SetCursorPos(center.x, center.y);
+		return CallWindowProc(oWndProc, hWnd, msg, wParam, lParam);
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
 void Backend::LoadImGui(HWND window, ID3D11Device* device, ID3D11DeviceContext* context)
@@ -127,46 +218,342 @@ namespace Tabs {
 	}
 
 	void Visuals() {
-		ImGui::Checkbox("Circle FOV", &Variables::EnableCircleFov);
+		ImGui::Checkbox("FOV Circle", &Variables::EnableCircleFov);
+		ImGui::SameLine();
+		HelpMarker("Displays a FOV Circle in the middle of the screen.");
 		if (Variables::EnableCircleFov)
 		{
-			ImGui::SliderFloat("##CircleFOV", &Variables::CircleFov, 20, 180, "Circle FOV: %.0f");
+			ImGui::SliderFloat("##CircleFOV", &Variables::CircleFov, 0, 360, "Circle FOV: %.0f");
+			ImGui::SameLine();
+			HelpMarker("Changes the Circle size.");
 			ImGui::ColorEdit3("Circle Colour", (float*)&Variables::CircleColour);
+			ImGui::SameLine();
+			HelpMarker("Changes the Circle colour.");
 			ImGui::Checkbox("Rainbow?", &Variables::EnableRainbowCircle);
+			ImGui::SameLine();
+			HelpMarker("Makes the Circle rainbow, ignores the set Circle colour.");
 		}
 		ImGui::Separator();
+
 		ImGui::Checkbox("Crosshair", &Variables::EnableCrosshair);
+		ImGui::SameLine();
+		HelpMarker("Displays a Crosshair in the middle of the screen.");
 		if (Variables::EnableCrosshair)
 		{
 			ImGui::SliderFloat("##CrosshairSize", &Variables::CrosshairSize, 1, 20, "Crosshair Size: %.0f");
+			ImGui::SameLine();
+			HelpMarker("Changes the Crosshair size.");
 			ImGui::ColorEdit3("Crosshair Colour", (float*)&Variables::CrosshairColor);
+			ImGui::SameLine();
+			HelpMarker("Changes the Crosshair colour.");
 			ImGui::Checkbox("Rainbow?", &Variables::EnableRainbowCrosshair);
+			ImGui::SameLine();
+			HelpMarker("Makes the Crosshair rainbow, ignores the set Crosshair colour.");
 		}
 		ImGui::Separator();
+
 		ImGui::Checkbox("Watermark", &Variables::EnableWatermark);
+		ImGui::SameLine();
+		HelpMarker("Draws a Watermark in the top left of the screen.");
 		if (Variables::EnableWatermark)
-			ImGui::Checkbox("FPS?", &Variables::EnableFPS);
+		{
+			ImGui::Checkbox("Show FPS", &Variables::EnableFPS);
+			ImGui::SameLine();
+			HelpMarker("Displays FPS along side the watermark.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Chams", &Variables::XRay);
+		ImGui::SameLine();
+		HelpMarker("Makes all players visible through walls.");
 	}
 
 	void Player() {
+		ImGui::Checkbox("Speed Hack", &Variables::PlayerSpeed);
+		ImGui::SameLine();
+		HelpMarker("Speeds up your player.");
+		if (Variables::PlayerSpeed)
+		{
+			ImGui::SliderFloat("##SpeedMultiplier", &Variables::SpeedValue, 0.0f, 1000000.0f, "Speed Hack: %.1f");
+			HelpMarker("I recommend keeping it at 1000. The Speed Multiplier caps out at some point around 1000.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Infinite Jump", &Variables::InfiniteAmmo);
+		ImGui::SameLine();
+		HelpMarker("Allows you to jump forver. Infinite Jump is a bit buggy, you can spam it but will make you fall after a while unless you hold it.");
+		if (Variables::InfiniteJump)
+			ImGui::Text("Infinite Jump Key: %s", Utils::GetKeyNameFromVirtualKey(Variables::JumpKey).c_str());
+		ImGui::Separator();
+
+		ImGui::Checkbox("Jetpack Fly", &Variables::JetpackFly);
+		ImGui::SameLine();
+		HelpMarker("Hold space to fly. I wouldn't recommend enabling this and infinite jump at the same time.");
+		ImGui::Separator();
+
+		ImGui::Checkbox("Invisibility", &Variables::Invisibility);
+		ImGui::SameLine();
+		HelpMarker("Makes you invisible.");
+		if (Variables::Invisibility)
+		{
+			ImGui::Checkbox("InvisibilityRPC", &Variables::MatchInvisibility);
+			ImGui::SameLine();
+			HelpMarker("Makes all players invisible. Might kick you.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Heal", &Variables::HealOnline);
+		ImGui::SameLine();
+		HelpMarker("Heals you. Might kick you. Possibly detected in future updates.");
+		ImGui::Separator();
+	}
+
+	void Weapons() {
+		ImGui::Checkbox("Infinite Ammo", &Variables::InfiniteAmmo);
+		ImGui::SameLine();
+		HelpMarker("Gives you unlimited ammo, still have to reload.");
+		if (Variables::InfiniteAmmo)
+		{
+			ImGui::Checkbox("InfiniteAmmoRPC", &Variables::AmmoOnline);
+			ImGui::SameLine();
+			HelpMarker("Stops your weapon using any ammo, no reloading required. Possibly detected in future updates.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Recoil Modifier", &Variables::RecoilModifier);
+		ImGui::SameLine();
+		HelpMarker("Modifys your weapon recoil.");
+		if (Variables::RecoilModifier)
+		{
+			ImGui::SliderFloat("##RecoilValue", &Variables::RecoilValue, 0.0f, 1000000.0f, "Recoil Value: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 0 for no recoil.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Range Modifier", &Variables::RangeModifier);
+		ImGui::SameLine();
+		HelpMarker("Modifys your weapon range.");
+		if (Variables::RangeModifier)
+		{
+			ImGui::SliderFloat("##RangeValue", &Variables::RangeValue, 0.0f, 1000000.0f, "Range Value: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for infinite range.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Full Auto", &Variables::FullAuto);
+		ImGui::SameLine();
+		HelpMarker("Makes any gun fully automatic.");
+		ImGui::Separator();
+
+		ImGui::Checkbox("Zoom XRay", &Variables::ZoomXRay);
+		ImGui::SameLine();
+		HelpMarker("Gives you XRay vision when aiming down a scope.");
+		ImGui::Separator();
+
+		ImGui::Checkbox("Scope Speed", &Variables::ScopeModifier);
+		ImGui::SameLine();
+		HelpMarker("Modifys your weapons ADS speed.");
+		if (Variables::ScopeModifier)
+		{
+			ImGui::SliderFloat("##ScopeValue", &Variables::ScopeValue, 0.0f, 1000000.0f, "Scope Value: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for instant ADS.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Force Criticals", &Variables::ForceCriticals);
+		ImGui::SameLine();
+		HelpMarker("Forces critical hits. Only visual?");
+		ImGui::Separator();
+
+		ImGui::Checkbox("Charge Modifier", &Variables::ChargeModifier);
+		ImGui::SameLine();
+		HelpMarker("Modifys your weapons charge time.");
+		if (Variables::ChargeModifier)
+		{
+			ImGui::SliderFloat("##ChargeMax", &Variables::ChargeMax, 0.0f, 1000000.0f, "Charge Max: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 0 for instant max charge.");
+			ImGui::SliderFloat("##ChargeDuration", &Variables::ChargeDuration, 0.0f, 1000000.0f, "Charge Duration: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 0 for instant charge.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Score Modifier", &Variables::ScoreModifier);
+		ImGui::SameLine();
+		HelpMarker("Modifys the score you get from a kill.");
+		if (Variables::ScoreModifier)
+		{
+			ImGui::SliderFloat("##KillModifier", &Variables::KillModifier, 0.0f, 1000000.0f, "Kill Modifier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
+			ImGui::SliderFloat("##AssistModifier", &Variables::AssistModifier, 0.0f, 1000000.0f, "Assist Modifier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
+			ImGui::SliderFloat("##RevengeModifier", &Variables::RevengeModifier, 0.0f, 1000000.0f, "Revenge Modifier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Silent Aim", &Variables::AOEBullets);
+		ImGui::SameLine();
+		HelpMarker("Allows you to kill people from anywhere on the map without aiming at them (AOE Bullets).");
+		if (Variables::AOEBullets)
+		{
+			ImGui::SliderFloat("##FrontAngle", &Variables::FrontAngle, 0.0f, 360.0f, "Front Angle: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 360 for highest range.");
+			ImGui::SliderFloat("##BackAngle", &Variables::BackAngle, 0.0f, 360.0f, "Back Angle: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 360 for highest range.");
+			ImGui::SliderFloat("##AOERadius", &Variables::AOERadius, 0.0f, 1000000.0f, "AOE Radius: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for biggest area of effect.");
+			ImGui::SliderFloat("##FrontMultiplier", &Variables::FrontMultiplier, 0.0f, 1000000.0f, "Front Multiplier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+			ImGui::SliderFloat("##BackMultiplier", &Variables::BackMultiplier, 0.0f, 1000000.0f, "Back Multiplier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+			ImGui::SliderFloat("##SideMultiplier", &Variables::SideMultiplier, 0.0f, 1000000.0f, "Side Multiplier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("No Spread", &Variables::NoSpread);
+		ImGui::SameLine();
+		HelpMarker("Stops bullets spreading on guns like shotguns.");
+		ImGui::Separator();
+
+		ImGui::Checkbox("Frost Aura", &Variables::FrostAura);
+		ImGui::SameLine();
+		HelpMarker("Gives you a damage aura.");
+		if (Variables::FrostAura)
+		{
+			ImGui::SliderFloat("##AuraRadius", &Variables::AuraRadius, 0.0f, 1000000.0f, "Aura Radius: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for biggest area of effect.");
+			ImGui::SliderFloat("##AuraMultiplier", &Variables::AuraMultiplier, 0.0f, 1000000.0f, "Aura Multiplier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Force Effects", &Variables::ForceEffects);
+		ImGui::SameLine();
+		HelpMarker("Gives your damage custom effects.");
+		if (Variables::ForceEffects)
+		{
+			ImGui::Checkbox("Poison Effect", &Variables::PoisonEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the poison effect.");
+			if (Variables::PoisonEffect)
+			{
+				ImGui::SliderFloat("##PoisonDuration", &Variables::PoisonDuration, 0.0f, 1000000.0f, "Poison Duration: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for longest duration.");
+				ImGui::SliderFloat("##PoisonCount", &Variables::PoisonCount, 0.0f, 1000000.0f, "Poison Count: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for highest damage.");
+				ImGui::SliderFloat("##PoisonMultiplier", &Variables::PoisonMultiplier, 0.0f, 1000000.0f, "Poison Multiplier: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+			}
+
+			ImGui::Checkbox("Stun Effect", &Variables::StunEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the stun effect.");
+			if (Variables::StunEffect)
+			{
+				ImGui::SliderFloat("##StunDuration", &Variables::StunDuration, 0.0f, 1000000.0f, "Stun Duration: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for longest duration.");
+				ImGui::SliderFloat("##StunRadius", &Variables::StunRadius, 0.0f, 1000000.0f, "Stun Radius: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for highest area of effect.");
+				ImGui::SliderFloat("##StunMultiplier", &Variables::StunMultiplier, 0.0f, 1000000.0f, "Stun Multiplier: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+			}
+
+			ImGui::Checkbox("Curse Effect", &Variables::CurseEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the curse effect.");
+			if (Variables::CurseEffect)
+			{
+				ImGui::SliderFloat("##CurseDuration", &Variables::CurseDuration, 0.0f, 1000000.0f, "Curse Duration: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for highest damage.");
+				ImGui::SliderFloat("##CurseMultiplier", &Variables::CurseMultiplier, 0.0f, 1000000.0f, "Curse Multiplier: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+			}
+
+			ImGui::Checkbox("Charm Effect", &Variables::CharmEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the charm effect.");
+			if (Variables::CharmEffect)
+			{
+				ImGui::SliderFloat("##CharmDuration", &Variables::CharmDuration, 0.0f, 1000000.0f, "Charm Duration: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for longest duration.");
+			}
+
+			ImGui::Checkbox("Blind Effect", &Variables::BlindEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the blind effect.");
+			if (Variables::BlindEffect)
+			{
+				ImGui::SliderFloat("##BlindDuration", &Variables::BlindDuration, 0.0f, 1000000.0f, "Blind Duration: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for longest duration.");
+			}
+
+			ImGui::Checkbox("Weakness Effect", &Variables::WeaknessEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the weakness effect.");
+			if (Variables::WeaknessEffect)
+			{
+				ImGui::SliderFloat("##WeaknessDuration", &Variables::WeaknessDuration, 0.0f, 1000000.0f, "Weakness Duration: %.1f");
+				ImGui::SameLine();
+				HelpMarker("I recommend keeping it set at 1000000 for longest duration.");
+			}
+
+			ImGui::Checkbox("Lightning Effect", &Variables::LightningEffect);
+			ImGui::SameLine();
+			HelpMarker("Gives your damage the lightning effect.");
+		}
+		ImGui::Separator();
+	}
+
+	void Misc() {
 		ImGui::Checkbox("Game Speed", &Variables::GameSpeed);
-		ImGui::Text("Game Speed Key: %s", Utils::GetKeyNameFromVirtualKey(Variables::GameSpeedKey).c_str());
-	
+		ImGui::SameLine();
+		HelpMarker("Speeds up your whole game including bullets, movement, loading etc.");
 		if (Variables::GameSpeed)
-			ImGui::SliderFloat("##SpeedMultiplier", &Variables::SpeedMultipler, 0.1f, 10.0f, "Speed Multiplier: %.1f");
+		{
+			ImGui::Text("Game Speed Key: %s", Utils::GetKeyNameFromVirtualKey(Variables::GameSpeedKey).c_str());
+			ImGui::SliderFloat("##SpeedMultiplier", &Variables::GSpeedMultiplier, 0.0f, 1000000.0f, "Speed Multiplier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("If you change the Speed Multiplier you must toggle Game Speed off and back on for it to update. Anything over 2 is likely to kick you or crash you.");
+		}
 	}
 
 	void Settings() {
 #ifdef _DEBUG
 		ImGui::Text("Developer Logs");
-		ImGui::Text("Screen Size: %.0f x %.0f", Variables::ScreenSize.x, Variables::ScreenSize.y);
-		ImGui::Text("Screen Center: %.0f x %.0f", Variables::ScreenCenter.x, Variables::ScreenCenter.y);
 #endif
 	}
 }
 
 void Backend::DrawImGui(ID3D11DeviceContext* context, ID3D11RenderTargetView* targetview)
 {
+	ShowMouseCursor(false);
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
@@ -197,6 +584,16 @@ void Backend::DrawImGui(ID3D11DeviceContext* context, ID3D11RenderTargetView* ta
 			if (ImGui::BeginTabItem("Player"))
 			{
 				Tabs::Player();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Weapons"))
+			{
+				Tabs::Weapons();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Misc"))
+			{
+				Tabs::Misc();
 				ImGui::EndTabItem();
 			}
 			if (ImGui::BeginTabItem("Settings"))
@@ -242,7 +639,7 @@ void Backend::RenderCheat()
 		Variables::GameSpeed = !Variables::GameSpeed;
 
 		if (Variables::GameSpeed)
-			Internal::SetTimeScale(Variables::SpeedMultipler);
+			Internal::SetTimeScale(Variables::GSpeedMultiplier);
 		else
 			Internal::SetTimeScale(1.0f);
 	}

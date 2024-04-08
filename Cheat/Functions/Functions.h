@@ -74,18 +74,18 @@ namespace GameFunctions {
 	inline void(__stdcall* OWeaponSounds)(void* obj);
 	inline void __stdcall WeaponSounds(void* obj)
 	{
-		if (Variables::NoRecoil)
+		if (Variables::RecoilModifier)
 		{
-			*(float*)((uint64_t)obj + 0xC0) = 0.0f; // recoilCeoff
-			*(float*)((uint64_t)obj + 0x124) = 0.0f; // recoilCeoffZoom
-			*(float*)((uint64_t)obj + 0xB8) = 0.0f; // moveScatterCoeff
-			*(float*)((uint64_t)obj + 0x11C) = 0.0f; // moveScatterCoeffZoom
+			*(float*)((uint64_t)obj + 0xC0) = Variables::RecoilValue; // recoilCeoff
+			*(float*)((uint64_t)obj + 0x124) = Variables::RecoilValue; // recoilCeoffZoom
+			*(float*)((uint64_t)obj + 0xB8) = Variables::RecoilValue; // moveScatterCoeff
+			*(float*)((uint64_t)obj + 0x11C) = Variables::RecoilValue; // moveScatterCoeffZoom
 		}
 
-		if (Variables::InfiniteRange)
+		if (Variables::RangeModifier)
 		{
-			*(float*)((uint64_t)obj + 0x658) = 999999.0f; // range
-			*(float*)((uint64_t)obj + 0x5E8) = 999999.0f; // damageRange
+			*(float*)((uint64_t)obj + 0x658) = Variables::RangeValue; // range
+			*(float*)((uint64_t)obj + 0x5E8) = Variables::RangeValue; // damageRange
 		}
 
 		if (Variables::FullAuto)
@@ -99,8 +99,8 @@ namespace GameFunctions {
 		if (Variables::ZoomXRay)
 			*(bool*)((uint64_t)obj + 0xC6) = true; // zoomXray
 
-		if (&Variables::InstantADS)
-			*(float*)((uint64_t)obj + 0xF8) = 999999.0f; // scopeSpeed
+		if (&Variables::ScopeModifier)
+			*(float*)((uint64_t)obj + 0xF8) = Variables::ScopeModifier; // scopeSpeed
 
 		if (Variables::ForceCriticals)
 		{
@@ -108,55 +108,14 @@ namespace GameFunctions {
 			Internal::NextHitCritical(obj, true); // SetNextHitCritical
 		}
 
-		if (Variables::ForceEffects)
-		{
-			if (Variables::PoisonEffect)
-			{
-				*(bool*)((uint64_t)obj + 0x1F8) = true; // isPoisoning
-				*(int*)((uint64_t)obj + 0x1FC) = 999999; // poisonCount
-				*(float*)((uint64_t)obj + 0x200) = 5.0f; // poisonDamageMultiplier
-				*(float*)((uint64_t)obj + 0x204) = 999999.0f; // poisonTime
-			}
-			if (Variables::StunEffect)
-			{
-				*(bool*)((uint64_t)obj + 0x238) = true; // isStun
-				*(float*)((uint64_t)obj + 0x23C) = 5.0f; // stunCeoff
-				*(float*)((uint64_t)obj + 0x240) = 999999.0f; // stunTime
-				*(float*)((uint64_t)obj + 0x244) = 999999.0f; // stunRadius
-			}
-			if (Variables::CurseEffect)
-			{
-				*(bool*)((uint64_t)obj + 0x214) = true; // isCursing
-				*(float*)((uint64_t)obj + 0x218) = 999999.0f; // curseTime
-				*(float*)((uint64_t)obj + 0x21C) = 5.0f; // curseDamageMultiplier
-			}
-			if (Variables::CharmEffect)
-			{
-				*(bool*)((uint64_t)obj + 0x274) = true; // isCharm
-				*(float*)((uint64_t)obj + 0x278) = 999999.0f; // charmTime
-			}
-			if (Variables::WeaknessEffect)
-			{
-				*(bool*)((uint64_t)obj + 0x27C) = true; // isWeaknessEffect
-				*(float*)((uint64_t)obj + 0x280) = 999999.0f; // weaknessEffectTime
-			}
-			if (Variables::BlindEffect)
-			{
-				*(bool*)((uint64_t)obj + 0x268) = true; // isBlindEffect
-				*(float*)((uint64_t)obj + 0x270) = 999999.0f; // isBlindEffectTime
-			}
-			if (Variables::LightningEffect)
-				*(bool*)((uint64_t)obj + 0x155) = true; // isLightning
-		}
-
 		if (Variables::InfiniteAmmo)
 			*(bool*)((uint64_t)obj + 0x469) = true; // isUnlimitedAmmo
 
-		if (Variables::InstantCharge)
+		if (Variables::ChargeModifier)
 		{
 			*(bool*)((uint64_t)obj + 0x1D8) = true; // chargeLoop
-			*(int*)((uint64_t)obj + 0x1E0) = 999999; // chargeMax
-			*(float*)((uint64_t)obj + 0x1E4) = 999999.0f; // chargeTime
+			*(int*)((uint64_t)obj + 0x1E0) = Variables::ChargeMax; // chargeMax
+			*(float*)((uint64_t)obj + 0x1E4) = Variables::ChargeDuration; // chargeTime
 			*(bool*)((uint64_t)obj + 0x1CA) = false; // isCharging
 		}
 
@@ -166,9 +125,9 @@ namespace GameFunctions {
 			*(bool*)((uint64_t)obj + 0x3A0) = true; // buffPointsKIllDesigner
 			*(bool*)((uint64_t)obj + 0x3A8) = true; // buffPointsAssistDesigner
 			*(bool*)((uint64_t)obj + 0x398) = true; // buffPointsRevengerDesigner
-			*(float*)((uint64_t)obj + 0x39C) = 999999.0f; // buffBonusPointsForKill 
-			*(float*)((uint64_t)obj + 0x3A4) = 999999.0f; // buffBonusPointsForAssist 
-			*(float*)((uint64_t)obj + 0x394) = 999999.0f; // buffPointsRevenge 
+			*(float*)((uint64_t)obj + 0x39C) = Variables::KillModifier; // buffBonusPointsForKill 
+			*(float*)((uint64_t)obj + 0x3A4) = Variables::AssistModifier; // buffBonusPointsForAssist 
+			*(float*)((uint64_t)obj + 0x394) = Variables::RevengeModifier; // buffPointsRevenge 
 		}
 
 		if (Variables::AOEBullets)
@@ -178,15 +137,15 @@ namespace GameFunctions {
 			*(bool*)((uint64_t)obj + 0x1BC) = false; // railgun 
 			*(bool*)((uint64_t)obj + 0x12B) = false; // bazooka 
 			*(bool*)((uint64_t)obj + 0x2B8) = false; // harpoon 
-			*(float*)((uint64_t)obj + 0x3C4) = 360.0f; // sectorsAOEAngleFront 
-			*(float*)((uint64_t)obj + 0x3C8) = 360.0f; // sectorsAOEAngleBack
-			*(float*)((uint64_t)obj + 0x3CC) = 5.0f; // sectorsAOEDamageMultiplierFront 
-			*(float*)((uint64_t)obj + 0x3D4) = 5.0f; // sectorsAOEDamageMultiplierBack 
-			*(float*)((uint64_t)obj + 0x3D0) = 5.0f; // sectorsAOEDamageMultiplierSide 
-			*(float*)((uint64_t)obj + 0x3D8) = 999999.0f; // sectorsAOERadiusSectorsAoE 
+			*(float*)((uint64_t)obj + 0x3C4) = Variables::FrontAngle; // sectorsAOEAngleFront 
+			*(float*)((uint64_t)obj + 0x3C8) = Variables::BackAngle; // sectorsAOEAngleBack
+			*(float*)((uint64_t)obj + 0x3CC) = Variables::FrontMultiplier; // sectorsAOEDamageMultiplierFront 
+			*(float*)((uint64_t)obj + 0x3D4) = Variables::BackMultiplier; // sectorsAOEDamageMultiplierBack 
+			*(float*)((uint64_t)obj + 0x3D0) = Variables::SideMultiplier; // sectorsAOEDamageMultiplierSide 
+			*(float*)((uint64_t)obj + 0x3D8) = Variables::AOERadius; // sectorsAOERadiusSectorsAoE 
 		}
 
-		if (Variables::NoSpread) 
+		if (Variables::NoSpread)
 		{
 			*(float*)((uint64_t)obj + 0x104) = 0; // maxKoofZoom
 			*(float*)((uint64_t)obj + 0x108) = 0; // upKoofFireZoom
@@ -208,9 +167,50 @@ namespace GameFunctions {
 		{
 			*(bool*)((uint64_t)obj + 0x369) = true; // isFrostSword 
 			*(bool*)((uint64_t)obj + 0x374) = true; // isFrostSwordUseAngle 
-			*(float*)((uint64_t)obj + 0x3EC) = 999999.0f; // frostRadius 
-			*(float*)((uint64_t)obj + 0x378) = 5.0f; // frostDamageMultiplier
+			*(float*)((uint64_t)obj + 0x3EC) = Variables::AuraRadius; // frostRadius 
+			*(float*)((uint64_t)obj + 0x378) = Variables::AuraMultiplier; // frostDamageMultiplier
 			*(float*)((uint64_t)obj + 0x37C) = 0.33f; // frostSwordnTime
+		}
+
+		if (Variables::ForceEffects)
+		{
+			if (Variables::PoisonEffect)
+			{
+				*(bool*)((uint64_t)obj + 0x1F8) = true; // isPoisoning
+				*(int*)((uint64_t)obj + 0x1FC) = Variables::PoisonCount; // poisonCount
+				*(float*)((uint64_t)obj + 0x200) = Variables::PoisonMultiplier; // poisonDamageMultiplier
+				*(float*)((uint64_t)obj + 0x204) = Variables::PoisonDuration; // poisonTime
+			}
+			if (Variables::StunEffect)
+			{
+				*(bool*)((uint64_t)obj + 0x238) = true; // isStun
+				*(float*)((uint64_t)obj + 0x23C) = Variables::StunMultiplier; // stunCeoff
+				*(float*)((uint64_t)obj + 0x240) = Variables::StunDuration; // stunTime
+				*(float*)((uint64_t)obj + 0x244) = Variables::StunRadius; // stunRadius
+			}
+			if (Variables::CurseEffect)
+			{
+				*(bool*)((uint64_t)obj + 0x214) = true; // isCursing
+				*(float*)((uint64_t)obj + 0x218) = Variables::CurseDuration; // curseTime
+				*(float*)((uint64_t)obj + 0x21C) = Variables::CurseMultiplier; // curseDamageMultiplier
+			}
+			if (Variables::CharmEffect)
+			{
+				*(bool*)((uint64_t)obj + 0x274) = true; // isCharm
+				*(float*)((uint64_t)obj + 0x278) = Variables::CharmDuration; // charmTime
+			}
+			if (Variables::WeaknessEffect)
+			{
+				*(bool*)((uint64_t)obj + 0x27C) = true; // isWeaknessEffect
+				*(float*)((uint64_t)obj + 0x280) = Variables::WeaknessDuration; // weaknessEffectTime
+			}
+			if (Variables::BlindEffect)
+			{
+				*(bool*)((uint64_t)obj + 0x268) = true; // isBlindEffect
+				*(float*)((uint64_t)obj + 0x270) = Variables::BlindDuration; // isBlindEffectTime
+			}
+			if (Variables::LightningEffect)
+				*(bool*)((uint64_t)obj + 0x155) = true; // isLightning
 		}
 
 		return OWeaponSounds(obj);
@@ -226,7 +226,8 @@ namespace GameFunctions {
 		{
 			Variables::Invisibility = !Variables::Invisibility;
 			Internal::Invisibility(obj, 999999.0f); // MakeInvisibleForSeconds
-			Internal::InvisibilityRPC(obj, 999999.0f); // MakeInvisibleForSecondsRPC
+			if (Variables::MatchInvisibility)
+				Internal::InvisibilityRPC(obj, 999999.0f); // MakeInvisibleForSecondsRPC
 		}
 
 		if (Variables::JetpackFly)
@@ -250,7 +251,7 @@ namespace GameFunctions {
 	inline float __stdcall SpeedModifier(void* obj)
 	{
 		if (Variables::PlayerSpeed)
-			return 999999.0f; // SpeedModifier
+			return Variables::SpeedValue; // SpeedModifier
 
 		return OSpeedModifier(obj);
 	}
@@ -260,11 +261,9 @@ namespace GameFunctions {
 	{
 		if (Variables::InfiniteJump)
 		{
-			if (Utils::KeyPressed(VK_SPACE))
+			if (Utils::KeyPressed(Variables::JumpKey))
 				motion = Vector3(0, 0.5f, 0); // UnityEngine.CharacterController->Move
 		}
-
-
 
 		return OMovePlayer(obj, motion);
 	}
