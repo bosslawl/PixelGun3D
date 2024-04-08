@@ -9,7 +9,11 @@ void Hooks::Load(FILE* f)
 	Hooks::LoadConsole(f); // need to put this first in case of melonloader junking your console
 	Hooks::LoadModules();
 	// this function calls when ur injecting ur dll
+	#ifdef _DEBUG
 	RunSignatures.SearchSignatures(true); // true, so you getting also the addresses to your console
+	#else
+	RunSignatures.SearchSignatures(false); // false, so you getting the addresses to the console
+	#endif
 	Hooks::LoadMinHookHooks();
 }
 
@@ -17,12 +21,17 @@ void Hooks::LoadModules()
 {
 	if (IL2CPP::Initialize(true))
 	{	
+		#ifdef _DEBUG
 		UnitySDK::UnityGameBase = (uintptr_t)GetModuleHandleA(NULL);
-		printf("[ @bosslawl ] Base Address: 0x%llX\n", UnitySDK::UnityGameBase);
+		printf(OBFUSCATE("[ @bosslawl ] Base Address: 0x%llX\n"), UnitySDK::UnityGameBase);
 		UnitySDK::UnityGameAssembly = (uintptr_t)GetModuleHandleA("GameAssembly.dll");
-		printf("[ @bosslawl ] GameAssembly Base Address: 0x%llX\n", UnitySDK::UnityGameAssembly);
+		printf(OBFUSCATE("[ @bosslawl ] GameAssembly Base Address: 0x%llX\n"), UnitySDK::UnityGameAssembly);
 		UnitySDK::UnityPlayer = (uintptr_t)GetModuleHandleA("UnityPlayer.dll");
-		printf("[ @bosslawl ] UnityPlayer Base Address: 0x%llX\n", UnitySDK::UnityPlayer);
+		printf(OBFUSCATE("[ @bosslawl ] UnityPlayer Base Address: 0x%llX\n"), UnitySDK::UnityPlayer);
+		#endif
+		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN);
+		printf("[ @bosslawl ] IL2CPP Initialized\n");
 	}
 
 	IL2CPP::Callback::Initialize();

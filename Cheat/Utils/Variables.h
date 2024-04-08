@@ -94,9 +94,10 @@ namespace Variables {
 	// PlayerMoveC
 	inline bool XRay = false;
 	inline bool HealOnline = false;
+		inline float HealthValue = 50.0f;
 	inline bool AmmoOnline = false;
+		inline float AmmoValue = 50.0f;
 	inline bool Invisibility = false;
-		inline bool MatchInvisibility = false;
 	inline bool JetpackFly = false;
 
 	// Misc

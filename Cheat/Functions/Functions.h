@@ -42,12 +42,6 @@ namespace Internal {
 		return fn(obj, a1);
 	}
 
-	inline float InvisibilityRPC(void* obj, float a1) {
-		if (!obj) return 0;
-		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::InvisibilityRPC));
-		return fn(obj, a1);
-	}
-
 	inline void JetpackFly (void* obj, bool a1) {
 		if (!obj) return;
 		static const auto fn = (void(*)(void*, bool)) (getAbsolute(Offsets::JetpackFly));
@@ -98,8 +92,8 @@ namespace GameFunctions {
 		if (Variables::ZoomXRay)
 			*(bool*)((uint64_t)obj + 0xC6) = true; // zoomXray
 
-		if (&Variables::ScopeModifier)
-			*(float*)((uint64_t)obj + 0xF8) = Variables::ScopeModifier; // scopeSpeed
+		if (Variables::ScopeModifier)
+			*(float*)((uint64_t)obj + 0xF8) = Variables::ScopeValue; // scopeSpeed
 
 		if (Variables::ForceCriticals)
 		{
@@ -230,12 +224,7 @@ namespace GameFunctions {
 			Internal::ShowXray(obj, true, 0, 0); // method_205
 
 		if (Variables::Invisibility)
-		{
-			Variables::Invisibility = !Variables::Invisibility;
 			Internal::Invisibility(obj, 999999.0f); // MakeInvisibleForSeconds
-			if (Variables::MatchInvisibility)
-				Internal::InvisibilityRPC(obj, 999999.0f); // MakeInvisibleForSecondsRPC
-		}
 
 		if (Variables::JetpackFly)
 		{
@@ -246,10 +235,10 @@ namespace GameFunctions {
 		void* playerDamageable = *(void**)((uintptr_t)obj + 0x650);
 
 		if (Variables::HealOnline)
-			Internal::AddHealthFromWeaponOnline(playerDamageable, 999999.0f, ""); // AddHealthFromWeaponOnline
+			Internal::AddHealthFromWeaponOnline(playerDamageable, Variables::HealthValue, ""); // AddHealthFromWeaponOnline
 
 		if (Variables::AmmoOnline)
-			Internal::AddAmmoFromWeaponOnline(playerDamageable, 999999.0f); // AddAmmoFromWeaponOnline
+			Internal::AddAmmoFromWeaponOnline(playerDamageable, Variables::AmmoValue); // AddAmmoFromWeaponOnline
 
 		return OPlayerMoveC(obj);
 	}		

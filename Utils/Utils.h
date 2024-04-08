@@ -34,10 +34,30 @@
 #include "../Utils/Math/Vectors/Vector2.h"
 #include "../Utils/Math/Vectors/Vector3.h"
 
+#include "../Utils/Obfuscation/Obfuscate.h"
+
 #include <d3d11.h>
 #pragma comment(lib, "d3d11.lib")
 
 namespace Utils {
+	inline uintptr_t String2Offset(const char* c) {
+		int base = 16;
+		// See if this function catches all possibilities.
+		// If it doesn't, the function would have to be amended
+		// whenever you add a combination of architecture and
+		// compiler that is not yet addressed.
+		static_assert(sizeof(uintptr_t) == sizeof(unsigned long)
+			|| sizeof(uintptr_t) == sizeof(unsigned long long),
+			"");
+
+		// Now choose the correct function ...
+		if (sizeof(uintptr_t) == sizeof(unsigned long)) {
+			return strtoul(c, nullptr, base);
+		}
+
+		// All other options exhausted, sizeof(uintptr_t) == sizeof(unsigned long long))
+		return strtoull(c, nullptr, base);
+	}
 
 	inline bool KeyPressed(int vKey)
 	{

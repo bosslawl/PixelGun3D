@@ -161,12 +161,12 @@ void UI::Render()
     wc.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
     wc.hInstance = GetModuleHandle(nullptr);
     wc.lpfnWndProc = WndProc;
-    wc.lpszClassName = _T("D3D11 Overlay ImGui");
+    wc.lpszClassName = _T("@bosslawl");
     wc.lpszMenuName = nullptr;
     wc.style = CS_VREDRAW | CS_HREDRAW;
 
     ::RegisterClassEx(&wc);
-    const HWND hwnd = ::CreateWindowExW(WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE, wc.lpszClassName, _T("D3D11 Overlay ImGui"), WS_POPUP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), nullptr, nullptr, wc.hInstance, nullptr);
+    const HWND hwnd = ::CreateWindowExW(WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE, wc.lpszClassName, _T("@bosslawl"), WS_POPUP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), nullptr, nullptr, wc.hInstance, nullptr);
 
     SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
     const MARGINS margin = { -1, 0, 0, 0 };
@@ -258,6 +258,29 @@ void UI::Render()
 
             continue;
         }
+
+        Variables::ScreenSize.x = GetSystemMetrics(SM_CXSCREEN);
+        Variables::ScreenSize.y = GetSystemMetrics(SM_CYSCREEN);
+
+        Variables::ScreenCenter.x = Variables::ScreenSize.x / 2;
+        Variables::ScreenCenter.y = Variables::ScreenSize.y / 2;
+
+        static float isRed = 0.0f, isGreen = 0.01f, isBlue = 0.0f;
+        int FrameCount = ImGui::GetFrameCount();
+
+        if (isGreen == 0.01f && isBlue == 0.0f) isRed += 0.01f;
+        if (isRed > 0.99f && isBlue == 0.0f) { isRed = 1.0f; isGreen += 0.01f; }
+        if (isGreen > 0.99f && isBlue == 0.0f) { isGreen = 1.0f; isRed -= 0.01f; }
+        if (isRed < 0.01f && isGreen == 1.0f) { isRed = 0.0f; isBlue += 0.01f; }
+        if (isBlue > 0.99f && isRed == 0.0f) { isBlue = 1.0f; isGreen -= 0.01f; } // ugliest function ive ever seen
+        if (isGreen < 0.01f && isBlue == 1.0f) { isGreen = 0.0f; isRed += 0.01f; }
+        if (isRed > 0.99f && isGreen == 0.0f) { isRed = 1.0f; isBlue -= 0.01f; }
+        if (isBlue < 0.01f && isGreen == 0.0f) {
+            isBlue = 0.0f; isRed -= 0.01f;
+            if (isRed < 0.01f) isGreen = 0.01f;
+        }
+
+        Variables::RainbowColor = ImVec4(isRed, isGreen, isBlue, 1.0f);
 
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();

@@ -13,11 +13,11 @@ bool Drawing::isActive()
 
 namespace Tabs {
 	void Main() {
-		ImGui::Text("Press INSERT to toggle the menu");
-		ImGui::Text("Press END to close the cheat");
+		ImGui::Text(OBFUSCATE("Press INSERT to toggle the menu"));
+		ImGui::Text(OBFUSCATE("Press END to close the cheat"));
 		ImGui::Separator();
-		ImGui::Text("To use the menu you need to be in windowed mode or you can be in borderless windowed and press Alt+Enter.");
-		ImGui::Text("Leave all values default if you don't know what they do.");
+		ImGui::Text(OBFUSCATE("To use the menu you need to be in windowed mode or you can be in borderless windowed and press Alt+Enter."));
+		ImGui::Text(OBFUSCATE("Leave all values default if you don't know what they do."));
 	}
 
 	void Visuals() {
@@ -92,23 +92,23 @@ namespace Tabs {
 
 		ImGui::Checkbox("Jetpack Fly", &Variables::JetpackFly);
 		ImGui::SameLine();
-		HelpMarker("Hold space to fly. I wouldn't recommend enabling this and infinite jump at the same time.");
+		HelpMarker("Hold space to fly. I wouldn't recommend enabling this and infinite jump at the same time. Only press it once, it will toggle itself off, to deactivate press it once again.");
 		ImGui::Separator();
 
 		ImGui::Checkbox("Invisibility", &Variables::Invisibility);
 		ImGui::SameLine();
-		HelpMarker("Makes you invisible.");
-		if (Variables::Invisibility)
-		{
-			ImGui::Checkbox("InvisibilityRPC", &Variables::MatchInvisibility);
-			ImGui::SameLine();
-			HelpMarker("Makes all players invisible. Might kick you.");
-		}
+		HelpMarker("Makes everyone invisible.");
 		ImGui::Separator();
 
 		ImGui::Checkbox("Heal", &Variables::HealOnline);
 		ImGui::SameLine();
 		HelpMarker("Heals you. Might kick you. Possibly detected in future updates.");
+		if (Variables::HealOnline)
+		{
+			ImGui::SliderFloat("##HealthValue", &Variables::HealthValue, 0.0f, 1000000.0f, "Health Value: %.1f");
+			ImGui::SameLine();
+			HelpMarker("How much health you restore. Not sure what to set it as, experiment.");
+		}
 	}
 
 	void Weapons() {
@@ -119,7 +119,13 @@ namespace Tabs {
 		{
 			ImGui::Checkbox("InfiniteAmmoRPC", &Variables::AmmoOnline);
 			ImGui::SameLine();
-			HelpMarker("Stops your weapon using any ammo, no reloading required. Possibly detected in future updates.");
+			HelpMarker("Stops your weapon using any ammo, no reloading required. Possibly detected in future updates. Might kick you.");
+			if (Variables::AmmoOnline)
+			{
+				ImGui::SliderFloat("##AmmoValue", &Variables::AmmoValue, 0.0f, 1000000.0f, "Ammo Value: %.1f");
+				ImGui::SameLine();
+				HelpMarker("How much ammo you restore. Not sure what to set it as, experiment.");
+			}
 		}
 		ImGui::Separator();
 
@@ -132,6 +138,11 @@ namespace Tabs {
 			ImGui::SameLine();
 			HelpMarker("I recommend keeping it set at 0 for no recoil.");
 		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("No Spread", &Variables::NoSpread);
+		ImGui::SameLine();
+		HelpMarker("Stops bullets spreading on guns like shotguns.");
 		ImGui::Separator();
 
 		ImGui::Checkbox("Range Modifier", &Variables::RangeModifier);
@@ -185,23 +196,6 @@ namespace Tabs {
 		}
 		ImGui::Separator();
 
-		ImGui::Checkbox("Score Modifier", &Variables::ScoreModifier);
-		ImGui::SameLine();
-		HelpMarker("Modifys the score you get from a kill.");
-		if (Variables::ScoreModifier)
-		{
-			ImGui::SliderFloat("##KillModifier", &Variables::KillModifier, 0.0f, 1000000.0f, "Kill Modifier: %.1f");
-			ImGui::SameLine();
-			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
-			ImGui::SliderFloat("##AssistModifier", &Variables::AssistModifier, 0.0f, 1000000.0f, "Assist Modifier: %.1f");
-			ImGui::SameLine();
-			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
-			ImGui::SliderFloat("##RevengeModifier", &Variables::RevengeModifier, 0.0f, 1000000.0f, "Revenge Modifier: %.1f");
-			ImGui::SameLine();
-			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
-		}
-		ImGui::Separator();
-
 		ImGui::Checkbox("Silent Aim", &Variables::AOEBullets);
 		ImGui::SameLine();
 		HelpMarker("Allows you to kill people from anywhere on the map without aiming at them (AOE Bullets).");
@@ -226,11 +220,6 @@ namespace Tabs {
 			ImGui::SameLine();
 			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
 		}
-		ImGui::Separator();
-
-		ImGui::Checkbox("No Spread", &Variables::NoSpread);
-		ImGui::SameLine();
-		HelpMarker("Stops bullets spreading on guns like shotguns.");
 		ImGui::Separator();
 
 		ImGui::Checkbox("Frost Aura", &Variables::FrostAura);
@@ -344,12 +333,36 @@ namespace Tabs {
 			ImGui::SameLine();
 			HelpMarker("If you change the Speed Multiplier you must toggle Game Speed off and back on for it to update. Anything over 2 is likely to kick you or crash you.");
 		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Score Modifier", &Variables::ScoreModifier);
+		ImGui::SameLine();
+		HelpMarker("Modifys the score you get from a kill.");
+		if (Variables::ScoreModifier)
+		{
+			ImGui::SliderFloat("##KillModifier", &Variables::KillModifier, 0.0f, 1000000.0f, "Kill Modifier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
+			ImGui::SliderFloat("##AssistModifier", &Variables::AssistModifier, 0.0f, 1000000.0f, "Assist Modifier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
+			ImGui::SliderFloat("##RevengeModifier", &Variables::RevengeModifier, 0.0f, 1000000.0f, "Revenge Modifier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for highest score.");
+		}
+		ImGui::Separator();
 
 		ImGui::Checkbox("Polymorpher", &Variables::ForcePolymorpher);
 		ImGui::SameLine();
 		HelpMarker("Changes anyone you shoot to the type selected.");
 		if (Variables::ForcePolymorpher)
 		{
+			ImGui::SliderFloat("##PolymorpherDuration", &Variables::PolymorpherDuration, 0.0f, 1000000.0f, "Polymorpher Duration: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for longest time.");
+			ImGui::SliderFloat("##PolymorpherHealth", &Variables::PolymorpherHealth, 0.0f, 1000000.0f, "Polymorpher Health: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 so they can't die and become normal again.");
 			ImGui::SliderFloat("##PolymorpherType", &Variables::PolymorpherType, 0, 3, "Polymorpher Type: %.0f");
 			ImGui::SameLine();
 			HelpMarker("Changes the entity you change people to. 0 - Sheep, 1 - Beetle, 2 - Mutant, 3 - Cube.");
@@ -369,7 +382,7 @@ void Drawing::Draw()
 {
 	if (isActive())
 	{
-		if (!ImGui::Begin("@bosslawl", 0, 96))
+		if (!ImGui::Begin(OBFUSCATE("@bosslawl"), 0, 96))
 		{
 			ImGui::End();
 			return;
@@ -441,9 +454,9 @@ void Drawing::Loops()
 		Utils::UseCrosshair(false);
 
 	if (Variables::EnableWatermark && Variables::EnableFPS)
-		Utils::Watermark(true, "@bosslawl", Variables::WatermarkColor, ImVec4(255, 255, 255, 0));
+		Utils::Watermark(true, OBFUSCATE("@bosslawl"), Variables::WatermarkColor, ImVec4(255, 255, 255, 0));
 	else if (Variables::EnableWatermark && !Variables::EnableFPS)
-		Utils::Watermark(false, "@bosslawl", Variables::WatermarkColor, ImVec4(255, 255, 255, 0));
+		Utils::Watermark(false, OBFUSCATE("@bosslawl"), Variables::WatermarkColor, ImVec4(255, 255, 255, 0));
 
 	if (Variables::ImGuiDemo)
 	{
