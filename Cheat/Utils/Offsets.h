@@ -22,8 +22,11 @@ namespace Offsets {
 		return strtoull(c, nullptr, base);
 	}
 
-	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
+	inline uintptr_t ACOne = String2Offset(OBFUSCATE("0xB1EDF0"));
+	inline uintptr_t ACTwo = String2Offset(OBFUSCATE("0xB1AF00"));
+	inline uintptr_t ACThree = String2Offset(OBFUSCATE("0x6FDBE0"));
+	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t PlayerMoveCUpdate = String2Offset(OBFUSCATE("0x1B61D20"));
 	inline uintptr_t WeaponSoundsUpdate = String2Offset(OBFUSCATE("0x7EF390"));
 	inline uintptr_t XRay = String2Offset(OBFUSCATE("0x1AF82B0"));
@@ -34,4 +37,6 @@ namespace Offsets {
 	inline uintptr_t SpeedModifier = String2Offset(OBFUSCATE("0x774D40"));
 	inline uintptr_t MovePlayer = String2Offset(OBFUSCATE("0x43C5CB0"));
 	inline uintptr_t JetpackFly = String2Offset(OBFUSCATE("0x1B17E60"));
+	inline uintptr_t GodmodeOne = String2Offset(OBFUSCATE("0x1AF9130"));
+	inline uintptr_t GodmodeTwo = String2Offset(OBFUSCATE("0x217C6C0"));
 }

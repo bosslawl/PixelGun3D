@@ -63,6 +63,7 @@ namespace Variables {
 		inline float SideMultiplier = 5.0f;
 	inline bool NoSpread = false;
 	inline bool FrostAura = false;
+		inline float AuraAngle = 360.0f;
 		inline float AuraRadius = 1000000.0f;
 		inline float AuraMultiplier = 5.0f;
 	inline bool ForcePolymorpher = false;
@@ -103,4 +104,5 @@ namespace Variables {
 	// Misc
 	inline bool PlayerSpeed = false;
 		inline float SpeedValue = 1.0f;
+	inline bool Godmode = false;
 }

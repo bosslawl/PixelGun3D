@@ -10,9 +10,11 @@ bool Signatures::SearchSignatures(bool NeedDebug)
 
     if (NeedDebug)
     {
-        Utils::AddressLog(Offsets::TimeOffset - UnitySDK::UnityGameAssembly, "TimeOffset");
         Utils::AddressLog(Offsets::IsDebugBuild - UnitySDK::UnityGameAssembly, "IsDebugBuild");
-        Utils::AddressLog(Offsets::PlayerMoveCUpdate - UnitySDK::UnityGameAssembly, "PlayerMoveCUpdate");
+        Utils::AddressLog(Offsets::ACOne, "AntiCheatOne");
+        Utils::AddressLog(Offsets::ACTwo, "AntiCheatTwo");
+        Utils::AddressLog(Offsets::ACThree, "AntiCheatThree");
+        Utils::AddressLog(Offsets::PlayerMoveCUpdate, "PlayerMoveCUpdate");
         Utils::AddressLog(Offsets::WeaponSoundsUpdate, "WeaponSoundsUpdate");
         Utils::AddressLog(Offsets::XRay, "XRay");
         Utils::AddressLog(Offsets::NextHitCritical, "NextHitCritical");
@@ -22,6 +24,9 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::SpeedModifier, "SpeedModifier");
         Utils::AddressLog(Offsets::MovePlayer, "MovePlayer");
         Utils::AddressLog(Offsets::JetpackFly, "JetpackFly");
+        Utils::AddressLog(Offsets::TimeOffset - UnitySDK::UnityGameAssembly, "TimeOffset");
+        Utils::AddressLog(Offsets::GodmodeOne, "Godmode");
+        Utils::AddressLog(Offsets::GodmodeTwo, "GodmodeTwo");
     }
     return true;
 }

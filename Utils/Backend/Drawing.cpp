@@ -109,6 +109,15 @@ namespace Tabs {
 			ImGui::SameLine();
 			HelpMarker("How much health you restore. Not sure what to set it as, experiment.");
 		}
+		ImGui::Separator();
+
+		ImGui::Checkbox("Godmode", &Variables::Godmode);
+		ImGui::SameLine();
+		HelpMarker("Stops you taking any damage.");
+	}
+
+	void Pet() {
+
 	}
 
 	void Weapons() {
@@ -217,20 +226,6 @@ namespace Tabs {
 			ImGui::SameLine();
 			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
 			ImGui::SliderFloat("##SideMultiplier", &Variables::SideMultiplier, 0.0f, 1000000.0f, "Side Multiplier: %.1f");
-			ImGui::SameLine();
-			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
-		}
-		ImGui::Separator();
-
-		ImGui::Checkbox("Frost Aura", &Variables::FrostAura);
-		ImGui::SameLine();
-		HelpMarker("Gives you a damage aura.");
-		if (Variables::FrostAura)
-		{
-			ImGui::SliderFloat("##AuraRadius", &Variables::AuraRadius, 0.0f, 1000000.0f, "Aura Radius: %.1f");
-			ImGui::SameLine();
-			HelpMarker("I recommend keeping it set at 1000000 for biggest area of effect.");
-			ImGui::SliderFloat("##AuraMultiplier", &Variables::AuraMultiplier, 0.0f, 1000000.0f, "Aura Multiplier: %.1f");
 			ImGui::SameLine();
 			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
 		}
@@ -352,6 +347,23 @@ namespace Tabs {
 		}
 		ImGui::Separator();
 
+		ImGui::Checkbox("Kill Aura", &Variables::FrostAura);
+		ImGui::SameLine();
+		HelpMarker("Gives you a damage aura.");
+		if (Variables::FrostAura)
+		{
+			ImGui::SliderFloat("##AuraRadius", &Variables::AuraRadius, 0.0f, 1000000.0f, "Aura Radius: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 1000000 for biggest area of effect.");
+			ImGui::SliderFloat("##AuraAngle", &Variables::AuraAngle, 0.0f, 360.0f, "Aura Angle: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 360 for biggest area of effect.");
+			ImGui::SliderFloat("##AuraMultiplier", &Variables::AuraMultiplier, 0.0f, 1000000.0f, "Aura Multiplier: %.1f");
+			ImGui::SameLine();
+			HelpMarker("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage.");
+		}
+		ImGui::Separator();
+
 		ImGui::Checkbox("Polymorpher", &Variables::ForcePolymorpher);
 		ImGui::SameLine();
 		HelpMarker("Changes anyone you shoot to the type selected.");
@@ -389,8 +401,11 @@ void Drawing::Draw()
 		}
 
 		StyleInnit();
-		ImGui::SetWindowSize(ImVec2(375, 400), ImGuiCond_Once);
+		ImGui::SetWindowSize(ImVec2(500, 500), ImGuiCond_Once);
 
+		float spacing = (500 - ImGui::GetContentRegionAvailWidth()) / 2;
+
+		ImGui::Dummy(ImVec2(spacing, 0));
 		if (ImGui::BeginTabBar("##tabs", ImGuiTabBarFlags_None))
 		{
 			if (ImGui::BeginTabItem("Main"))
@@ -408,6 +423,11 @@ void Drawing::Draw()
 				Tabs::Player();
 				ImGui::EndTabItem();
 			}
+			if (ImGui::BeginTabItem("Pet"))
+			{
+				Tabs::Pet();
+				ImGui::EndTabItem();
+			}
 			if (ImGui::BeginTabItem("Weapons"))
 			{
 				Tabs::Weapons();
@@ -423,6 +443,7 @@ void Drawing::Draw()
 				Tabs::Settings();
 				ImGui::EndTabItem();
 			}
+			ImGui::Dummy(ImVec2(spacing, 0));
 			ImGui::EndTabBar();
 		}
 		ImGui::End();

@@ -31,7 +31,7 @@ void Hooks::LoadModules()
 		#endif
 		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN);
-		printf("[ @bosslawl ] IL2CPP Initialized\n");
+		printf(OBFUSCATE("[ @bosslawl ] IL2CPP Initialized\n"));
 	}
 
 	IL2CPP::Callback::Initialize();
@@ -54,6 +54,15 @@ void Hooks::LoadMinHookHooks()
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild), &GameFunctions::isdebug_h, (LPVOID*)&GameFunctions::isdebug) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild));
 
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACOne), &GameFunctions::ACOne, (LPVOID*)&GameFunctions::OACOne) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACOne));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwo), &GameFunctions::ACTwo, (LPVOID*)&GameFunctions::OACTwo) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwo));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThree), &GameFunctions::ACThree, (LPVOID*)&GameFunctions::OACThree) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThree));
+
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate));
 
@@ -65,6 +74,12 @@ void Hooks::LoadMinHookHooks()
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MovePlayer), &GameFunctions::MovePlayer, (LPVOID*)&GameFunctions::OMovePlayer) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MovePlayer));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GodmodeOne), &GameFunctions::GodmodeOne, (LPVOID*)&GameFunctions::OGodmodeOne) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::GodmodeOne));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GodmodeTwo), &GameFunctions::GodmodeTwo, (LPVOID*)&GameFunctions::OGodmodeTwo) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::GodmodeTwo));
 }
 
 void Hooks::UnloadMinHookHooks()
