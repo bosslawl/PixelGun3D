@@ -24,18 +24,6 @@ namespace Internal {
 		return fn(obj, a1);
 	}
 
-	inline float AddHealthFromWeaponOnline(void* obj, float a1, std::string a2) {
-		if (!obj) return 0;
-		static const auto fn = (float(*)(void*, float, std::string)) (getAbsolute(Offsets::AddHealthFromWeaponOnline));
-		return fn(obj, a1, a2);
-	}
-
-	inline float AddAmmoFromWeaponOnline(void* obj, float a1) {
-		if (!obj) return 0;
-		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::AddAmmoFromWeaponOnline));
-		return fn(obj, a1);
-	}
-
 	inline float Invisibility(void* obj, float a1) {
 		if (!obj) return 0;
 		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::Invisibility));
@@ -45,6 +33,12 @@ namespace Internal {
 	inline void JetpackFly (void* obj, bool a1) {
 		if (!obj) return;
 		static const auto fn = (void(*)(void*, bool)) (getAbsolute(Offsets::JetpackFly));
+		return fn(obj, a1);
+	}
+
+	inline void PetEngineHealth(void* obj, float a1) {
+		if (!obj) return;
+		static const auto fn = (void(*)(void*, float)) (getAbsolute(Offsets::PetHealth));
 		return fn(obj, a1);
 	}
 
@@ -237,28 +231,47 @@ namespace GameFunctions {
 	inline void __stdcall PlayerMoveC(void* obj)
 	{
 		if (Variables::XRay)
-			Internal::ShowXray(obj, true, 0, 0); // method_205
+			Internal::ShowXray(obj, true, 0, 0); // player_move_c method_205
 
 		if (Variables::Invisibility)
 			Internal::Invisibility(obj, 999999.0f); // MakeInvisibleForSeconds
-		else 
-			Internal::Invisibility(obj, 1.0f);
 
 		if (Variables::JetpackFly)
 			Internal::JetpackFly(obj, true); // Jetpack?
 		else 
 			Internal::JetpackFly(obj, false);
 
-		void* playerDamageable = *(void**)((uintptr_t)obj + Utils::String2Offset(OBFUSCATE("0x650")));
-
-		if (Variables::HealOnline)
-			Internal::AddHealthFromWeaponOnline(playerDamageable, Variables::HealthValue, ""); // AddHealthFromWeaponOnline
-
-		if (Variables::AmmoOnline)
-			Internal::AddAmmoFromWeaponOnline(playerDamageable, Variables::AmmoValue); // AddAmmoFromWeaponOnline
+		//void* playerDamageable = *(void**)((uintptr_t)obj + Utils::String2Offset(OBFUSCATE("0x650")));
 
 		return OPlayerMoveC(obj);
 	}		
+
+	inline void(__stdcall* OPetEngine)(void* obj);
+	inline void __stdcall PetEngine(void* obj)
+	{
+		if (Variables::PetHealth)
+			Internal::PetEngineHealth(obj, Variables::PetHealthValue); // method_37
+
+		return OPetEngine(obj);
+	}
+
+	inline float(__stdcall* OPetDamage)(void* obj);
+	inline float __stdcall PetDamage(void* obj)
+	{
+		if (Variables::PetDamage)
+			return Variables::PetDamageValue; // PetInfo Attack
+
+		return OPetDamage(obj);
+	}
+
+	inline float(__stdcall* OPetSpeed)(void* obj);
+	inline float __stdcall PetSpeed(void* obj)
+	{
+		if (Variables::PetSpeed)
+			return Variables::PetSpeedValue; // PetInfo SpeedModif
+
+		return OPetSpeed(obj);
+	}
 
 	inline float(__stdcall* OSpeedModifier)(void* obj);
 	inline float __stdcall SpeedModifier(void* obj)
@@ -285,7 +298,7 @@ namespace GameFunctions {
 	inline void __stdcall GodmodeOne(void* obj, float a1, void* a2, void* a3, void* a4, void* a5, Vector3 a6, void* a7, int a8)
 	{
 		if (Variables::Godmode)
-			return; // method_16
+			return; // player_move_c method_451 
 
 		return OGodmodeOne(obj, a1, a2, a3, a4, a5, a6, a7, a8);
 	}
@@ -294,8 +307,35 @@ namespace GameFunctions {
 	inline void __stdcall GodmodeTwo(void* obj)
 	{
 		if (Variables::Godmode)
-			return; // method_16
+			return; // gclass147 method_16 
 
 		return OGodmodeTwo(obj);
+	}
+
+	inline bool(__stdcall* OInfiniteGems)(void* obj);
+	inline bool __stdcall InfiniteGems(void* obj)
+	{
+		if (Variables::InfiniteGems)
+			return true; // class9 smethod_6 
+
+		return OInfiniteGems(obj);
+	}
+
+	inline float(__stdcall* OReloadModifier)(void* obj, void* a1, void* a2, void* a3, void* a4);
+	inline float __stdcall ReloadModifier(void* obj, void* a1, void* a2, void* a3, void* a4)
+	{
+		if (Variables::ReloadModifier)
+			return Variables::ReloadValue; // class1837 smethod_13 
+
+		return OReloadModifier(obj, a1, a2, a3, a4);
+	}
+
+	inline float(__stdcall* OGadgetCooldown)(void* obj);
+	inline float __stdcall GadgetCooldown(void* obj)
+	{
+		if (Variables::GadgetCooldown)
+			return 0.0f; // class1837 smethod_13 
+
+		return OGadgetCooldown(obj); // class835 Single_2
 	}
 }

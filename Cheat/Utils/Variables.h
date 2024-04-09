@@ -94,15 +94,23 @@ namespace Variables {
 
 	// PlayerMoveC
 	inline bool XRay = false;
-	inline bool HealOnline = false;
-		inline float HealthValue = 50.0f;
-	inline bool AmmoOnline = false;
-		inline float AmmoValue = 50.0f;
 	inline bool Invisibility = false;
 	inline bool JetpackFly = false;
+
+	// PetEngine
+	inline bool PetHealth = false;
+		inline float PetHealthValue = 1000000.0f;
+	inline bool PetDamage = false;
+		inline float PetDamageValue = 1000000.0f;
+	inline bool PetSpeed = false;
+		inline float PetSpeedValue = 1000000.0f;
 
 	// Misc
 	inline bool PlayerSpeed = false;
 		inline float SpeedValue = 1.0f;
 	inline bool Godmode = false;
+	inline bool InfiniteGems = false;
+	inline bool ReloadModifier = false;
+		inline float ReloadValue = 99999.0f;
+	inline bool GadgetCooldown = false;
 }

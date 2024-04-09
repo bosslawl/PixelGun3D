@@ -16,10 +16,9 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::ACThree, "AntiCheatThree");
         Utils::AddressLog(Offsets::PlayerMoveCUpdate, "PlayerMoveCUpdate");
         Utils::AddressLog(Offsets::WeaponSoundsUpdate, "WeaponSoundsUpdate");
+        Utils::AddressLog(Offsets::PetEngineUpdate, "PetEngineUpdate");
         Utils::AddressLog(Offsets::XRay, "XRay");
         Utils::AddressLog(Offsets::NextHitCritical, "NextHitCritical");
-        Utils::AddressLog(Offsets::AddHealthFromWeaponOnline, "AddHealthFromWeaponOnline");
-        Utils::AddressLog(Offsets::AddAmmoFromWeaponOnline, "AddAmmoFromWeaponOnline");
         Utils::AddressLog(Offsets::Invisibility, "Invisibility");
         Utils::AddressLog(Offsets::SpeedModifier, "SpeedModifier");
         Utils::AddressLog(Offsets::MovePlayer, "MovePlayer");
@@ -27,6 +26,12 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::TimeOffset - UnitySDK::UnityGameAssembly, "TimeOffset");
         Utils::AddressLog(Offsets::GodmodeOne, "Godmode");
         Utils::AddressLog(Offsets::GodmodeTwo, "GodmodeTwo");
+        Utils::AddressLog(Offsets::InfiniteGems, "InfiniteGems");
+        Utils::AddressLog(Offsets::NoReload, "NoReload");
+        Utils::AddressLog(Offsets::GadgetCooldown, "GadgetCooldown");
+        Utils::AddressLog(Offsets::PetHealth, "PetHealth");
+        Utils::AddressLog(Offsets::PetDamage, "PetDamage");
+        Utils::AddressLog(Offsets::PetSpeed, "PetSpeed");
     }
     return true;
 }

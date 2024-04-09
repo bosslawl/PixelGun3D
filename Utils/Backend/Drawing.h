@@ -77,6 +77,7 @@ inline void StyleInnit()
 
 inline void HelpMarker(const char* desc)
 {
+	ImGui::SameLine();
 	ImGui::TextDisabled("[?]");
 	if (ImGui::IsItemHovered())
 	{

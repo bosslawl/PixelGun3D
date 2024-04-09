@@ -29,14 +29,19 @@ namespace Offsets {
 	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t PlayerMoveCUpdate = String2Offset(OBFUSCATE("0x1B61D20"));
 	inline uintptr_t WeaponSoundsUpdate = String2Offset(OBFUSCATE("0x7EF390"));
+	inline uintptr_t PetEngineUpdate = String2Offset(OBFUSCATE("0xDDB840"));
 	inline uintptr_t XRay = String2Offset(OBFUSCATE("0x1AF82B0"));
 	inline uintptr_t NextHitCritical = String2Offset(OBFUSCATE("0x7E84E0"));
-	inline uintptr_t AddHealthFromWeaponOnline = String2Offset(OBFUSCATE("0x1AA6220"));
-	inline uintptr_t AddAmmoFromWeaponOnline = String2Offset(OBFUSCATE("0x1AA6090"));
 	inline uintptr_t Invisibility = String2Offset(OBFUSCATE("0x1ABF8D0"));
 	inline uintptr_t SpeedModifier = String2Offset(OBFUSCATE("0x774D40"));
 	inline uintptr_t MovePlayer = String2Offset(OBFUSCATE("0x43C5CB0"));
 	inline uintptr_t JetpackFly = String2Offset(OBFUSCATE("0x1B17E60"));
 	inline uintptr_t GodmodeOne = String2Offset(OBFUSCATE("0x1AF9130"));
 	inline uintptr_t GodmodeTwo = String2Offset(OBFUSCATE("0x217C6C0"));
+	inline uintptr_t InfiniteGems = String2Offset(OBFUSCATE("0x4BB8D0"));
+	inline uintptr_t NoReload = String2Offset(OBFUSCATE("0x72CC90"));
+	inline uintptr_t GadgetCooldown = String2Offset(OBFUSCATE("0x1E846F0"));
+	inline uintptr_t PetHealth = String2Offset(OBFUSCATE("0xDD5F90"));
+	inline uintptr_t PetDamage = String2Offset(OBFUSCATE("0x213A620"));
+	inline uintptr_t PetSpeed = String2Offset(OBFUSCATE("0x213AAB0"));
 }
