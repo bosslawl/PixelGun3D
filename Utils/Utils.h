@@ -107,7 +107,7 @@ namespace Utils {
 	}
 
 	inline void AddressLog(uintptr_t address, const char* name) {
-		printf("[ LOG ] %s: 0x%llX\n", name, address);
+		printf(OBFUSCATE("[ LOG ] %s: 0x%llX\n"), name, address);
 	}
 
 	inline bool World2Screen(Unity::Vector3 world, Vector2& screen)
@@ -117,7 +117,7 @@ namespace Utils {
 			return false;
 		}
 
-		Unity::Vector3 buffer = CameraMain->CallMethodSafe<Unity::Vector3>("WorldToScreenPoint", world, Unity::eye::mono); // Call the worldtoscren function using monoeye (2)
+		Unity::Vector3 buffer = CameraMain->CallMethodSafe<Unity::Vector3>(OBFUSCATE("WorldToScreenPoint"), world, Unity::eye::mono); // Call the worldtoscren function using monoeye (2)
 
 		if (buffer.x > Variables::ScreenSize.x || buffer.y > Variables::ScreenSize.y || buffer.x < 0 || buffer.y < 0 || buffer.z < 0) // check if point is on screen
 		{
@@ -172,7 +172,7 @@ namespace Utils {
 		if (ImGui::Begin("Watermark", &open, windowFlags))
 		{
 			if (showFPS)
-				ImGui::TextColored(color, "%s | FPS: %i", text, static_cast<int>(io.Framerate));
+				ImGui::TextColored(color, OBFUSCATE("%s | FPS: %i"), text, static_cast<int>(io.Framerate));
 			else
 				ImGui::TextColored(color, text);
 

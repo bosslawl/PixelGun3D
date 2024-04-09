@@ -78,7 +78,7 @@ inline void StyleInnit()
 inline void HelpMarker(const char* desc)
 {
 	ImGui::SameLine();
-	ImGui::TextDisabled("[?]");
+	ImGui::TextDisabled(OBFUSCATE(("[?]")));
 	if (ImGui::IsItemHovered())
 	{
 		ImGui::BeginTooltip();

@@ -41,9 +41,14 @@ void Hooks::LoadConsole(FILE* f)
 {
 	AllocConsole();
 	AttachConsole(GetCurrentProcessId());
-	SetConsoleTitle(L"@bosslawl");
+	const char* narrowTitle = OBFUSCATE("@bosslawl");
+	int length = MultiByteToWideChar(CP_UTF8, 0, narrowTitle, -1, NULL, 0);
+	wchar_t* wideTitle = new wchar_t[length];
+	MultiByteToWideChar(CP_UTF8, 0, narrowTitle, -1, wideTitle, length);
+	SetConsoleTitle(wideTitle);
+	delete[] wideTitle;
 	freopen_s(&f, "CONOUT$", "w", stdout);
-	system("cls");
+	system(OBFUSCATE("cls"));
 	ShowWindow(GetConsoleWindow(), SW_MINIMIZE);
 }
 
@@ -84,7 +89,7 @@ void Hooks::LoadMinHookHooks()
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::InfiniteGems), &GameFunctions::InfiniteGems, (LPVOID*)&GameFunctions::OInfiniteGems) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::InfiniteGems));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::NoReload), &GameFunctions::NoReload, (LPVOID*)&GameFunctions::ONoReload) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::NoReload), &GameFunctions::ReloadModifier, (LPVOID*)&GameFunctions::OReloadModifier) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::NoReload));
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GadgetCooldown), &GameFunctions::GadgetCooldown, (LPVOID*)&GameFunctions::OGadgetCooldown) == MH_OK)
