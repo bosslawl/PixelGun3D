@@ -321,6 +321,10 @@ namespace Tabs {
 	void Exploits() {
 		ImGui::Checkbox(OBFUSCATE("Infinite Gems"), &Variables::InfiniteGems);
 		HelpMarker(OBFUSCATE("Go into the armoury then double click any weapon and go to gallery, once enabled spam on any of the locked weapons."));
+		ImGui::Separator();
+
+		ImGui::Checkbox(OBFUSCATE("Lottery"), &Variables::Lottery);
+		HelpMarker(OBFUSCATE("Makes lottery boxes free."));
 	}
 
 	void Settings() {

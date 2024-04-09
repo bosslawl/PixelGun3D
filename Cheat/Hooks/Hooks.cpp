@@ -103,6 +103,9 @@ void Hooks::LoadMinHookHooks()
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetSpeed), &GameFunctions::PetSpeed, (LPVOID*)&GameFunctions::OPetSpeed) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PetSpeed));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Lottery), &GameFunctions::Lottery, (LPVOID*)&GameFunctions::OLottery) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Lottery));
 }
 
 void Hooks::UnloadMinHookHooks()

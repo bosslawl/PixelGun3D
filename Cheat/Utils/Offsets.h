@@ -44,4 +44,5 @@ namespace Offsets {
 	inline uintptr_t PetHealth = String2Offset(OBFUSCATE("0xDD5F90"));
 	inline uintptr_t PetDamage = String2Offset(OBFUSCATE("0x213A620"));
 	inline uintptr_t PetSpeed = String2Offset(OBFUSCATE("0x213AAB0"));
+	inline uintptr_t Lottery = String2Offset(OBFUSCATE("0x783EA0"));
 }

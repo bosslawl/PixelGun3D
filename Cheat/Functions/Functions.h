@@ -338,4 +338,13 @@ namespace GameFunctions {
 
 		return OGadgetCooldown(obj); // class835 Single_2
 	}
+
+	inline int(__stdcall* OLottery)(void* obj);
+	inline int __stdcall Lottery(void* obj)
+	{
+		if (Variables::Lottery)
+			return 0; // class1877 Int32_0
+
+		return OLottery(obj);
+	}
 }

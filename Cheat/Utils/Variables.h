@@ -113,4 +113,5 @@ namespace Variables {
 	inline bool ReloadModifier = false;
 		inline float ReloadValue = 99999.0f;
 	inline bool GadgetCooldown = false;
+	inline bool Lottery = false;
 }
