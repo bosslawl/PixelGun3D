@@ -37,7 +37,10 @@ namespace Variables {
 	// Player_move_c
 
 	inline bool XRay = false;
+	inline bool MatchInvisibility = false;
+		inline float MInvisibilityDuration = 1000000.0f;
 	inline bool Invisibility = false;
+		inline float SInvisibilityDuration = 1000000.0f;
 	inline bool JetpackFly = false;
 	inline bool PlayerSpeed = false;
 		inline float SpeedValue = 1000000.0f;
@@ -77,26 +80,31 @@ namespace Variables {
 	inline bool ForcePolymorpher = false;
 		inline float PolymorpherDuration = 1000000.0f;
 		inline float PolymorpherHealth = 1000000.0f;
-		inline float PolymorpherType = 0;
-	inline bool ForceEffects = false;
-		inline bool PoisonEffect = false;
-			inline float PoisonCount = 1000000.0f;
-			inline float PoisonMultiplier = 5.0f;
-			inline float PoisonDuration = 1000000.0f;
-		inline bool StunEffect = false;
-			inline float StunMultiplier = 5.0f;
-			inline float StunDuration = 1000000.0f;
-			inline float StunRadius = 1000000.0f;
-		inline bool CurseEffect = false;
-			inline float CurseDuration = 1000000.0f;
-			inline float CurseMultiplier = 5.0f;
-		inline bool CharmEffect = false;
-			inline float CharmDuration = 1000000.0f;
-		inline bool BlindEffect = false;
-			inline float BlindDuration = 1000000.0f;
-		inline bool WeaknessEffect = false;
-			inline float WeaknessDuration = 1000000.0f;
-		inline bool LightningEffect = false;
+		inline int PolymorpherType = 0;
+	inline bool PoisonEffect = false;
+		inline float PoisonCount = 1000000.0f;
+		inline float PoisonMultiplier = 5.0f;
+		inline float PoisonDuration = 1000000.0f;
+	inline bool StunEffect = false;
+		inline float StunMultiplier = 5.0f;
+		inline float StunDuration = 1000000.0f;
+		inline float StunRadius = 1000000.0f;
+	inline bool CurseEffect = false;
+		inline float CurseDuration = 1000000.0f;
+		inline float CurseMultiplier = 5.0f;
+	inline bool CharmEffect = false;
+		inline float CharmDuration = 1000000.0f;
+	inline bool BlindEffect = false;
+		inline float BlindDuration = 1000000.0f;
+	inline bool WeaknessEffect = false;
+		inline float WeaknessDuration = 1000000.0f;
+	inline bool LightningEffect = false;
+	inline bool HeadMagnifier = false;
+		inline float MagnifierDuration = 1000000.0f;
+	inline bool ReflectionRays = false;
+		inline float ReflectionCount = 50.0f;
+	inline bool JumpDisabler = false;
+		inline float JDisabledDuration = 1000000.0f;
 
 	// PetEngine
 
@@ -113,6 +121,7 @@ namespace Variables {
 	inline bool ReloadModifier = false;
 		inline float ReloadValue = 99999.0f;
 	inline bool GadgetCooldown = false;
+	 	inline float CooldownValue = 0.0f;
 	inline bool Lottery = false;
 	inline bool FireRate = false;
 		inline float RapidValue = 1000000.0f;

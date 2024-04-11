@@ -45,6 +45,30 @@ namespace Utils {
 		return (GetAsyncKeyState(vKey) & 1) != 0;
 	}
 
+	inline bool FSlider(const char* label, float* v, float v_min, float v_max, const char* format = "%.1f", ImGuiSliderFlags flags = ImGuiSliderFlags_None) {
+		ImGuiContext& g = *GImGui;
+		ImGuiWindow* window = g.CurrentWindow;
+		if (window->SkipItems)
+			return false;
+
+		ImGuiID id = window->GetID(label);
+		ImGui::BeginGroup();
+		ImGui::PushID(id);
+
+		ImGuiSliderFlags new_flags = flags;
+		if (ImGui::GetIO().KeyShift)
+			new_flags |= ImGuiSliderFlags_Logarithmic;
+
+		*v = ImClamp(*v, v_min, v_max);
+
+		bool value_changed = ImGui::SliderFloat("##v", v, v_min, v_max, format, new_flags);
+		ImGui::PopID();
+		ImGui::SameLine(0, g.Style.ItemInnerSpacing.x);
+		ImGui::EndGroup();
+
+		return value_changed;
+	}
+
 	inline std::string GetKeyNameFromVirtualKey(int virtualKey) {
 		switch (virtualKey) {
 		case VK_F1: return "F1";

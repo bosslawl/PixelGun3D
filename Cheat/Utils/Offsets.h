@@ -66,7 +66,7 @@ namespace Offsets {
 	inline uintptr_t PetEngineUpdate = String2Offset(OBFUSCATE("0xDDB840")); // Rilisoft.PetEngine Update
 	inline uintptr_t XRay = String2Offset(OBFUSCATE("0x1AF82B0")); // Player_move_c method_205
 	inline uintptr_t NextHitCritical = String2Offset(OBFUSCATE("0x7E84E0"));// WeaponSounds SetNextHitCritical
-	inline uintptr_t Invisibility = String2Offset(OBFUSCATE("0x1ABF8D0")); // Player_move_c MakeInvisibleForSeconds
+	inline uintptr_t MatchInvisibility = String2Offset(OBFUSCATE("0x1ABF8D0")); // Player_move_c MakeInvisibleForSeconds
 	inline uintptr_t SpeedModifier = String2Offset(OBFUSCATE("0x774D40")); // ItemRecord get_SpeedModifier
 	inline uintptr_t JetpackFly = String2Offset(OBFUSCATE("0x1B17E60")); // Player_move_c method_159
 	inline uintptr_t GodmodeOne = String2Offset(OBFUSCATE("0x1AF9130")); // Player_move_c method_451

@@ -20,9 +20,9 @@ namespace Internal {
 		return fn(obj, a1, a2, a3);
 	}
 
-	inline float Invisibility(void* obj, float a1) {
+	inline float MatchInvisibility(void* obj, float a1) {
 		if (!obj) return 0;
-		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::Invisibility));
+		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::MatchInvisibility));
 		return fn(obj, a1);
 	}
 
@@ -331,8 +331,8 @@ namespace GameFunctions {
 		if (Variables::XRay)
 			Internal::ShowXray(obj, true, 0, 0); 
 
-		if (Variables::Invisibility)
-			Internal::Invisibility(obj, 999999.0f); 
+		if (Variables::MatchInvisibility)
+			Internal::MatchInvisibility(obj, Variables::MInvisibilityDuration);
 
 		if (Variables::JetpackFly)
 			Internal::JetpackFly(obj, true); 
@@ -471,48 +471,74 @@ namespace GameFunctions {
 			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x2EC"))) = true; // polymorpher 
 			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x2F0"))) = Variables::PolymorpherDuration; // polymorphDuarationTime 
 			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x2F8"))) = Variables::PolymorpherHealth; // polymorphMaxHealth 
-			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x2F4"))) = Variables::PolymorpherType; // polymorphType
+			*(int*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x2F4"))) = Variables::PolymorpherType; // polymorphType
 		}
 
-		if (Variables::ForceEffects)
+		if (Variables::PoisonEffect)
 		{
-			if (Variables::PoisonEffect)
-			{
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1F8"))) = true; // isPoisoning
-				*(int*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1FC"))) = Variables::PoisonCount; // poisonCount
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x200"))) = Variables::PoisonMultiplier; // poisonDamageMultiplier
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x204"))) = Variables::PoisonDuration; // poisonTime
-			}
-			if (Variables::StunEffect)
-			{
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x238"))) = true; // isStun
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x23C"))) = Variables::StunMultiplier; // stunCeoff
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x240"))) = Variables::StunDuration; // stunTime
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x244"))) = Variables::StunRadius; // stunRadius
-			}
-			if (Variables::CurseEffect)
-			{
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x214"))) = true; // isCursing
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x218"))) = Variables::CurseDuration; // curseTime
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x21C"))) = Variables::CurseMultiplier; // curseDamageMultiplier
-			}
-			if (Variables::CharmEffect)
-			{
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x274"))) = true; // isCharm
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x278"))) = Variables::CharmDuration; // charmTime
-			}
-			if (Variables::WeaknessEffect)
-			{
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x27C"))) = true; // isWeaknessEffect
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x280"))) = Variables::WeaknessDuration; // weaknessEffectTime
-			}
-			if (Variables::BlindEffect)
-			{
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x268"))) = true; // isBlindEffect
-				*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x270"))) = Variables::BlindDuration; // isBlindEffectTime
-			}
-			if (Variables::LightningEffect)
-				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x155"))) = true; // isLightning
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1F8"))) = true; // isPoisoning
+			*(int*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1FC"))) = Variables::PoisonCount; // poisonCount
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x200"))) = Variables::PoisonMultiplier; // poisonDamageMultiplier
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x204"))) = Variables::PoisonDuration; // poisonTime
+		}
+
+		if (Variables::StunEffect)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x238"))) = true; // isStun
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x23C"))) = Variables::StunMultiplier; // stunCeoff
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x240"))) = Variables::StunDuration; // stunTime
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x244"))) = Variables::StunRadius; // stunRadius
+		}
+
+		if (Variables::CurseEffect)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x214"))) = true; // isCursing
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x218"))) = Variables::CurseDuration; // curseTime
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x21C"))) = Variables::CurseMultiplier; // curseDamageMultiplier
+		}
+
+		if (Variables::CharmEffect)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x274"))) = true; // isCharm
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x278"))) = Variables::CharmDuration; // charmTime
+		}
+
+		if (Variables::WeaknessEffect)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x27C"))) = true; // isWeaknessEffect
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x280"))) = Variables::WeaknessDuration; // weaknessEffectTime
+		}
+
+		if (Variables::BlindEffect)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x268"))) = true; // isBlindEffect
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x270"))) = Variables::BlindDuration; // isBlindEffectTime
+		}
+
+		if (Variables::LightningEffect)
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x155"))) = true; // isLightning
+
+		if (Variables::HeadMagnifier) {
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x260"))) = true; // isHeadMagnifier
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x264"))) = Variables::MagnifierDuration; // headMagnifierTime
+		}
+
+		if (Variables::ReflectionRays)
+			*(int*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1B8"))) = Variables::ReflectionCount; // countReflectionRay
+
+		if (Variables::JumpDisabler)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x20E"))) = true; // jumpDisabler
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x210"))) = Variables::JDisabledDuration; // jumpDisableTime
+		}
+
+		if (Variables::Invisibility)
+		{
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x389"))) = true; // isInvisibleAfterRespawn
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x38C"))) = Variables::SInvisibilityDuration; // invisibleAfterRespawnTime
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x380"))) = true; // isInvisibleReload
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x381"))) = true; // isInvisibleAfterKill
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x384"))) = Variables::SInvisibilityDuration; // invisibleAfterKillTime
 		}
 
 		return OWeaponSounds(obj);
@@ -580,7 +606,7 @@ namespace GameFunctions {
 	inline float __stdcall GadgetCooldown(void* obj)
 	{
 		if (Variables::GadgetCooldown)
-			return 0.0f; 
+			return Variables::CooldownValue;
 
 		return OGadgetCooldown(obj);
 	}

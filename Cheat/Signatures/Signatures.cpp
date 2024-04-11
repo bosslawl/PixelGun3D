@@ -64,7 +64,7 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::PlayerMoveCUpdate, OBFUSCATE("PlayerMoveCUpdate"));
         Utils::AddressLog(Offsets::XRay, OBFUSCATE("XRay"));
         Utils::AddressLog(Offsets::NextHitCritical, OBFUSCATE("NextHitCritical"));
-        Utils::AddressLog(Offsets::Invisibility, OBFUSCATE("Invisibility"));
+        Utils::AddressLog(Offsets::MatchInvisibility, OBFUSCATE("MatchInvisibility"));
         Utils::AddressLog(Offsets::SpeedModifier, OBFUSCATE("SpeedModifier"));
         Utils::AddressLog(Offsets::JetpackFly, OBFUSCATE("JetpackFly"));
         Utils::AddressLog(Offsets::GodmodeOne, OBFUSCATE("GodmodeOne"));
