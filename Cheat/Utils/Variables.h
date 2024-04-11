@@ -8,7 +8,6 @@ namespace Variables {
 	inline Vector2 ScreenSize = { 0, 0 };
 	inline Vector2 ScreenCenter = { 0, 0 };
 
-	// Misc
 	inline bool EnableCircleFov = false;
 	inline float CircleFov = 120.f;
 	inline ImColor CircleColour = ImColor(255.0f / 255, 255.0f / 255, 255.0f / 255);
@@ -30,13 +29,22 @@ namespace Variables {
 	inline bool ImGuiDemo = false;
 
 	// UnityEngine
+
 	inline bool GameSpeed = false;	
 		inline float GSpeedMultiplier = 2.0f;
 		inline int GameSpeedKey = VK_F1;
-	inline float InfiniteJump = false;
-		inline int JumpKey = VK_SPACE;
+
+	// Player_move_c
+
+	inline bool XRay = false;
+	inline bool Invisibility = false;
+	inline bool JetpackFly = false;
+	inline bool PlayerSpeed = false;
+		inline float SpeedValue = 1000000.0f;
+	inline bool Godmode = false;
 
 	// WeaponSounds
+
 	inline bool RecoilModifier = false;
 		inline float RecoilValue = 0.0f;
 	inline bool RangeModifier = false;
@@ -71,33 +79,27 @@ namespace Variables {
 		inline float PolymorpherHealth = 1000000.0f;
 		inline float PolymorpherType = 0;
 	inline bool ForceEffects = false;
-
-	// WeaponSounds->ForceEffects
-	inline bool PoisonEffect = false;
-		inline float PoisonCount = 1000000.0f;
-		inline float PoisonMultiplier = 5.0f;
-		inline float PoisonDuration = 1000000.0f;
-	inline bool StunEffect = false;
-		inline float StunMultiplier = 5.0f;
-		inline float StunDuration = 1000000.0f;
-		inline float StunRadius = 1000000.0f;
-	inline bool CurseEffect = false;
-		inline float CurseDuration = 1000000.0f;
-		inline float CurseMultiplier = 5.0f;
-	inline bool CharmEffect = false;
-		inline float CharmDuration = 1000000.0f;
-	inline bool BlindEffect = false;
-		inline float BlindDuration = 1000000.0f;
-	inline bool WeaknessEffect = false;
-		inline float WeaknessDuration = 1000000.0f;
-	inline bool LightningEffect = false;
-
-	// PlayerMoveC
-	inline bool XRay = false;
-	inline bool Invisibility = false;
-	inline bool JetpackFly = false;
+		inline bool PoisonEffect = false;
+			inline float PoisonCount = 1000000.0f;
+			inline float PoisonMultiplier = 5.0f;
+			inline float PoisonDuration = 1000000.0f;
+		inline bool StunEffect = false;
+			inline float StunMultiplier = 5.0f;
+			inline float StunDuration = 1000000.0f;
+			inline float StunRadius = 1000000.0f;
+		inline bool CurseEffect = false;
+			inline float CurseDuration = 1000000.0f;
+			inline float CurseMultiplier = 5.0f;
+		inline bool CharmEffect = false;
+			inline float CharmDuration = 1000000.0f;
+		inline bool BlindEffect = false;
+			inline float BlindDuration = 1000000.0f;
+		inline bool WeaknessEffect = false;
+			inline float WeaknessDuration = 1000000.0f;
+		inline bool LightningEffect = false;
 
 	// PetEngine
+
 	inline bool PetHealth = false;
 		inline float PetHealthValue = 1000000.0f;
 	inline bool PetDamage = false;
@@ -106,9 +108,7 @@ namespace Variables {
 		inline float PetSpeedValue = 1000000.0f;
 
 	// Misc
-	inline bool PlayerSpeed = false;
-		inline float SpeedValue = 1.0f;
-	inline bool Godmode = false;
+
 	inline bool InfiniteGems = false;
 	inline bool ReloadModifier = false;
 		inline float ReloadValue = 99999.0f;
