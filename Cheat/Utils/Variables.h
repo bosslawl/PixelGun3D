@@ -114,4 +114,9 @@ namespace Variables {
 		inline float ReloadValue = 99999.0f;
 	inline bool GadgetCooldown = false;
 	inline bool Lottery = false;
+	inline bool FireRate = false;
+		inline float RapidValue = 1000000.0f;
+	inline bool MaxLevel = false;
+		inline bool MaxLevelOne = false;
+		inline bool MaxLevelTwo = false;
 }

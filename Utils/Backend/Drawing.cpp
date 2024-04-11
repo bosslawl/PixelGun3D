@@ -80,6 +80,15 @@ namespace Tabs {
 	}
 
 	void Weapons() {
+		ImGui::Checkbox(OBFUSCATE("Rapid Fire"), &Variables::FireRate);
+		HelpMarker(OBFUSCATE("Makes your guns shoot much faster."));
+		if (Variables::FireRate)
+		{
+			ImGui::SliderFloat(OBFUSCATE("##FireRateValue"), &Variables::RapidValue, 0.0f, 1000000.0f, OBFUSCATE("Fire Rate: %.1f"));
+			HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for fastest fire rate."));
+		}
+		ImGui::Separator();
+
 		ImGui::Checkbox(OBFUSCATE("Infinite Ammo"), &Variables::InfiniteAmmo);
 		HelpMarker(OBFUSCATE("Gives you unlimited ammo, still have to reload."));
 		ImGui::Separator();
@@ -149,8 +158,8 @@ namespace Tabs {
 		}
 		ImGui::Separator();
 
-		ImGui::Checkbox(OBFUSCATE("Silent Aim"), &Variables::AOEBullets);
-		HelpMarker(OBFUSCATE("Allows you to kill people from anywhere on the map without aiming at them (AOE Bullets)."));
+		ImGui::Checkbox(OBFUSCATE("AOE Bullets"), &Variables::AOEBullets);
+		HelpMarker(OBFUSCATE("Allows you to kill people from anywhere on the map without aiming at them."));
 		if (Variables::AOEBullets)
 		{
 			ImGui::SliderFloat(OBFUSCATE("##FrontAngle"), &Variables::FrontAngle, 0.0f, 360.0f, OBFUSCATE("Front Angle: %.1f"));
@@ -236,7 +245,7 @@ namespace Tabs {
 	void Pet() {
 		ImGui::Checkbox(OBFUSCATE("Pet Health"), &Variables::PetHealth);
 		HelpMarker(OBFUSCATE("Changes your pets health."));
-		if (Variables::PetDamage)
+		if (Variables::PetHealth)
 		{
 			ImGui::SliderFloat(OBFUSCATE("##PetHealth"), &Variables::PetHealthValue, 0.0f, 1000000.0f, OBFUSCATE("Pet Health: %.1f"));
 			HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highst possible health."));
@@ -325,6 +334,17 @@ namespace Tabs {
 
 		ImGui::Checkbox(OBFUSCATE("Lottery"), &Variables::Lottery);
 		HelpMarker(OBFUSCATE("Makes lottery boxes free."));
+		ImGui::Separator();
+
+		ImGui::Checkbox(OBFUSCATE("Max Level"), &Variables::MaxLevel);
+		HelpMarker(OBFUSCATE("Gives you max level. Click 1 and Click 2 when told to."));
+		if (Variables::MaxLevel)
+		{
+			ImGui::Checkbox(OBFUSCATE("Max Level 1"), &Variables::MaxLevelOne);
+			HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning."));
+			ImGui::Checkbox(OBFUSCATE("Max Level 2"), &Variables::MaxLevelTwo);
+			HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning, repeat until you get all the rewards."));
+		}
 	}
 
 	void Settings() {

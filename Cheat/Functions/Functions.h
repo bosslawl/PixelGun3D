@@ -36,9 +36,9 @@ namespace Internal {
 		return fn(obj, a1);
 	}
 
-	inline void PetEngineHealth(void* obj, float a1) {
-		if (!obj) return;
-		static const auto fn = (void(*)(void*, float)) (getAbsolute(Offsets::PetHealth));
+	inline float PetEngineHealth(void* obj, float a1) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::PetHealth));
 		return fn(obj, a1);
 	}
 
@@ -238,13 +238,13 @@ namespace GameFunctions {
 
 		if (Variables::JetpackFly)
 			Internal::JetpackFly(obj, true); // Jetpack?
-		else 
+		else
 			Internal::JetpackFly(obj, false);
 
 		//void* playerDamageable = *(void**)((uintptr_t)obj + Utils::String2Offset(OBFUSCATE("0x650")));
 
 		return OPlayerMoveC(obj);
-	}		
+	}
 
 	inline void(__stdcall* OPetEngine)(void* obj);
 	inline void __stdcall PetEngine(void* obj)
@@ -334,9 +334,9 @@ namespace GameFunctions {
 	inline float __stdcall GadgetCooldown(void* obj)
 	{
 		if (Variables::GadgetCooldown)
-			return 0.0f; // class1837 smethod_13 
+			return 0.0f; // class835 Single_2
 
-		return OGadgetCooldown(obj); // class835 Single_2
+		return OGadgetCooldown(obj);
 	}
 
 	inline int(__stdcall* OLottery)(void* obj);
@@ -346,5 +346,35 @@ namespace GameFunctions {
 			return 0; // class1877 Int32_0
 
 		return OLottery(obj);
+	}
+
+	inline float(__stdcall* OFireRate)(int a1);
+	inline float __stdcall FireRate(int a1)
+	{
+		if (Variables::FireRate)
+			return Variables::RapidValue; // BalanceController smethod_82
+
+		return OFireRate(a1);
+	}
+
+	inline int(__stdcall* OExperience)(...);
+	inline int __stdcall Experience(void* obj) {
+		if (Variables::MaxLevelOne) {
+			return 32465; // ExperienceController Int32_0
+		}
+		if (Variables::MaxLevelTwo) {
+			return 2147451182; // ExperienceController Int32_1
+		}
+
+		return OExperience();
+	}
+
+	inline int(__stdcall* OLevel)(...);
+	inline int __stdcall Level() {
+		if (Variables::MaxLevelOne || Variables::MaxLevelTwo) {
+			return 65; 
+		}
+
+		return OLevel();
 	}
 }

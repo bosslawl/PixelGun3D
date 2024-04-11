@@ -106,6 +106,15 @@ void Hooks::LoadMinHookHooks()
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Lottery), &GameFunctions::Lottery, (LPVOID*)&GameFunctions::OLottery) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Lottery));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::FireRate), &GameFunctions::FireRate, (LPVOID*)&GameFunctions::OFireRate) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::FireRate));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelOne), &GameFunctions::Level, (LPVOID*)&GameFunctions::OLevel) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MaxLevelOne));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo), &GameFunctions::Experience, (LPVOID*)&GameFunctions::OExperience) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo));
 }
 
 void Hooks::UnloadMinHookHooks()

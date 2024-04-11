@@ -45,4 +45,7 @@ namespace Offsets {
 	inline uintptr_t PetDamage = String2Offset(OBFUSCATE("0x213A620"));
 	inline uintptr_t PetSpeed = String2Offset(OBFUSCATE("0x213AAB0"));
 	inline uintptr_t Lottery = String2Offset(OBFUSCATE("0x783EA0"));
+	inline uintptr_t FireRate = String2Offset(OBFUSCATE("0x113B040"));
+	inline uintptr_t MaxLevelOne = String2Offset(OBFUSCATE("0x7531F0"));
+	inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x753FA0"));
 }
