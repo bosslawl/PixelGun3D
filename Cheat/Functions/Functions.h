@@ -541,6 +541,15 @@ namespace GameFunctions {
 			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x384"))) = Variables::SInvisibilityDuration; // invisibleAfterKillTime
 		}
 
+		if (Variables::FireImmunity)
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x248"))) = true; // fireImmunity
+
+		if (Variables::ToxicImmunity)
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x24A"))) = true; // toxicImmunity
+
+		if (Variables::BleedImmunity)
+			*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x249"))) = true; // bleedingImmunity
+
 		return OWeaponSounds(obj);
 	}
 

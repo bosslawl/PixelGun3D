@@ -105,6 +105,9 @@ namespace Variables {
 		inline float ReflectionCount = 50.0f;
 	inline bool JumpDisabler = false;
 		inline float JDisabledDuration = 1000000.0f;
+	inline bool FireImmunity = false;
+	inline bool ToxicImmunity = false;
+	inline bool BleedImmunity = false;
 
 	// PetEngine
 

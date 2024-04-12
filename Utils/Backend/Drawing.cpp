@@ -81,6 +81,16 @@ namespace Tabs {
 			HelpMarker(OBFUSCATE("Hold space to fly. Only press it once, it will toggle itself off, to deactivate press it once again."));
 		}
 
+		if (ImGui::CollapsingHeader(OBFUSCATE("Immunities")))
+		{
+			ImGui::Checkbox(OBFUSCATE("Fire Immunity"), &Variables::FireImmunity);
+			HelpMarker(OBFUSCATE("Makes you immune to the fire effect."));
+			ImGui::Checkbox(OBFUSCATE("Toxic Immunity"), &Variables::ToxicImmunity);
+			HelpMarker(OBFUSCATE("Makes you immune to the toxic effect."));
+			ImGui::Checkbox(OBFUSCATE("Bleed Immunity"), &Variables::BleedImmunity);
+			HelpMarker(OBFUSCATE("Makes you immune to the bleed effect."));
+		}
+
 		if (ImGui::CollapsingHeader(OBFUSCATE("Miscellaneous")))
 		{
 			ImGui::Checkbox(OBFUSCATE("Kill Aura"), &Variables::FrostAura);
