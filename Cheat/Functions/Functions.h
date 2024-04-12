@@ -371,23 +371,23 @@ namespace GameFunctions {
 		{
 			*(float*)((uint64_t)obj + FieldOffsets::RecoilCeoff) = Variables::RecoilValue;
 			*(float*)((uint64_t)obj + FieldOffsets::RecoilCeoffZoom) = Variables::RecoilValue;
-			*(float*)((uint64_t)obj + FieldOffsets::ScatterCeoff) = Variables::RecoilValue; 
+			*(float*)((uint64_t)obj + FieldOffsets::ScatterCeoff) = Variables::RecoilValue;
 			*(float*)((uint64_t)obj + FieldOffsets::ScatterCeoffZoom) = Variables::RecoilValue;
 		}
 
 		if (Variables::RangeModifier)
 		{
-			*(float*)((uint64_t)obj + FieldOffsets::Range) = Variables::RangeValue;  
-			*(float*)((uint64_t)obj + FieldOffsets::DamageRange) = Variables::DamageRange; 
-			*(float*)((uint64_t)obj + FieldOffsets::ShootDistance) = Variables::ShootDistance; 
+			*(float*)((uint64_t)obj + FieldOffsets::Range) = Variables::RangeValue;
+			*(float*)((uint64_t)obj + FieldOffsets::DamageRange) = Variables::DamageRange;
+			*(float*)((uint64_t)obj + FieldOffsets::ShootDistance) = Variables::ShootDistance;
 		}
 
 		if (Variables::FullAuto)
 		{
-			*(float*)((uint64_t)obj + FieldOffsets::ShootDelay) = Variables::ShootDelay; 
-			*(float*)((uint64_t)obj + FieldOffsets::BulletDelay) = Variables::BulletDelay; 
-			*(float*)((uint64_t)obj + FieldOffsets::BurstDelay) = Variables::DelayInBurstShooting;  
-			*(float*)((uint64_t)obj + FieldOffsets::ChargeTime) = Variables::ChargeTime;  
+			*(float*)((uint64_t)obj + FieldOffsets::ShootDelay) = Variables::ShootDelay;
+			*(float*)((uint64_t)obj + FieldOffsets::BulletDelay) = Variables::BulletDelay;
+			*(float*)((uint64_t)obj + FieldOffsets::BurstDelay) = Variables::DelayInBurstShooting;
+			*(float*)((uint64_t)obj + FieldOffsets::ChargeTime) = Variables::ChargeTime;
 		}
 
 		if (Variables::ZoomXRay)
@@ -407,19 +407,19 @@ namespace GameFunctions {
 		}
 
 		if (Variables::InfiniteAmmo)
-			*(bool*)((uint64_t)obj + FieldOffsets::UnlimitedAmmo) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::UnlimitedAmmo) = true;
 
 		if (Variables::ChargeModifier)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::ChargeLoop) = true; 
-			*(int*)((uint64_t)obj + FieldOffsets::ChargeMax) = Variables::ChargeMax; 
-			*(float*)((uint64_t)obj + FieldOffsets::ChargeTime) = Variables::ChargeDuration; 
-			*(bool*)((uint64_t)obj + FieldOffsets::Charging) = false; 
+			*(bool*)((uint64_t)obj + FieldOffsets::ChargeLoop) = true;
+			*(int*)((uint64_t)obj + FieldOffsets::ChargeMax) = Variables::ChargeMax;
+			*(float*)((uint64_t)obj + FieldOffsets::ChargeTime) = Variables::ChargeDuration;
+			*(bool*)((uint64_t)obj + FieldOffsets::Charging) = false;
 		}
 
 		if (Variables::ScoreModifier)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::BuffPoints) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::BuffPoints) = true;
 			*(bool*)((uint64_t)obj + FieldOffsets::BuffPointsKill) = true;
 			*(bool*)((uint64_t)obj + FieldOffsets::BuffPointsAssist) = true;
 			*(bool*)((uint64_t)obj + FieldOffsets::BuffPointsRevenge) = true;
@@ -445,7 +445,7 @@ namespace GameFunctions {
 
 		if (Variables::NoSpread)
 		{
-			*(float*)((uint64_t)obj + FieldOffsets::KoofZoom) = 0; 
+			*(float*)((uint64_t)obj + FieldOffsets::KoofZoom) = 0;
 			*(float*)((uint64_t)obj + FieldOffsets::UpKoof) = 0;
 			*(float*)((uint64_t)obj + FieldOffsets::DownKoofFirst) = 0;
 			*(float*)((uint64_t)obj + FieldOffsets::DownKoofZoom) = 0;
@@ -462,7 +462,7 @@ namespace GameFunctions {
 
 		if (Variables::FrostAura)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::FrostSword) = true;  
+			*(bool*)((uint64_t)obj + FieldOffsets::FrostSword) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::FrostRadius) = Variables::AuraRadius;
 			*(bool*)((uint64_t)obj + FieldOffsets::UseFrostAngle) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::FrostAngle) = Variables::AuraAngle;
@@ -488,7 +488,7 @@ namespace GameFunctions {
 
 		if (Variables::StunEffect)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::Stun) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::Stun) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::StunCeoff) = Variables::StunMultiplier;
 			*(float*)((uint64_t)obj + FieldOffsets::StunTime) = Variables::StunDuration;
 			*(float*)((uint64_t)obj + FieldOffsets::StunRadius) = Variables::StunRadius;
@@ -498,70 +498,78 @@ namespace GameFunctions {
 		{
 			*(bool*)((uint64_t)obj + FieldOffsets::Cursing) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::CursingTime) = Variables::CurseDuration;
-			*(float*)((uint64_t)obj + FieldOffsets::CursingMultiplier) = Variables::CurseMultiplier; 
+			*(float*)((uint64_t)obj + FieldOffsets::CursingMultiplier) = Variables::CurseMultiplier;
 		}
 
 		if (Variables::CharmEffect)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::Charm) = true; 
-			*(float*)((uint64_t)obj + FieldOffsets::CharmTime) = Variables::CharmDuration; 
+			*(bool*)((uint64_t)obj + FieldOffsets::Charm) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::CharmTime) = Variables::CharmDuration;
 		}
 
 		if (Variables::WeaknessEffect)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::Weakness) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::Weakness) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::WeaknessTime) = Variables::WeaknessDuration;
 		}
 
 		if (Variables::BlindEffect)
 		{
 			*(bool*)((uint64_t)obj + FieldOffsets::Blind) = true;
-			*(float*)((uint64_t)obj + FieldOffsets::BlindTime) = Variables::BlindDuration; 
+			*(float*)((uint64_t)obj + FieldOffsets::BlindTime) = Variables::BlindDuration;
 		}
 
 		if (Variables::LightningEffect)
-			*(bool*)((uint64_t)obj + FieldOffsets::Lightning) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::Lightning) = true;
 
 		if (Variables::HeadMagnifier) {
-			*(bool*)((uint64_t)obj + FieldOffsets::HeadMagnifier) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::HeadMagnifier) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::MagnifierTime) = Variables::MagnifierDuration;
 		}
 
 		if (Variables::ReflectionRays)
-			*(int*)((uint64_t)obj + String2Offset(OBFUSCATE("0x1B8"))) = Variables::ReflectionCount; // countReflectionRay
+			*(int*)((uint64_t)obj + FieldOffsets::ReflectionRays) = Variables::ReflectionCount;
 
 		if (Variables::JumpDisabler)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::JumpDisabler) = true; 
-			*(float*)((uint64_t)obj + FieldOffsets::DisableTime) = Variables::JDisabledDuration; 
+			*(bool*)((uint64_t)obj + FieldOffsets::JumpDisabler) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::DisableTime) = Variables::JDisabledDuration;
 		}
 
 		if (Variables::Invisibility)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::RespawnInvisibility) = true; 
-			*(float*)((uint64_t)obj + FieldOffsets::RespawnInvisibilityTime) = Variables::SInvisibilityDuration; 
-			*(bool*)((uint64_t)obj + FieldOffsets::ReloadInvisibility) = true; 
-			*(bool*)((uint64_t)obj + FieldOffsets::KillInvisibility) = true; 
-			*(float*)((uint64_t)obj + FieldOffsets::KillInvisibilityTime) = Variables::SInvisibilityDuration; 
+			*(bool*)((uint64_t)obj + FieldOffsets::RespawnInvisibility) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::RespawnInvisibilityTime) = Variables::SInvisibilityDuration;
+			*(bool*)((uint64_t)obj + FieldOffsets::ReloadInvisibility) = true;
+			*(bool*)((uint64_t)obj + FieldOffsets::KillInvisibility) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::KillInvisibilityTime) = Variables::SInvisibilityDuration;
 		}
 
 		if (Variables::FireImmunity)
-			*(bool*)((uint64_t)obj + FieldOffsets::FireImmunity) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::FireImmunity) = true;
 
 		if (Variables::ToxicImmunity)
-			*(bool*)((uint64_t)obj + FieldOffsets::ToxicImmunity) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::ToxicImmunity) = true;
 
 		if (Variables::BleedImmunity)
-			*(bool*)((uint64_t)obj + FieldOffsets::BleedingImmunity) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::BleedingImmunity) = true;
 
 		if (Variables::SilentAim)
 		{
-			*(bool*)((uint64_t)obj + FieldOffsets::SnowStorm) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::SnowStorm) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::SnowStormMultplier) = Variables::SilentMultiplier;
-			*(float*)((uint64_t)obj + FieldOffsets::SnowStormRange) = Variables::SilentRange; 
-			*(float*)((uint64_t)obj + FieldOffsets::Range) = Variables::SilentRange; 
+			*(float*)((uint64_t)obj + FieldOffsets::SnowStormRange) = Variables::SilentRange;
+			*(float*)((uint64_t)obj + FieldOffsets::Range) = Variables::SilentRange;
 			*(float*)((uint64_t)obj + FieldOffsets::DamageRange) = Variables::SilentRange;
-			*(float*)((uint64_t)obj + FieldOffsets::ShootDistance) = Variables::SilentRange; 
+			*(float*)((uint64_t)obj + FieldOffsets::ShootDistance) = Variables::SilentRange;
+		}
+
+		if (Variables::EnemyMarker)
+		{
+			*(bool*)((uint64_t)obj + FieldOffsets::EnemyMarker) = true;
+			*(bool*)((uint64_t)obj + FieldOffsets::MarkerAiming) = true;
+			*(bool*)((uint64_t)obj + FieldOffsets::MarkerRadius) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::MarkerChargeTime) = Variables::MarkerCharge;
 		}
 
 		return OWeaponSounds(obj);

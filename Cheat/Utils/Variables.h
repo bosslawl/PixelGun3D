@@ -118,6 +118,8 @@ namespace Variables {
 	inline bool SilentAim = false;
 		inline float SilentMultiplier = 5.0f;
 		inline float SilentRange = 1000000.0f;
+	inline bool EnemyMarker = false;
+		inline float MarkerCharge = 1000000.0f;
 
 	// PetEngine
 

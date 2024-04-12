@@ -362,6 +362,14 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##ReflectionCount"), &Variables::ReflectionCount, 0.0f, 1000000.0f, OBFUSCATE("Reflection Count: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 50 the most amount of reflections, without freezing your game."));
 			}
+
+			ImGui::Checkbox(OBFUSCATE("Enemy Marker"), &Variables::EnemyMarker);
+			HelpMarker(OBFUSCATE("Marks enemies when they are shot."));
+			if (Variables::EnemyMarker)
+			{
+				Utils::FSlider(OBFUSCATE("##ChargeTime"), &Variables::MarkerCharge, 0.0f, 1000000.0f, OBFUSCATE("Charge Time: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for quickest charge."));
+			}
 		}
 	}
 

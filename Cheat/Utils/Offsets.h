@@ -98,6 +98,9 @@ namespace Offsets {
 	inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x7530A0")); // ExperienceController get_Int32_1
 }
 
+template<typename T> inline T& GetField(void* instance, uint64_t offset) {
+	return (T&)(*(T*)((uint64_t)instance + offset));
+}
 namespace FieldOffsets {
 	// WeaponSounds
 
@@ -219,4 +222,11 @@ namespace FieldOffsets {
 	inline uintptr_t SnowStorm = String2Offset(OBFUSCATE("0x2FC")); // snowStorm
 	inline uintptr_t SnowStormMultplier = String2Offset(OBFUSCATE("0x300")); // snowStormBonusMultiplier
 	inline uintptr_t SnowStormRange = String2Offset(OBFUSCATE("0x304")); // snowStormBonusRange
+
+	inline uintptr_t ReflectionRays = String2Offset(OBFUSCATE("0x1B8")); // countReflectionRay
+
+	inline uintptr_t EnemyMarker = String2Offset(OBFUSCATE("0x24B")); // enemyMarker
+	inline uintptr_t MarkerAiming = String2Offset(OBFUSCATE("0x24C")); // enemyMarkerWhenAiming
+	inline uintptr_t MarkerRadius = String2Offset(OBFUSCATE("0x24D")); // enemyMarkerWhenShot
+	inline uintptr_t MarkerChargeTime = String2Offset(OBFUSCATE("0x250")); // enemyMarketChargeTime
 }
