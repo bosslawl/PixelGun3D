@@ -16,8 +16,10 @@ namespace Tabs {
 		ImGui::Text(OBFUSCATE("Press INSERT to toggle the menu"));
 		ImGui::Text(OBFUSCATE("Press END to close the cheat"));
 		ImGui::Separator();
-		ImGui::Text(OBFUSCATE("To use the menu you need to be in windowed mode or you can be in borderless windowed and press Alt+Enter."));
+		ImGui::Text(OBFUSCATE("To use the menu your game must be windowed, you can fullscreen after."));
 		ImGui::Text(OBFUSCATE("Leave all values default if you don't know what they do."));
+		ImGui::Separator();
+		ImGui::Text(OBFUSCATE("You can press Control and Click on a slider to edit it by typing."));
 	}
 
 	void Visuals() {
@@ -35,7 +37,6 @@ namespace Tabs {
 
 				HelpMarker(OBFUSCATE("Makes the Circle rainbow, ignores the set Circle colour."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Crosshair"), &Variables::EnableCrosshair);
 			HelpMarker(OBFUSCATE("Displays a Crosshair in the middle of the screen."));
@@ -48,10 +49,8 @@ namespace Tabs {
 				ImGui::Checkbox(OBFUSCATE("Rainbow?"), &Variables::EnableRainbowCrosshair);
 				HelpMarker(OBFUSCATE("Makes the Crosshair rainbow, ignores the set Crosshair colour."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Watermark"), &Variables::EnableWatermark);
-
 			HelpMarker(OBFUSCATE("Draws a Watermark in the top left of the screen."));
 			if (Variables::EnableWatermark)
 			{
@@ -77,7 +76,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##SpeedMultiplier"), &Variables::SpeedValue, 0.0f, 1000000.0f, OBFUSCATE("Speed Hack: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it at 1000. The Speed Multiplier caps out at some point around 1000."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Jetpack Fly"), &Variables::JetpackFly);
 			HelpMarker(OBFUSCATE("Hold space to fly. Only press it once, it will toggle itself off, to deactivate press it once again."));
@@ -96,7 +94,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##AuraMultiplier"), &Variables::AuraMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Aura Multiplier: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Invisibility"), &Variables::Invisibility);
 			HelpMarker(OBFUSCATE("Makes you invisible after a kill or respawning."));
@@ -105,7 +102,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##InvisibilityDuration"), &Variables::SInvisibilityDuration, 0.0f, 1000000.0f, OBFUSCATE("Invisibility Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest time."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Gadget Cooldown Modifier"), &Variables::GadgetCooldown);
 			HelpMarker(OBFUSCATE("Makes your gadgets come back instantly."));
@@ -114,7 +110,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##GadgetCooldown"), &Variables::CooldownValue, 0.0f, 1000000.0f, OBFUSCATE("Gadget Cooldown: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for instant cooldown."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Godmode"), &Variables::Godmode);
 			HelpMarker(OBFUSCATE("Stops you taking any damage."));
@@ -152,7 +147,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##FireRateValue"), &Variables::RapidValue, 0.0f, 1000000.0f, OBFUSCATE("Fire Rate: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for fastest fire rate."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Reload Modifier"), &Variables::ReloadModifier);
 			HelpMarker(OBFUSCATE("Allows you to modify your reload."));
@@ -162,7 +156,6 @@ namespace Tabs {
 
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 99999 for no reload."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Recoil Modifier"), &Variables::RecoilModifier);
 			HelpMarker(OBFUSCATE("Modifys your weapon recoil."));
@@ -171,7 +164,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##RecoilValue"), &Variables::RecoilValue, 0.0f, 1000000.0f, OBFUSCATE("Recoil Value: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for no recoil."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Range Modifier"), &Variables::RangeModifier);
 			HelpMarker(OBFUSCATE("Modifys your weapon range."));
@@ -180,7 +172,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##RangeValue"), &Variables::RangeValue, 0.0f, 1000000.0f, OBFUSCATE("Range Value: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for infinite range."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Scope Speed Modifier"), &Variables::ScopeModifier);
 			HelpMarker(OBFUSCATE("Modifys your weapons ADS speed."));
@@ -190,7 +181,6 @@ namespace Tabs {
 
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for instant ADS."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Charge Modifier"), &Variables::ChargeModifier);
 			HelpMarker(OBFUSCATE("Modifys your weapons charge time."));
@@ -201,23 +191,18 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##ChargeDuration"), &Variables::ChargeDuration, 0.0f, 1000000.0f, OBFUSCATE("Charge Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for instant charge."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("No Spread"), &Variables::NoSpread);
 			HelpMarker(OBFUSCATE("Stops bullets spreading on guns like shotguns."));
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Full Auto"), &Variables::FullAuto);
 			HelpMarker(OBFUSCATE("Makes any gun fully automatic."));
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Infinite Ammo"), &Variables::InfiniteAmmo);
 			HelpMarker(OBFUSCATE("Gives you unlimited ammo, still have to reload."));
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Zoom XRay"), &Variables::ZoomXRay);
 			HelpMarker(OBFUSCATE("Gives you XRay vision when aiming down a scope."));
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Force Criticals"), &Variables::ForceCriticals);
 			HelpMarker(OBFUSCATE("Forces critical hits. Only visual?"));
@@ -238,7 +223,6 @@ namespace Tabs {
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Stun Effect"), &Variables::StunEffect);
-	
 			HelpMarker(OBFUSCATE("Gives your damage the stun effect."));
 			if (Variables::StunEffect)
 			{
@@ -259,6 +243,7 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##CurseMultiplier"), &Variables::CurseMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Curse Multiplier: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
 			}
+
 			ImGui::Checkbox(OBFUSCATE("Charm Effect"), &Variables::CharmEffect);
 			HelpMarker(OBFUSCATE("Gives your damage the charm effect."));
 			if (Variables::CharmEffect)
@@ -274,6 +259,7 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##BlindDuration"), &Variables::BlindDuration, 0.0f, 1000000.0f, OBFUSCATE("Blind Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest duration."));
 			}
+
 			ImGui::Checkbox(OBFUSCATE("Weakness Effect"), &Variables::WeaknessEffect);
 			HelpMarker(OBFUSCATE("Gives your damage the weakness effect."));
 			if (Variables::WeaknessEffect)
@@ -281,6 +267,7 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##WeaknessDuration"), &Variables::WeaknessDuration, 0.0f, 1000000.0f, OBFUSCATE("Weakness Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest duration."));
 			}
+
 			ImGui::Checkbox(OBFUSCATE("Lightning Effect"), &Variables::LightningEffect);
 			HelpMarker(OBFUSCATE("Gives your damage the lightning effect."));
 		}
@@ -312,7 +299,6 @@ namespace Tabs {
 				}
 				HelpMarker(OBFUSCATE("Sets the entity you turn people into when you shoot them."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Head Magnifier"), &Variables::HeadMagnifier);
 			HelpMarker(OBFUSCATE("Enlarges anyone you shoots head."));
@@ -321,7 +307,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##MagnifierDuration"), &Variables::MagnifierDuration, 0.0f, 1000000.0f, OBFUSCATE("Magnifier Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest time."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Jump Disabler"), &Variables::JumpDisabler);
 			HelpMarker(OBFUSCATE("Disables the jump of anyone who you shoot."));
@@ -330,7 +315,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##DisabledDuration"), &Variables::JDisabledDuration, 0.0f, 1000000.0f, OBFUSCATE("Disabled Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest time."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Reflection Rays"), &Variables::ReflectionRays);
 			HelpMarker(OBFUSCATE("Makes a your screen a disco."));
@@ -350,7 +334,6 @@ namespace Tabs {
 			Utils::FSlider(OBFUSCATE("##PetHealth"), &Variables::PetHealthValue, 0.0f, 1000000.0f, OBFUSCATE("Pet Health: %.1f"));
 			HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highst possible health."));
 		}
-		ImGui::Separator();
 
 		ImGui::Checkbox(OBFUSCATE("Pet Damage"), &Variables::PetDamage);
 		HelpMarker(OBFUSCATE("Changes your pets damage."));
@@ -359,7 +342,6 @@ namespace Tabs {
 			Utils::FSlider(OBFUSCATE("##PetDamage"), &Variables::PetDamageValue, 0.0f, 1000000.0f, OBFUSCATE("Pet Damage: %.1f"));
 			HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highst possible damage."));
 		}
-		ImGui::Separator();
 
 		ImGui::Checkbox(OBFUSCATE("Pet Speed"), &Variables::PetSpeed);
 		HelpMarker(OBFUSCATE("Changes your pets speed."));
@@ -380,7 +362,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##InvisibilityDuration"), &Variables::MInvisibilityDuration, 0.0f, 1000000.0f, OBFUSCATE("Invisibility Duration: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest time."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Game Speed"), &Variables::GameSpeed);
 			HelpMarker(OBFUSCATE("Speeds up your whole game including bullets, movement, loading etc."));
@@ -390,7 +371,6 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##SpeedMultiplier"), &Variables::GSpeedMultiplier, 0.0f, 100.0f, OBFUSCATE("Speed Multiplier: %.1f"));
 				HelpMarker(OBFUSCATE("If you change the Speed Multiplier you must toggle Game Speed off and back on for it to update. Anything over 2 is likely to kick you or crash you."));
 			}
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Score Modifier"), &Variables::ScoreModifier);
 			HelpMarker(OBFUSCATE("Modifys the score you get from a kill."));
@@ -409,11 +389,9 @@ namespace Tabs {
 		{
 			ImGui::Checkbox(OBFUSCATE("Infinite Gems"), &Variables::InfiniteGems);
 			HelpMarker(OBFUSCATE("Go into the armoury then double click any weapon and go to gallery, once enabled spam on any of the locked weapons."));
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Lottery"), &Variables::Lottery);
 			HelpMarker(OBFUSCATE("Makes lottery boxes free."));
-			ImGui::Separator();
 
 			ImGui::Checkbox(OBFUSCATE("Max Level"), &Variables::MaxLevel);
 			HelpMarker(OBFUSCATE("Gives you max level. Click 1 and Click 2 when it says."));
@@ -447,11 +425,7 @@ void Drawing::Draw()
 		}
 
 		StyleInnit();
-		ImGui::SetWindowSize(ImVec2(500, 500), ImGuiCond_Once);
 
-		float spacing = (500 - ImGui::GetContentRegionAvailWidth()) / 2;
-
-		ImGui::Dummy(ImVec2(spacing, 0));
 		if (ImGui::BeginTabBar(OBFUSCATE("##tabs"), ImGuiTabBarFlags_None))
 		{
 			if (ImGui::BeginTabItem(OBFUSCATE("Main")))
@@ -489,7 +463,6 @@ void Drawing::Draw()
 				Tabs::Settings();
 				ImGui::EndTabItem();
 			}
-			ImGui::Dummy(ImVec2(spacing, 0));
 			ImGui::EndTabBar();
 		}
 		ImGui::End();

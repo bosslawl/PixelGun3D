@@ -61,6 +61,7 @@ namespace Utils {
 
 		*v = ImClamp(*v, v_min, v_max);
 
+		ImGui::SetNextItemWidth(250.0f);
 		bool value_changed = ImGui::SliderFloat("##v", v, v_min, v_max, format, new_flags);
 		ImGui::PopID();
 		ImGui::SameLine(0, g.Style.ItemInnerSpacing.x);
