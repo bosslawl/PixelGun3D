@@ -148,6 +148,16 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##SideMultiplier"), &Variables::SideMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Side Multiplier: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
 			}
+
+			ImGui::Checkbox(OBFUSCATE("Silent Aim"), &Variables::SilentAim);
+			HelpMarker(OBFUSCATE("Makes your bullets hit no matter where you look."));
+			if (Variables::SilentAim)
+			{
+				Utils::FSlider(OBFUSCATE("##SilentMultiplier"), &Variables::SilentMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Silent Multiplier: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
+				Utils::FSlider(OBFUSCATE("##SilentRange"), &Variables::SilentRange, 0.0f, 1000000.0f, OBFUSCATE("Silent Range: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest range."));
+			}
 		}
 
 		if (ImGui::CollapsingHeader(OBFUSCATE("Modifiers")))
@@ -182,6 +192,10 @@ namespace Tabs {
 			if (Variables::RangeModifier)
 			{
 				Utils::FSlider(OBFUSCATE("##RangeValue"), &Variables::RangeValue, 0.0f, 1000000.0f, OBFUSCATE("Range Value: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for infinite range."));
+				Utils::FSlider(OBFUSCATE("##DamageRange"), &Variables::DamageRange, 0.0f, 1000000.0f, OBFUSCATE("Damage Range: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 to damage at any range."));
+				Utils::FSlider(OBFUSCATE("##RangeValue"), &Variables::ShootDistance, 0.0f, 1000000.0f, OBFUSCATE("Shoot Distance: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for infinite range."));
 			}
 

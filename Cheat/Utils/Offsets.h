@@ -2,20 +2,20 @@
 #include "../../Utils/Utils.h"
 #include "../../Utils/Obfuscation//Obfuscate.h"
 
-namespace Offsets {
-	inline uintptr_t String2Offset(const char* c) {
-		int base = 16;
-		static_assert(sizeof(uintptr_t) == sizeof(unsigned long)
-			|| sizeof(uintptr_t) == sizeof(unsigned long long),
-			"");
+inline uintptr_t String2Offset(const char* c) {
+	int base = 16;
+	static_assert(sizeof(uintptr_t) == sizeof(unsigned long)
+		|| sizeof(uintptr_t) == sizeof(unsigned long long),
+		"");
 
-		if (sizeof(uintptr_t) == sizeof(unsigned long)) {
-			return strtoul(c, nullptr, base);
-		}
-
-		return strtoull(c, nullptr, base);
+	if (sizeof(uintptr_t) == sizeof(unsigned long)) {
+		return strtoul(c, nullptr, base);
 	}
 
+	return strtoull(c, nullptr, base);
+}
+
+namespace Offsets {
 	inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t ACOne = String2Offset(OBFUSCATE("0xB1EDF0")); // DataSystem.DataValidiation.GClass264 .cctor
@@ -81,4 +81,45 @@ namespace Offsets {
 	inline uintptr_t FireRate = String2Offset(OBFUSCATE("0x113B040")); // BalanceController smethod_82
 	inline uintptr_t MaxLevelOne = String2Offset(OBFUSCATE("0x7531F0")); // ExperienceController get_Int32_0
 	inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x753FA0")); // ExperienceController get_Int32_1
+}
+
+namespace FieldOffsets {
+	// WeaponSounds
+	inline uintptr_t RecoilCeoff = String2Offset(OBFUSCATE("0xC0")); // recoilCeoff
+	inline uintptr_t RecoilCeoffZoom = String2Offset(OBFUSCATE("0x124")); // recoilCeoffZoom
+	inline uintptr_t ScatterCeoff = String2Offset(OBFUSCATE("0xB8")); // moveScatterCoeff
+	inline uintptr_t ScatterCeoffZoom = String2Offset(OBFUSCATE("0x11C")); // moveScatterCoeffZoom
+	inline uintptr_t Range = String2Offset(OBFUSCATE("0x658")); // range
+	inline uintptr_t DamageRange = String2Offset(OBFUSCATE("0x5E8")); // damageRange
+	inline uintptr_t ShootDistance = String2Offset(OBFUSCATE("0x664")); // shootDistance
+	inline uintptr_t ShootDelay = String2Offset(OBFUSCATE("0x1AC")); // shootDelay
+	inline uintptr_t BulletDelay = String2Offset(OBFUSCATE("0x1B0")); // bulletDelay
+	inline uintptr_t BurstDelay = String2Offset(OBFUSCATE("0x5D8")); // delayInBurstShooting
+	inline uintptr_t ZoomXRay = String2Offset(OBFUSCATE("0xC6")); // zoomXray
+	inline uintptr_t ScopeSpeed = String2Offset(OBFUSCATE("0xF8")); // scopeSpeed
+	inline uintptr_t Zooming = String2Offset(OBFUSCATE("0xC5")); // isZooming
+	inline uintptr_t FirstCritical = String2Offset(OBFUSCATE("0x388")); // firstKillCritical
+	inline uintptr_t UnlimitedAmmo = String2Offset(OBFUSCATE("0x469")); // isUnlimitedAmmo
+	inline uintptr_t ChargeLoop = String2Offset(OBFUSCATE("0x1D8")); // chargeLoop
+	inline uintptr_t ChargeMax = String2Offset(OBFUSCATE("0x1E0")); // chargeMax
+	inline uintptr_t ChargeTime = String2Offset(OBFUSCATE("0x1E4")); // chargeTime
+	inline uintptr_t Charging = String2Offset(OBFUSCATE("0x1CA")); // isCharging
+	inline uintptr_t BuffPoints = String2Offset(OBFUSCATE("0x390")); // isBuffPoints
+	inline uintptr_t BuffPointsKill = String2Offset(OBFUSCATE("0x3A0")); // buffPointsKIllDesigner
+	inline uintptr_t BuffPointsAssist = String2Offset(OBFUSCATE("0x3A8")); // buffPointsAssistDesigner
+	inline uintptr_t BuffPointsRevenge = String2Offset(OBFUSCATE("0x398")); // buffPointsRevengerDesigner
+	inline uintptr_t BonusPointsKill = String2Offset(OBFUSCATE("0x39C")); // buffBonusPointsForKill
+	inline uintptr_t BonusPointsAssist = String2Offset(OBFUSCATE("0x3A4")); // buffBonusPointsForAssist
+	inline uintptr_t BonusPointsRevenge = String2Offset(OBFUSCATE("0x394")); // buffPointsRevenge
+	inline uintptr_t SectorsAOE = String2Offset(OBFUSCATE("0x3C0")); // isSectorsAOE
+	inline uintptr_t Flamethrower = String2Offset(OBFUSCATE("0x34C")); // flamethrower
+	inline uintptr_t Railgun = String2Offset(OBFUSCATE("0x1BC")); // railgun
+	inline uintptr_t Bazooka = String2Offset(OBFUSCATE("0x12B")); // bazooka
+	inline uintptr_t Harpoon = String2Offset(OBFUSCATE("0x2B8")); // harpoon
+	inline uintptr_t FrontAngle = String2Offset(OBFUSCATE("0x3C4")); // sectorsAOEAngleFront
+	inline uintptr_t BackAngle = String2Offset(OBFUSCATE("0x3C8")); // sectorsAOEAngleBack
+	inline uintptr_t FrontMultiplier = String2Offset(OBFUSCATE("0x3CC")); // sectorsAOEDamageMultiplierFront
+	inline uintptr_t BackMultiplier = String2Offset(OBFUSCATE("0x3D4")); // sectorsAOEDamageMultiplierBack
+	inline uintptr_t SideMultiplier = String2Offset(OBFUSCATE("0x3D0")); // sectorsAOEDamageMultiplierSide
+	inline uintptr_t SectorsRadiusAOE = String2Offset(OBFUSCATE("0x3D8")); // sectorsAOERadiusSectorsAoE
 }

@@ -52,6 +52,8 @@ namespace Variables {
 		inline float RecoilValue = 0.0f;
 	inline bool RangeModifier = false;
 		inline float RangeValue = 1000000.0f;
+		inline float DamageRange = 1000000.0f;
+		inline float ShootDistance = 1000000.0f;
 	inline bool FullAuto = false;
 		inline float ShootDelay = 0.000001f;
 		inline float BulletDelay = 0.000001f;
@@ -113,6 +115,9 @@ namespace Variables {
 	inline bool FireImmunity = false;
 	inline bool ToxicImmunity = false;
 	inline bool BleedImmunity = false;
+	inline bool SilentAim = false;
+		inline float SilentMultiplier = 5.0f;
+		inline float SilentRange = 1000000.0f;
 
 	// PetEngine
 
