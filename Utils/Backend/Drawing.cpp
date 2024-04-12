@@ -34,8 +34,8 @@ namespace Tabs {
 				ImGui::ColorEdit3(OBFUSCATE("Circle Colour"), (float*)&Variables::CircleColour);
 				HelpMarker(OBFUSCATE("Changes the Circle colour."));
 				ImGui::Checkbox(OBFUSCATE("Rainbow?"), &Variables::EnableRainbowCircle);
-
 				HelpMarker(OBFUSCATE("Makes the Circle rainbow, ignores the set Circle colour."));
+				ImGui::Separator();
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Crosshair"), &Variables::EnableCrosshair);
@@ -48,6 +48,7 @@ namespace Tabs {
 				HelpMarker(OBFUSCATE("Changes the Crosshair colour."));
 				ImGui::Checkbox(OBFUSCATE("Rainbow?"), &Variables::EnableRainbowCrosshair);
 				HelpMarker(OBFUSCATE("Makes the Crosshair rainbow, ignores the set Crosshair colour."));
+				ImGui::Separator();
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Watermark"), &Variables::EnableWatermark);
@@ -56,6 +57,7 @@ namespace Tabs {
 			{
 				ImGui::Checkbox(OBFUSCATE("Show FPS"), &Variables::EnableFPS);
 				HelpMarker(OBFUSCATE("Displays FPS along side the watermark."));
+				ImGui::Separator();
 			}
 		}
 
@@ -183,13 +185,15 @@ namespace Tabs {
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for infinite range."));
 			}
 
-			ImGui::Checkbox(OBFUSCATE("Scope Speed Modifier"), &Variables::ScopeModifier);
-			HelpMarker(OBFUSCATE("Modifys your weapons ADS speed."));
+			ImGui::Checkbox(OBFUSCATE("Scope Modifier"), &Variables::ScopeModifier);
+			HelpMarker(OBFUSCATE("Modifys your weapons scope."));
 			if (Variables::ScopeModifier)
 			{
 				Utils::FSlider(OBFUSCATE("##ScopeValue"), &Variables::ScopeValue, 0.0f, 1000000.0f, OBFUSCATE("Scope Value: %.1f"));
-
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for instant ADS."));
+				ImGui::Checkbox(OBFUSCATE("Force Scope"), &Variables::ForceScope);
+				HelpMarker(OBFUSCATE("Allows you to scope in with weapons that don't have a scope."));
+				ImGui::Separator();
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Charge Modifier"), &Variables::ChargeModifier);
@@ -202,11 +206,22 @@ namespace Tabs {
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for instant charge."));
 			}
 
-			ImGui::Checkbox(OBFUSCATE("No Spread"), &Variables::NoSpread);
-			HelpMarker(OBFUSCATE("Stops bullets spreading on guns like shotguns."));
-
 			ImGui::Checkbox(OBFUSCATE("Full Auto"), &Variables::FullAuto);
 			HelpMarker(OBFUSCATE("Makes any gun fully automatic."));
+			if (Variables::FullAuto)
+			{
+				Utils::FSlider(OBFUSCATE("##ShootDelay"), &Variables::ShootDelay, 0.000001f, 1000000.0f, OBFUSCATE("Shoot Delay: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 0.000001 for instant fire."));
+				Utils::FSlider(OBFUSCATE("##BulletDelay"), &Variables::BulletDelay , 0.000001f, 1000000.0f, OBFUSCATE("Bullet Delay: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 0.000001 for instant fire."));
+				Utils::FSlider(OBFUSCATE("##DelayInBurstShooting"), &Variables::DelayInBurstShooting, 0.0f, 1000000.0f, OBFUSCATE("Burst Delay: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for instant fire."));
+				Utils::FSlider(OBFUSCATE("##ChargeTime"), &Variables::ChargeTime, 0.0f, 1000000.0f, OBFUSCATE("Charge Time: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for instant charge."));
+			}
+
+			ImGui::Checkbox(OBFUSCATE("No Spread"), &Variables::NoSpread);
+			HelpMarker(OBFUSCATE("Stops bullets spreading on guns like shotguns."));
 
 			ImGui::Checkbox(OBFUSCATE("Infinite Ammo"), &Variables::InfiniteAmmo);
 			HelpMarker(OBFUSCATE("Gives you unlimited ammo, still have to reload."));

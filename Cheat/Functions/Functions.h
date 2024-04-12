@@ -383,17 +383,21 @@ namespace GameFunctions {
 
 		if (Variables::FullAuto)
 		{
-			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1AC"))) = 0.000001f; // shootDelay
-			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1B0"))) = 0.000001f; // bulletDelay
-			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x5D8"))) = 0.000001f; // delayInBurstShooting
-			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1E4"))) = 0.000001f; // chargeTime
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1AC"))) = Variables::ShootDelay; // shootDelay
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1B0"))) = Variables::BulletDelay; // bulletDelay
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x5D8"))) = Variables::DelayInBurstShooting; // delayInBurstShooting
+			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0x1E4"))) = Variables::ChargeTime; // chargeTime
 		}
 
 		if (Variables::ZoomXRay)
 			*(bool*)((uint64_t)obj + 0xC6) = true; // zoomXray
 
 		if (Variables::ScopeModifier)
+		{
 			*(float*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0xF8"))) = Variables::ScopeValue; // scopeSpeed
+			if (Variables::ForceScope)
+				*(bool*)((uint64_t)obj + Offsets::String2Offset(OBFUSCATE("0xC5"))) = true; // isZooming
+		}
 
 		if (Variables::ForceCriticals)
 		{

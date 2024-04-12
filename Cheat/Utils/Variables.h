@@ -53,9 +53,14 @@ namespace Variables {
 	inline bool RangeModifier = false;
 		inline float RangeValue = 1000000.0f;
 	inline bool FullAuto = false;
+		inline float ShootDelay = 0.000001f;
+		inline float BulletDelay = 0.000001f;
+		inline float DelayInBurstShooting = 0.000001f;
+		inline float ChargeTime = 0.000001f;
 	inline bool ZoomXRay = false;
 	inline bool ScopeModifier = false;
 		inline float ScopeValue = 1000000.0f;
+		inline bool ForceScope = false;
 	inline bool ForceCriticals = false;
 	inline bool InfiniteAmmo = false;
 	inline bool ChargeModifier = false;
