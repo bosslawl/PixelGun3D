@@ -91,7 +91,7 @@ namespace Offsets {
 	inline uintptr_t GodmodeTwo = String2Offset(OBFUSCATE("0x2180FC0")); // GClass147 method_16
 	inline uintptr_t InfiniteGems = String2Offset(OBFUSCATE("0x4BBE80")); // Class9 smethod_6
 	inline uintptr_t ReloadModifier = String2Offset(OBFUSCATE("0x729120")); // Class1837 smethod_13
-	inline uintptr_t GadgetCooldown = String2Offset(OBFUSCATE("0x1E846F0")); // Class835 get_Single_2 - ????
+	inline uintptr_t GadgetCooldown = String2Offset(OBFUSCATE("0x1E8C370")); // Class834 get_Single_2
 	inline uintptr_t Lottery = String2Offset(OBFUSCATE("0x781F00")); // Class1877 get_Int32_0
 	inline uintptr_t FireRate = String2Offset(OBFUSCATE("0x111B350")); // BalanceController smethod_82
 	inline uintptr_t MaxLevelOne = String2Offset(OBFUSCATE("0x752C60")); // ExperienceController get_Int32_0
