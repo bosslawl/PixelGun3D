@@ -431,7 +431,7 @@ namespace GameFunctions {
 		if (Variables::AOEBullets)
 		{
 			*(bool*)((uint64_t)obj + FieldOffsets::SectorsAOE) = true; // isSectorsAOE 
-			*(bool*)((uint64_t)obj + FieldOffsets::Flamethrower)) = false; // flamethrower 
+			*(bool*)((uint64_t)obj + FieldOffsets::Flamethrower) = false; // flamethrower 
 			*(bool*)((uint64_t)obj + FieldOffsets::Railgun) = false; // railgun 
 			*(bool*)((uint64_t)obj + FieldOffsets::Bazooka) = false; // bazooka 
 			*(bool*)((uint64_t)obj + FieldOffsets::Harpoon) = false; // harpoon 
@@ -445,87 +445,86 @@ namespace GameFunctions {
 
 		if (Variables::NoSpread)
 		{
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x104"))) = 0; // maxKoofZoom
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x108"))) = 0; // upKoofFireZoom
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x10C"))) = 0; // downKoofFirstZoom
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x110"))) = 0; // downKoofZoom
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x8C"))) = 0; // maxKoof
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x90"))) = 0; // tekKoof
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x94"))) = 0; // upKoofFire
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x98"))) = 0; // downKoofFirst
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x9C"))) = 0; // downKoof
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0xA4"))) = 0; // timerForTekKoofVisual
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0xA8"))) = 0; // timerForTekKoofVisualByFireRate
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0xA8"))) = 0; // timerForTekKoofVisualByFireRate
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0xAC"))) = 0; // timeForTekKoofVisual
-			*(Vector2*)((uint64_t)obj + String2Offset(OBFUSCATE("0x84"))) = Vector2(0, 0); // startZone
+			*(float*)((uint64_t)obj + FieldOffsets::KoofZoom) = 0; 
+			*(float*)((uint64_t)obj + FieldOffsets::UpKoof) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::DownKoofFirst) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::DownKoofZoom) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::MaxKoof) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::TekKoof) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::UpKoofFire) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::DownKoofFire) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::DownKoof) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::TekKoofTimer) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::TekKoofRateTimer) = 0;
+			*(float*)((uint64_t)obj + FieldOffsets::TekKoofTime) = 0;
+			*(Vector2*)((uint64_t)obj + FieldOffsets::StartZone) = Vector2(0, 0);
 		}
 
 		if (Variables::FrostAura)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x369"))) = true; // isFrostSword 
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x370"))) = Variables::AuraRadius; // frostRadius
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x374"))) = true; // isFrostSwordUseAngle 
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x378"))) = Variables::AuraAngle; // frostSwordAngle
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x37C"))) = 0.33f; // frostSwordnTime
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x36C"))) = Variables::AuraMultiplier; // frostDamageMultiplier
+			*(bool*)((uint64_t)obj + FieldOffsets::FrostSword) = true;  
+			*(float*)((uint64_t)obj + FieldOffsets::FrostRadius) = Variables::AuraRadius;
+			*(bool*)((uint64_t)obj + FieldOffsets::UseFrostAngle) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::FrostAngle) = Variables::AuraAngle;
+			*(float*)((uint64_t)obj + FieldOffsets::FrostTime) = 0.33f;
+			*(float*)((uint64_t)obj + FieldOffsets::FrostMultiplier) = Variables::AuraMultiplier;
 		}
 
 		if (Variables::ForcePolymorpher)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x2EC"))) = true; // polymorpher 
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x2F0"))) = Variables::PolymorpherDuration; // polymorphDuarationTime 
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x2F8"))) = Variables::PolymorpherHealth; // polymorphMaxHealth 
-			*(int*)((uint64_t)obj + String2Offset(OBFUSCATE("0x2F4"))) = Variables::PolymorpherType; // polymorphType
+			*(bool*)((uint64_t)obj + FieldOffsets::Polymorpher) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::PolymorpherTime) = Variables::PolymorpherDuration;
+			*(float*)((uint64_t)obj + FieldOffsets::PolymorpherHealth) = Variables::PolymorpherHealth;
+			*(int*)((uint64_t)obj + FieldOffsets::PolymorpherType) = Variables::PolymorpherType;
 		}
 
 		if (Variables::PoisonEffect)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x1F8"))) = true; // isPoisoning
-			*(int*)((uint64_t)obj + String2Offset(OBFUSCATE("0x1FC"))) = Variables::PoisonCount; // poisonCount
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x200"))) = Variables::PoisonMultiplier; // poisonDamageMultiplier
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x204"))) = Variables::PoisonDuration; // poisonTime
+			*(bool*)((uint64_t)obj + FieldOffsets::Poisoning) = true;
+			*(int*)((uint64_t)obj + FieldOffsets::PoisonCount) = Variables::PoisonCount;
+			*(float*)((uint64_t)obj + FieldOffsets::PoisonTime) = Variables::PoisonMultiplier;
+			*(float*)((uint64_t)obj + FieldOffsets::PoisonDamage) = Variables::PoisonDuration;
 		}
 
 		if (Variables::StunEffect)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x238"))) = true; // isStun
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x23C"))) = Variables::StunMultiplier; // stunCeoff
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x240"))) = Variables::StunDuration; // stunTime
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x244"))) = Variables::StunRadius; // stunRadius
+			*(bool*)((uint64_t)obj + FieldOffsets::Stun) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::StunCeoff) = Variables::StunMultiplier;
+			*(float*)((uint64_t)obj + FieldOffsets::StunTime) = Variables::StunDuration;
+			*(float*)((uint64_t)obj + FieldOffsets::StunRadius) = Variables::StunRadius;
 		}
 
 		if (Variables::CurseEffect)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x214"))) = true; // isCursing
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x218"))) = Variables::CurseDuration; // curseTime
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x21C"))) = Variables::CurseMultiplier; // curseDamageMultiplier
+			*(bool*)((uint64_t)obj + FieldOffsets::Cursing) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::CursingTime) = Variables::CurseDuration;
+			*(float*)((uint64_t)obj + FieldOffsets::CursingMultiplier) = Variables::CurseMultiplier; 
 		}
 
 		if (Variables::CharmEffect)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x274"))) = true; // isCharm
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x278"))) = Variables::CharmDuration; // charmTime
+			*(bool*)((uint64_t)obj + FieldOffsets::Charm) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::CharmTime) = Variables::CharmDuration; 
 		}
 
 		if (Variables::WeaknessEffect)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x27C"))) = true; // isWeaknessEffect
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x280"))) = Variables::WeaknessDuration; // weaknessEffectTime
+			*(bool*)((uint64_t)obj + FieldOffsets::Weakness) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::WeaknessTime) = Variables::WeaknessDuration;
 		}
 
 		if (Variables::BlindEffect)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x268"))) = true; // isBlindEffect
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x270"))) = Variables::BlindDuration; // isBlindEffectTime
+			*(bool*)((uint64_t)obj + FieldOffsets::Blind) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::BlindTime) = Variables::BlindDuration; 
 		}
 
 		if (Variables::LightningEffect)
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x155"))) = true; // isLightning
+			*(bool*)((uint64_t)obj + FieldOffsets::Lightning) = true; 
 
 		if (Variables::HeadMagnifier) {
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x260"))) = true; // isHeadMagnifier
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x264"))) = Variables::MagnifierDuration; // headMagnifierTime
+			*(bool*)((uint64_t)obj + FieldOffsets::HeadMagnifier) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::MagnifierTime) = Variables::MagnifierDuration;
 		}
 
 		if (Variables::ReflectionRays)
@@ -533,36 +532,36 @@ namespace GameFunctions {
 
 		if (Variables::JumpDisabler)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x20E"))) = true; // jumpDisabler
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x210"))) = Variables::JDisabledDuration; // jumpDisableTime
+			*(bool*)((uint64_t)obj + FieldOffsets::JumpDisabler) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::DisableTime) = Variables::JDisabledDuration; 
 		}
 
 		if (Variables::Invisibility)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x389"))) = true; // isInvisibleAfterRespawn
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x38C"))) = Variables::SInvisibilityDuration; // invisibleAfterRespawnTime
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x380"))) = true; // isInvisibleReload
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x381"))) = true; // isInvisibleAfterKill
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x384"))) = Variables::SInvisibilityDuration; // invisibleAfterKillTime
+			*(bool*)((uint64_t)obj + FieldOffsets::RespawnInvisibility) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::RespawnInvisibilityTime) = Variables::SInvisibilityDuration; 
+			*(bool*)((uint64_t)obj + FieldOffsets::ReloadInvisibility) = true; 
+			*(bool*)((uint64_t)obj + FieldOffsets::KillInvisibility) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::KillInvisibilityTime) = Variables::SInvisibilityDuration; 
 		}
 
 		if (Variables::FireImmunity)
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x248"))) = true; // fireImmunity
+			*(bool*)((uint64_t)obj + FieldOffsets::FireImmunity) = true; 
 
 		if (Variables::ToxicImmunity)
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x24A"))) = true; // toxicImmunity
+			*(bool*)((uint64_t)obj + FieldOffsets::ToxicImmunity) = true; 
 
 		if (Variables::BleedImmunity)
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x249"))) = true; // bleedingImmunity
+			*(bool*)((uint64_t)obj + FieldOffsets::BleedingImmunity) = true; 
 
 		if (Variables::SilentAim)
 		{
-			*(bool*)((uint64_t)obj + String2Offset(OBFUSCATE("0x2FC"))) = true; // snowStorm
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x300"))) = Variables::SilentMultiplier; // snowStormBonusMultiplier
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x304"))) = Variables::SilentRange; // snowStormBonusRange
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x658"))) = Variables::SilentRange; // range
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x5E8"))) = Variables::SilentRange; // damageRange
-			*(float*)((uint64_t)obj + String2Offset(OBFUSCATE("0x664"))) = Variables::SilentRange; // shootDistance
+			*(bool*)((uint64_t)obj + FieldOffsets::SnowStorm) = true; 
+			*(float*)((uint64_t)obj + FieldOffsets::SnowStormMultplier) = Variables::SilentMultiplier;
+			*(float*)((uint64_t)obj + FieldOffsets::SnowStormRange) = Variables::SilentRange; 
+			*(float*)((uint64_t)obj + FieldOffsets::Range) = Variables::SilentRange; 
+			*(float*)((uint64_t)obj + FieldOffsets::DamageRange) = Variables::SilentRange;
+			*(float*)((uint64_t)obj + FieldOffsets::ShootDistance) = Variables::SilentRange; 
 		}
 
 		return OWeaponSounds(obj);
