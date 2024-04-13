@@ -19,6 +19,7 @@ namespace Offsets {
 	inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t TextMesh = String2Offset(OBFUSCATE("0x0"));
+	inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C38D0")); // string.Ctor
 
 #	// Anticheat bypass
 
@@ -107,6 +108,8 @@ namespace Offsets {
 	inline uintptr_t FireRate = String2Offset(OBFUSCATE("0x111B350")); // BalanceController smethod_82
 	inline uintptr_t MaxLevelOne = String2Offset(OBFUSCATE("0x752C60")); // ExperienceController get_Int32_0
 	inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x7530A0")); // ExperienceController get_Int32_1
+	inline uintptr_t WebInstance = String2Offset(OBFUSCATE("0x37C38D0")); // Progress.Class2248 get_CLass2248_0
+	inline uintptr_t AddCurrency = String2Offset(OBFUSCATE("0x9E3BD0")); // Progress.Class2248 method_144
 }
 
 template<typename T> inline T& GetField(void* instance, uint64_t offset) {

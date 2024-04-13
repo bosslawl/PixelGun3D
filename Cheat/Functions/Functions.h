@@ -2,6 +2,46 @@
 #include "../Utils/Offsets.h"
 #include "../Utils/Variables.h"
 
+typedef struct _monoString
+{
+	void* klass;
+	void* monitor;
+	int length;
+	char chars[1];
+
+	int getLength()
+	{
+		return length;
+	}
+
+	const char* getChars()
+	{
+		return chars;
+	}
+}MonoString;
+
+struct AnalyticsParams {
+	int enum1;
+	int enum2;
+	int enum3;
+	int enum4;
+	int enum5;
+	int enum6;
+	int enum7;
+	bool boolean1;
+	void* klass1;
+	int enum8;
+	bool boolean2;
+	int enum9;
+	void* klass2;
+	bool boolean3;
+	int enum10;
+	int integer1;
+};
+
+inline AnalyticsParams URLParams = { 0x0, 0x82, 0x18, 0x0, 0x0, 0x0, 0x0, false, nullptr, 0x0, false, 0x0, nullptr, false, 0x1, 0 };
+inline const char* CurrencyList[] = { OBFUSCATE("GemsCurrency"), OBFUSCATE("Coins"), OBFUSCATE("ClanSilver"), OBFUSCATE("ClanLootBoxPoints"),  OBFUSCATE("Coupons"), OBFUSCATE("PixelPassCurrency"), OBFUSCATE("RouletteAdsCurrency"), OBFUSCATE("RouletteAdsSpin"), OBFUSCATE("PixelBucks"), OBFUSCATE("BattlePassCurrency"), OBFUSCATE("CurrencyCompetitionTier1"), OBFUSCATE("CurrencyCompetitionTier2"), OBFUSCATE("KeySmallChest"), OBFUSCATE("KeyEventChest"), OBFUSCATE("KeyBigChest"), OBFUSCATE("EventChestsSuperSpin"), OBFUSCATE("EventRouletteSuperSpin"), OBFUSCATE("EventRouletteSuperSpin"), OBFUSCATE("Exp"), OBFUSCATE("TankKeys"), OBFUSCATE("PixelPassExp"), OBFUSCATE("clan_building_black_market_point"), OBFUSCATE("MainModeSlotTokens"), OBFUSCATE("SmallChest"), OBFUSCATE("BigChest"), OBFUSCATE("EventChest"), OBFUSCATE("MegaChest") };
+inline void (*SetSomething) (void* instance, int value, int number, MonoString* type);
 // inline
 
 namespace Internal {
@@ -10,6 +50,15 @@ namespace Internal {
 			return UnitySDK::UnityGameAssembly + addr;
 		}
 		return 0;
+	}
+
+	inline MonoString* CreateIL2CPPString(const char* ptr)
+	{
+		static MonoString* (*CreateIL2CPPString)(const char* ptr, int* s, int* len) = 
+			(MonoString * (*)(const char* ptr, int* s, int* len))(getAbsolute(Offsets::StringOffset));
+		int* s = 0;
+		int* len = (int*)strlen(ptr);
+		return CreateIL2CPPString(ptr, s, len);
 	}
 
 	// Player_move_c
@@ -82,6 +131,21 @@ namespace Internal {
 		void* player_move_c = (void*)*(uint64_t*)((uint64_t)weapon_sounds + 0x500);
 		if (player_move_c == nullptr) return false;
 		return IsMyPlayer(player_move_c);
+	}
+
+	// Misc
+
+	inline void* WebInstance()
+	{
+		static void* (*WebInstance)() = (void* (*)())(getAbsolute(Offsets::WebInstance));
+		return WebInstance();
+	}
+
+	inline void* AddCurrency(void* obj, MonoString* type, int value, int reason, AnalyticsParams params)
+	{
+		if (!obj) return nullptr;
+		static const auto fn = (void* (*)(void*, MonoString*, int, int, bool, bool, AnalyticsParams)) (getAbsolute(Offsets::AddCurrency));
+		return fn(obj, type, value, reason, false, false, params);
 	}
 }
 
@@ -455,6 +519,12 @@ namespace GameFunctions {
 	inline void(__stdcall* OWeaponSounds)(void* obj);
 	inline void __stdcall WeaponSounds(void* obj)
 	{
+		if (Variables::IsAddCurrency)
+		{
+			Internal::AddCurrency(Internal::WebInstance(), Internal::CreateIL2CPPString(CurrencyList[Variables::SelectedCurrency]), Variables::CurrencyAmount, 0, URLParams);
+			Variables::IsAddCurrency = false;
+		}
+
 		if (Variables::RecoilModifier)
 		{
 			*(float*)((uint64_t)obj + FieldOffsets::RecoilCeoff) = Variables::RecoilValue;

@@ -13,6 +13,7 @@
 #include <TlHelp32.h>
 #include <math.h>
 #include <algorithm>
+#include <codecvt>
 #include <string>
 #include <sstream>
 #include <MinHook.h>

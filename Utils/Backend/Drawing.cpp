@@ -479,6 +479,32 @@ namespace Tabs {
 
 		if (ImGui::CollapsingHeader(OBFUSCATE("Account")))
 		{
+			ImGui::Checkbox(OBFUSCATE("Currency Modifier"), &Variables::AddCurrency);
+			HelpMarker(OBFUSCATE("Adds currency to your account."));
+			if (Variables::AddCurrency)
+			{
+				Utils::FSlider(OBFUSCATE("##CurrencyAmount"), &Variables::CurrencyAmount, 0.0f, 1000000.0f, OBFUSCATE("Currency Amount: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
+				if (ImGui::BeginCombo(OBFUSCATE("##Select Currency"), CurrencyList[Variables::SelectedCurrency]))
+				{
+					for (int i = 0; i < IM_ARRAYSIZE(CurrencyList); i++)
+					{
+						const bool is_selected = (Variables::SelectedCurrency == i);
+						if (ImGui::Selectable(CurrencyList[i], is_selected))
+							Variables::SelectedCurrency = i;
+
+						if (is_selected)
+							ImGui::SetItemDefaultFocus();
+					}
+					ImGui::EndCombo();
+				}
+				ImGui::SameLine();
+				if (ImGui::Button(OBFUSCATE("Add Currency")))
+				{
+					Variables::IsAddCurrency = true;
+				}
+			}
+
 			ImGui::Checkbox(OBFUSCATE("Infinite Gems"), &Variables::InfiniteGems);
 			HelpMarker(OBFUSCATE("Go into the armoury then double click any weapon and go to gallery, once enabled spam on any of the locked weapons."));
 

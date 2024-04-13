@@ -155,4 +155,8 @@ namespace Variables {
 	inline bool MaxLevel = false;
 		inline bool MaxLevelOne = false;
 		inline bool MaxLevelTwo = false;
+	inline bool AddCurrency = false;
+		inline float CurrencyAmount = 1000.0f;
+		inline int SelectedCurrency;
+		inline bool IsAddCurrency = false;
 }
