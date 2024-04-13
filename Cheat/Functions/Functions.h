@@ -610,6 +610,13 @@ namespace GameFunctions {
 		if (Variables::LightningEffect)
 			*(bool*)((uint64_t)obj + FieldOffsets::Lightning) = true;
 
+		if (Variables::Shocker)
+		{
+			*(bool*)((uint64_t)obj + FieldOffsets::Shocker) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::ShockerRange) = Variables::ShockerRange;
+			*(float*)((uint64_t)obj + FieldOffsets::ShockerMultiplier) = Variables::ShockerMultiplier;
+		}
+
 		if (Variables::IgnoreReflection)
 		{
 			*(bool*)((uint64_t)obj + FieldOffsets::ReflectionDamage) = false;

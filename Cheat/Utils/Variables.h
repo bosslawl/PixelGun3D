@@ -106,6 +106,9 @@ namespace Variables {
 	inline bool WeaknessEffect = false;
 		inline float WeaknessDuration = 1000000.0f;
 	inline bool LightningEffect = false;
+	inline bool Shocker = false;
+		inline float ShockerRange = 1000000.0f;
+		inline float ShockerMultiplier = 5.0f;
 	inline bool IgnoreReflection = false;
 	inline bool HeadMagnifier = false;
 		inline float MagnifierDuration = 1000000.0f;

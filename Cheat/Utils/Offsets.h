@@ -206,6 +206,10 @@ namespace FieldOffsets {
 	inline uintptr_t Charm = String2Offset(OBFUSCATE("0x274")); // isCharm
 	inline uintptr_t CharmTime = String2Offset(OBFUSCATE("0x278")); // charmTime
 
+	inline uintptr_t Shocker = String2Offset(OBFUSCATE("0x484")); // shocker
+	inline uintptr_t ShockerRange = String2Offset(OBFUSCATE("0x48C")); // shockerRange
+	inline uintptr_t ShockerMultiplier = String2Offset(OBFUSCATE("0x488")); // shockerDamageMultiplier
+
 	inline uintptr_t Cursing = String2Offset(OBFUSCATE("0x214")); // isCursing
 	inline uintptr_t CursingTime = String2Offset(OBFUSCATE("0x218")); // curseTime
 	inline uintptr_t CursingMultiplier = String2Offset(OBFUSCATE("0x21C")); // curseDamageMultiplier

@@ -291,6 +291,16 @@ namespace Tabs {
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
 			}
 
+			ImGui::Checkbox(OBFUSCATE("Shock Effect"), &Variables::Shocker);
+			HelpMarker(OBFUSCATE("Gives your damage the shock effect."));
+			if (Variables::Shocker)
+			{
+				Utils::FSlider(OBFUSCATE("##ShockerRange"), &Variables::ShockerRange, 0.0f, 1000000.0f, OBFUSCATE("Shocker Range: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest range."));
+				Utils::FSlider(OBFUSCATE("##ShockerMultiplier"), &Variables::ShockerMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Shocker Multiplier: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
+			}
+
 			ImGui::Checkbox(OBFUSCATE("Charm Effect"), &Variables::CharmEffect);
 			HelpMarker(OBFUSCATE("Gives your damage the charm effect."));
 			if (Variables::CharmEffect)
