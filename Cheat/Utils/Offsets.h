@@ -18,6 +18,7 @@ inline uintptr_t String2Offset(const char* c) {
 namespace Offsets {
 	inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
+	inline uintptr_t TextMesh = String2Offset(OBFUSCATE("0x0"));
 
 #	// Anticheat bypass
 

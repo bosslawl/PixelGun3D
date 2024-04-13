@@ -70,6 +70,22 @@ namespace Utils {
 		return value_changed;
 	}
 
+	std::string CleanString(std::string string)
+	{
+		std::vector<char> bytes(string.begin(), string.end());
+		bytes.push_back('\0');
+		std::list<char> chars;
+		for (byte byte : bytes)
+		{
+			if (byte)
+			{
+				chars.push_back(byte);
+			}
+		}
+		std::string clean(chars.begin(), chars.end());
+		return clean;
+	}
+
 	inline std::string GetKeyNameFromVirtualKey(int virtualKey) {
 		switch (virtualKey) {
 		case VK_F1: return "F1";
