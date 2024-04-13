@@ -55,6 +55,34 @@ namespace Internal {
 		void (UNITY_CALLING_CONVENTION set_time_scale)(float TimeScale);
 		reinterpret_cast<decltype(set_time_scale)>(Offsets::TimeOffset)(TimeScale);
 	}
+
+	inline void* TextMeshGetText(void* obj)
+	{
+		if (!obj) return nullptr;
+		static const auto fn = (void*(*)(void*)) (getAbsolute(Offsets::TextMesh));
+		return fn(obj);
+	}
+
+	inline std::string GetPlayerName(void* player_move_c)
+	{
+		void* nick_label = (void*)*(uint64_t*)((uint64_t)player_move_c + 0x3B8);
+		void* name_ptr = Internal::TextMeshGetText(nick_label);
+		if (name_ptr == nullptr) return "";
+		std::string name = ((Unity::System_String*)name_ptr)->ToString();
+		return Utils::CleanString(name);
+	}
+
+	inline bool IsMyPlayer(void* player_move_c)
+	{
+		return GetPlayerName(player_move_c) == "1111";
+	}
+
+	inline bool IsMyWeaponSounds(void* weapon_sounds)
+	{
+		void* player_move_c = (void*)*(uint64_t*)((uint64_t)weapon_sounds + 0x500);
+		if (player_move_c == nullptr) return false;
+		return IsMyPlayer(player_move_c);
+	}
 }
 
 namespace GameFunctions {
@@ -522,6 +550,12 @@ namespace GameFunctions {
 		if (Variables::LightningEffect)
 			*(bool*)((uint64_t)obj + FieldOffsets::Lightning) = true;
 
+		if (Variables::IgnoreReflection)
+		{
+			*(bool*)((uint64_t)obj + FieldOffsets::ReflectionDamage) = false;
+			*(bool*)((uint64_t)obj + FieldOffsets::AbsorptionDamage) = false;
+		}
+
 		if (Variables::HeadMagnifier) {
 			*(bool*)((uint64_t)obj + FieldOffsets::HeadMagnifier) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::MagnifierTime) = Variables::MagnifierDuration;
@@ -570,6 +604,31 @@ namespace GameFunctions {
 			*(bool*)((uint64_t)obj + FieldOffsets::MarkerAiming) = true;
 			*(bool*)((uint64_t)obj + FieldOffsets::MarkerRadius) = true;
 			*(float*)((uint64_t)obj + FieldOffsets::MarkerChargeTime) = Variables::MarkerCharge;
+		}
+
+		if (Variables::Flamethrower)
+			*(bool*)((uint64_t)obj + FieldOffsets::Flamethrower) = true;
+
+		if (Variables::ExplosiveBullets)
+			*(bool*)((uint64_t)obj + FieldOffsets::ExplosiveBullets) = true;
+
+		if (Variables::Shotgun)
+			*(bool*)((uint64_t)obj + FieldOffsets::Shotgun) = true;
+
+		if (Variables::Railgun)
+		{
+			*(bool*)((uint64_t)obj + FieldOffsets::Railgun) = true;
+			if (Variables::RailgunClipping)
+				*(bool*)((uint64_t)obj + FieldOffsets::RailgunClipping) = false;
+		}
+
+		if (Variables::Bazooka)
+			*(bool*)((uint64_t)obj + FieldOffsets::Bazooka) = true;
+
+		if (Variables::Harpoon)
+		{
+			*(bool*)((uint64_t)obj + FieldOffsets::Harpoon) = true;
+			*(float*)((uint64_t)obj + FieldOffsets::HarpoonDistance) = Variables::HarpoonDistance;
 		}
 
 		return OWeaponSounds(obj);

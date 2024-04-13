@@ -106,6 +106,7 @@ namespace Variables {
 	inline bool WeaknessEffect = false;
 		inline float WeaknessDuration = 1000000.0f;
 	inline bool LightningEffect = false;
+	inline bool IgnoreReflection = false;
 	inline bool HeadMagnifier = false;
 		inline float MagnifierDuration = 1000000.0f;
 	inline bool ReflectionRays = false;
@@ -120,6 +121,14 @@ namespace Variables {
 		inline float SilentRange = 1000000.0f;
 	inline bool EnemyMarker = false;
 		inline float MarkerCharge = 1000000.0f;
+	inline bool Flamethrower = false;
+	inline bool ExplosiveBullets = false;
+	inline bool Shotgun = false;
+	inline bool Railgun = false;
+		inline bool RailgunClipping = false;
+	inline bool Bazooka = false;
+	inline bool Harpoon = false;
+		inline float HarpoonDistance = 1000000.0f;
 
 	// PetEngine
 

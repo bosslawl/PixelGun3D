@@ -94,24 +94,3 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     }
     return true;
 }
-
-std::string GetPlayerName(void* player_move_c)
-{
-    void* nick_label = (void*)*(uint64_t*)((uint64_t)player_move_c + 0x3B8);
-    void* name_ptr = Functions::TextMeshGetText(nick_label);
-    if (name_ptr == nullptr) return "";
-    std::string name = ((Unity::System_String*)name_ptr)->ToString();
-    return Utils::CleanString(name);
-}
-
-bool IsMyPlayer(void* player_move_c)
-{
-    return GetPlayerName(player_move_c) == "1111";
-}
-
-bool IsMyWeaponSounds(void* weapon_sounds)
-{
-    void* player_move_c = (void*)*(uint64_t*)((uint64_t)weapon_sounds + 0x500);
-    if (player_move_c == nullptr) return false;
-    return IsMyPlayer(player_move_c);
-}

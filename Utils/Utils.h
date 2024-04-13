@@ -70,7 +70,7 @@ namespace Utils {
 		return value_changed;
 	}
 
-	std::string CleanString(std::string string)
+	inline std::string CleanString(std::string string)
 	{
 		std::vector<char> bytes(string.begin(), string.end());
 		bytes.push_back('\0');

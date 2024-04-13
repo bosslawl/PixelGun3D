@@ -65,6 +65,14 @@ namespace Tabs {
 		{
 			ImGui::Checkbox(OBFUSCATE("Chams"), &Variables::XRay);
 			HelpMarker(OBFUSCATE("Makes all players visible through walls."));
+
+			ImGui::Checkbox(OBFUSCATE("Enemy Marker"), &Variables::EnemyMarker);
+			HelpMarker(OBFUSCATE("Marks enemies when they are shot."));
+			if (Variables::EnemyMarker)
+			{
+				Utils::FSlider(OBFUSCATE("##ChargeTime"), &Variables::MarkerCharge, 0.0f, 1000000.0f, OBFUSCATE("Charge Time: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for quickest charge."));
+			}
 		}
 	}
 
@@ -309,9 +317,44 @@ namespace Tabs {
 
 			ImGui::Checkbox(OBFUSCATE("Lightning Effect"), &Variables::LightningEffect);
 			HelpMarker(OBFUSCATE("Gives your damage the lightning effect."));
+
+			ImGui::Checkbox(OBFUSCATE("Ignore Reflection"), &Variables::IgnoreReflection);
+			HelpMarker(OBFUSCATE("Ignores the reflection effect."));
 		}
 
-		if (ImGui::CollapsingHeader(OBFUSCATE("Miscellaneous")))
+		if (ImGui::CollapsingHeader(OBFUSCATE("Bullets")))
+		{
+			ImGui::Checkbox(OBFUSCATE("Flamethrower"), &Variables::Flamethrower);
+			HelpMarker(OBFUSCATE("Makes your bullets shoot flames."));
+
+			ImGui::Checkbox(OBFUSCATE("Explosive Bullets"), &Variables::ExplosiveBullets);
+			HelpMarker(OBFUSCATE("Makes your bullets explode on impact."));
+
+			ImGui::Checkbox(OBFUSCATE("Shotgun Bullets"), &Variables::Shotgun);
+			HelpMarker(OBFUSCATE("Makes your bullets shotgun bullets."));
+
+			ImGui::Checkbox(OBFUSCATE("Railgun"), &Variables::Railgun);
+			HelpMarker(OBFUSCATE("Makes your bullets railgun bullets."));
+			if (Variables::Railgun)
+			{
+				ImGui::Checkbox(OBFUSCATE("Railgun Clipping"), &Variables::RailgunClipping);
+				HelpMarker(OBFUSCATE("Makes your railgun bullets shoot through walls."));
+				ImGui::Separator();
+			}
+
+			ImGui::Checkbox(OBFUSCATE("Bazooka"), &Variables::Bazooka);
+			HelpMarker(OBFUSCATE("Makes your bullets bazookas."));
+
+			ImGui::Checkbox(OBFUSCATE("Harpoon"), &Variables::Harpoon);
+			HelpMarker(OBFUSCATE("Makes your bullets harpoons."));
+			if (Variables::Harpoon)
+			{
+				Utils::FSlider(OBFUSCATE("##HarpoonDistance"), &Variables::HarpoonDistance, 0.0f, 1000000.0f, OBFUSCATE("Harpoon Distance: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping this set at 1000000 for highest range."));
+			}
+		}
+
+		if (ImGui::CollapsingHeader(OBFUSCATE("Misc")))
 		{
 			ImGui::Checkbox(OBFUSCATE("Polymorpher"), &Variables::ForcePolymorpher);
 			HelpMarker(OBFUSCATE("Changes anyone you shoot to the type selected."));
@@ -361,14 +404,6 @@ namespace Tabs {
 			{
 				Utils::FSlider(OBFUSCATE("##ReflectionCount"), &Variables::ReflectionCount, 0.0f, 1000000.0f, OBFUSCATE("Reflection Count: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 50 the most amount of reflections, without freezing your game."));
-			}
-
-			ImGui::Checkbox(OBFUSCATE("Enemy Marker"), &Variables::EnemyMarker);
-			HelpMarker(OBFUSCATE("Marks enemies when they are shot."));
-			if (Variables::EnemyMarker)
-			{
-				Utils::FSlider(OBFUSCATE("##ChargeTime"), &Variables::MarkerCharge, 0.0f, 1000000.0f, OBFUSCATE("Charge Time: %.1f"));
-				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for quickest charge."));
 			}
 		}
 	}

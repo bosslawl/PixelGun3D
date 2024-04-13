@@ -141,10 +141,6 @@ namespace FieldOffsets {
 	inline uintptr_t BonusPointsRevenge = String2Offset(OBFUSCATE("0x394")); // buffPointsRevenge
 
 	inline uintptr_t SectorsAOE = String2Offset(OBFUSCATE("0x3C0")); // isSectorsAOE
-	inline uintptr_t Flamethrower = String2Offset(OBFUSCATE("0x34C")); // flamethrower
-	inline uintptr_t Railgun = String2Offset(OBFUSCATE("0x1BC")); // railgun
-	inline uintptr_t Bazooka = String2Offset(OBFUSCATE("0x12B")); // bazooka
-	inline uintptr_t Harpoon = String2Offset(OBFUSCATE("0x2B8")); // harpoon
 	inline uintptr_t FrontAngle = String2Offset(OBFUSCATE("0x3C4")); // sectorsAOEAngleFront
 	inline uintptr_t BackAngle = String2Offset(OBFUSCATE("0x3C8")); // sectorsAOEAngleBack
 	inline uintptr_t FrontMultiplier = String2Offset(OBFUSCATE("0x3CC")); // sectorsAOEDamageMultiplierFront
@@ -230,4 +226,21 @@ namespace FieldOffsets {
 	inline uintptr_t MarkerAiming = String2Offset(OBFUSCATE("0x24C")); // enemyMarkerWhenAiming
 	inline uintptr_t MarkerRadius = String2Offset(OBFUSCATE("0x24D")); // enemyMarkerWhenShot
 	inline uintptr_t MarkerChargeTime = String2Offset(OBFUSCATE("0x250")); // enemyMarketChargeTime
+
+	inline uintptr_t Flamethrower = String2Offset(OBFUSCATE("0x34C")); // flamethrower
+
+	inline uintptr_t ExplosiveBullets = String2Offset(OBFUSCATE("0x1A5")); // bulletExplode
+
+	inline uintptr_t Shotgun = String2Offset(OBFUSCATE("0x1A6")); // isShotGun
+
+	inline uintptr_t Railgun = String2Offset(OBFUSCATE("0x1BC")); // railgun
+	inline uintptr_t RailgunClipping = String2Offset(OBFUSCATE("0x1C8")); // railgunStopAtWall
+
+	inline uintptr_t Bazooka = String2Offset(OBFUSCATE("0x12B")); // bazooka
+
+	inline uintptr_t Harpoon = String2Offset(OBFUSCATE("0x2B8")); // harpoon
+	inline uintptr_t HarpoonDistance = String2Offset(OBFUSCATE("0x2E0")); // harpoonMaxDistance
+
+	inline uintptr_t ReflectionDamage = String2Offset(OBFUSCATE("0x311")); // isDamageReflection
+	inline uintptr_t AbsorptionDamage = String2Offset(OBFUSCATE("0x312")); // isDamageAbsorption
 }
