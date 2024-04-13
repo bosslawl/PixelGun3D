@@ -62,6 +62,16 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::ACFourtyOne, OBFUSCATE("AntiCheatFourtyOne"));
         Utils::AddressLog(Offsets::ACFourtyTwo, OBFUSCATE("AntiCheatFourtyTwo"));
         Utils::AddressLog(Offsets::ACFourtyThree, OBFUSCATE("AntiCheatFourtyThree"));
+        Utils::AddressLog(Offsets::ACFourtyFour, OBFUSCATE("AntiCheatFourtyFour"));
+        Utils::AddressLog(Offsets::ACFourtyFive, OBFUSCATE("AntiCheatFourtyFive"));
+        Utils::AddressLog(Offsets::ACFourtySix, OBFUSCATE("AntiCheatFourtySix"));
+        Utils::AddressLog(Offsets::ACFourtySeven, OBFUSCATE("AntiCheatFourtySeven"));
+        Utils::AddressLog(Offsets::ACFourtyEight, OBFUSCATE("AntiCheatFourtyEight"));
+        Utils::AddressLog(Offsets::ACFourtyNine, OBFUSCATE("AntiCheatFourtyNine"));
+        Utils::AddressLog(Offsets::ACFifty, OBFUSCATE("AntiCheatFifty"));
+        Utils::AddressLog(Offsets::ACFiftyOne, OBFUSCATE("AntiCheatFiftyOne"));
+        Utils::AddressLog(Offsets::ACFiftyTwo, OBFUSCATE("AntiCheatFiftyTwo"));
+        Utils::AddressLog(Offsets::ACFiftyThree, OBFUSCATE("AntiCheatFiftyThree"));
 
         // Player_move_c
 

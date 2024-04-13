@@ -351,6 +351,66 @@ namespace GameFunctions {
 		return; 
 	}
 
+	inline void(__stdcall* OACFourtyFour)();
+	inline void __stdcall ACFourtyFour()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFourtyFive)();
+	inline void __stdcall ACFourtyFive()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFourtySix)();
+	inline void __stdcall ACFourtySix()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFourtySeven)();
+	inline void __stdcall ACFourtySeven()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFourtyEight)();
+	inline void __stdcall ACFourtyEight()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFourtyNine)();
+	inline void __stdcall ACFourtyNine()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFifty)();
+	inline void __stdcall ACFifty()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFiftyOne)();
+	inline void __stdcall ACFiftyOne()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFiftyTwo)();
+	inline void __stdcall ACFiftyTwo()
+	{
+		return; 
+	}
+
+	inline void(__stdcall* OACFiftyThree)();
+	inline void __stdcall ACFiftyThree()
+	{
+		return; 
+	}
+
 	// Player_move_c
 
 	inline void(__stdcall* OPlayerMoveC)(void* obj);

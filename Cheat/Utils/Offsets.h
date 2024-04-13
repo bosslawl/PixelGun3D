@@ -22,7 +22,7 @@ namespace Offsets {
 
 #	// Anticheat bypass
 
-	inline uintptr_t ACOne = String2Offset(OBFUSCATE("0xB16E90")); // DataSystem.DataValidiation.GClass264 .cctor
+	inline uintptr_t ACOne = String2Offset(OBFUSCATE("0xB16E90")); // DataSystem.DataValidiation.GClass264 smethod_0
 	inline uintptr_t ACTwo = String2Offset(OBFUSCATE("0xB18F10")); // DataSystem.DataValidation.FluentValidators.Class2536 .ctor
 	inline uintptr_t ACThree = String2Offset(OBFUSCATE("0x6FE690")); // DveeloperConsoleController HandleBanUs
 	inline uintptr_t ACFour = String2Offset(OBFUSCATE("0x45D440")); // GamePauseController method_3
@@ -65,6 +65,16 @@ namespace Offsets {
 	inline uintptr_t ACFourtyOne = String2Offset(OBFUSCATE("0xBAB100")); // Rilisoft.GClass317 smethod_41
 	inline uintptr_t ACFourtyTwo = String2Offset(OBFUSCATE("0xBA9DD0")); // Rilisoft.GClass317 smethod_42
 	inline uintptr_t ACFourtyThree = String2Offset(OBFUSCATE("0xBC3EE0")); // Rilisoft.GClass317 smethod_43
+	inline uintptr_t ACFourtyFour = String2Offset(OBFUSCATE("0xBC5300")); // Rilisoft.GClass317 smethod_65
+	inline uintptr_t ACFourtyFive = String2Offset(OBFUSCATE("0xBAC940")); // Rilisoft.GClass317 smethod_29
+	inline uintptr_t ACFourtySix = String2Offset(OBFUSCATE("0xB15AE0")); // DataSystem.DataValidiation.GClass264 .cctor
+	inline uintptr_t ACFourtySeven = String2Offset(OBFUSCATE("0x148DA10")); // NetworkStartTableNGUIController method_96
+	inline uintptr_t ACFourtyEight = String2Offset(OBFUSCATE("0x1F67010")); // CheatDetectedBanner smethod_0
+	inline uintptr_t ACFourtyNine = String2Offset(OBFUSCATE("0x1F671F0")); // CheatDetectedBanner smethod_1
+	inline uintptr_t ACFifty = String2Offset(OBFUSCATE("0x1F67330")); // CheatDetectedBanner Update
+	inline uintptr_t ACFiftyOne = String2Offset(OBFUSCATE("0x21D7440")); // CustomHungerBase smethod_0
+	inline uintptr_t ACFiftyTwo = String2Offset(OBFUSCATE("0xBC1660")); // Rilisoft.GClass317 smethod_175
+	inline uintptr_t ACFiftyThree = String2Offset(OBFUSCATE("0xBBC220")); // Rilisoft.GClass317 smethod_158
 
 	// Player_move_c
 

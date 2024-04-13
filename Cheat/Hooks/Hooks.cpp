@@ -189,6 +189,36 @@ void Hooks::LoadMinHookHooks()
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyThree), &GameFunctions::ACFourtyThree, (LPVOID*)&GameFunctions::OACFourtyThree) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyThree));
 
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyFour), &GameFunctions::ACFourtyFour, (LPVOID*)&GameFunctions::OACFourtyFour) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyFour));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyFive), &GameFunctions::ACFourtyFive, (LPVOID*)&GameFunctions::OACFourtyFive) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyFive));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtySix), &GameFunctions::ACFourtySix, (LPVOID*)&GameFunctions::OACFourtySix) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtySix));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtySeven), &GameFunctions::ACFourtySeven, (LPVOID*)&GameFunctions::OACFourtySeven) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtySeven));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyEight), &GameFunctions::ACFourtyEight, (LPVOID*)&GameFunctions::OACFourtyEight) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyEight));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyNine), &GameFunctions::ACFourtyNine, (LPVOID*)&GameFunctions::OACFourtyNine) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyNine));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFifty), &GameFunctions::ACFifty, (LPVOID*)&GameFunctions::OACFifty) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFifty));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyOne), &GameFunctions::ACFiftyOne, (LPVOID*)&GameFunctions::OACFiftyOne) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFiftyOne));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyTwo), &GameFunctions::ACFiftyTwo, (LPVOID*)&GameFunctions::OACFiftyTwo) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFiftyTwo));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyThree), &GameFunctions::ACFiftyThree, (LPVOID*)&GameFunctions::OACFiftyThree) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFiftyThree));
+
 	// Player_move_c
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC) == MH_OK)
