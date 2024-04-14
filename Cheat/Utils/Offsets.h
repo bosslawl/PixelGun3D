@@ -110,12 +110,16 @@ namespace Offsets {
 	inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x7530A0")); // ExperienceController get_Int32_1
 	inline uintptr_t WebInstance = String2Offset(OBFUSCATE("0x37C38D0")); // Progress.Class2248 get_CLass2248_0
 	inline uintptr_t AddCurrency = String2Offset(OBFUSCATE("0x9E3BD0")); // Progress.Class2248 method_144
+	inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x42D0540")); // PostProcessLayer OnPreRender
 }
 
 template<typename T> inline T& GetField(void* instance, uint64_t offset) {
 	return (T&)(*(T*)((uint64_t)instance + offset));
 }
 namespace FieldOffsets {
+	inline uintptr_t NickLabel = String2Offset(OBFUSCATE("0x3B8")); // Player_move_c nickLabel
+	inline uintptr_t WSPlayerMoveC = String2Offset(OBFUSCATE("0x500")); // WeaponSounds player_move_c_0
+
 	// WeaponSounds
 
 	inline uintptr_t RecoilCeoff = String2Offset(OBFUSCATE("0xC0")); // recoilCeoff

@@ -66,6 +66,14 @@ namespace Tabs {
 			ImGui::Checkbox(OBFUSCATE("Chams"), &Variables::XRay);
 			HelpMarker(OBFUSCATE("Makes all players visible through walls."));
 
+			ImGui::Checkbox(OBFUSCATE("FOV Changer"), &Variables::FOVChanger);
+			HelpMarker(OBFUSCATE("Changes your FOV."));
+			if (Variables::FOVChanger)
+			{
+				Utils::FSlider(OBFUSCATE("##FOVValue"), &Variables::FOVValue, 0.0f, 360.0f, OBFUSCATE("FOV Value: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 140 for highest FOV while keeping camera functionality."));
+			}
+
 			ImGui::Checkbox(OBFUSCATE("Enemy Marker"), &Variables::EnemyMarker);
 			HelpMarker(OBFUSCATE("Marks enemies when they are shot."));
 			if (Variables::EnemyMarker)

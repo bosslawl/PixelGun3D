@@ -71,20 +71,10 @@ namespace Utils {
 		return value_changed;
 	}
 
-	inline std::string CleanString(std::string string)
-	{
-		std::vector<char> bytes(string.begin(), string.end());
-		bytes.push_back('\0');
-		std::list<char> chars;
-		for (byte byte : bytes)
-		{
-			if (byte)
-			{
-				chars.push_back(byte);
-			}
-		}
-		std::string clean(chars.begin(), chars.end());
-		return clean;
+	inline std::string CleanString(const std::string& input) {
+		std::string result = input;
+		result.erase(std::remove(result.begin(), result.end(), '\0'), result.end());
+		return result;
 	}
 
 	inline std::string GetKeyNameFromVirtualKey(int virtualKey) {

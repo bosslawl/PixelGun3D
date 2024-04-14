@@ -259,8 +259,12 @@ void UI::Render()
             continue;
         }
 
-        Variables::ScreenSize.x = GetSystemMetrics(SM_CXSCREEN);
-        Variables::ScreenSize.y = GetSystemMetrics(SM_CYSCREEN);
+        HWND PG3D = FindWindow(NULL, L"Pixel Gun 3D");
+        RECT rect;
+        GetWindowRect(PG3D, &rect);
+
+        Variables::ScreenSize.x = rect.right - rect.left;
+        Variables::ScreenSize.y = rect.bottom - rect.top;
 
         Variables::ScreenCenter.x = Variables::ScreenSize.x / 2;
         Variables::ScreenCenter.y = Variables::ScreenSize.y / 2;

@@ -33,6 +33,8 @@ namespace Variables {
 	inline bool GameSpeed = false;	
 		inline float GSpeedMultiplier = 2.0f;
 		inline int GameSpeedKey = VK_F1;
+	inline bool FOVChanger = false;
+		inline float FOVValue = 90.0f;
 
 	// Player_move_c
 

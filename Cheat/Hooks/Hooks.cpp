@@ -21,12 +21,17 @@ void Hooks::LoadModules()
 {
 	if (IL2CPP::Initialize(true))
 	{	
-		#ifdef _DEBUG
+		 
 		UnitySDK::UnityGameBase = (uintptr_t)GetModuleHandleA(NULL);
+		#ifdef _DEBUG
 		printf(OBFUSCATE("\x1b[0m[ @\x1b[38;5;105mbosslawl \x1b[0m] Base Address: 0x%llX\n"), UnitySDK::UnityGameBase);
+		#endif
 		UnitySDK::UnityGameAssembly = (uintptr_t)GetModuleHandleA("GameAssembly.dll");
+		#ifdef _DEBUG
 		printf(OBFUSCATE("\x1b[0m[ @\x1b[38;5;105mbosslawl \x1b[0m] GameAssembly Base Address: 0x%llX\n"), UnitySDK::UnityGameAssembly);
+		#endif
 		UnitySDK::UnityPlayer = (uintptr_t)GetModuleHandleA("UnityPlayer.dll");
+		#ifdef _DEBUG
 		printf(OBFUSCATE("\x1b[0m[ @\x1b[38;5;105mbosslawl \x1b[0m] UnityPlayer Base Address: 0x%llX\n"), UnitySDK::UnityPlayer);
 		#endif
 		std::cout << "\x1b[0m[ @\x1b[38;5;105mbosslawl \x1b[0m] \x1b[38;5;83mSuccessfully injected\x1b[0m" << std::endl;
@@ -53,10 +58,11 @@ void Hooks::LoadConsole(FILE* f)
 
 void Hooks::LoadMinHookHooks()
 {
-	MH_Initialize();
-
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild), &GameFunctions::isdebug_h, (LPVOID*)&GameFunctions::isdebug) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PreRender), &GameFunctions::PreRenderHook, (LPVOID*)&GameFunctions::OPreRenderHook) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PreRender));
 
 	// AntiCheat bypass
 

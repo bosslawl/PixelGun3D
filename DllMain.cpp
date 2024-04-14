@@ -10,6 +10,10 @@ FILE* f;
 
 QWORD WINAPI MainThread(LPVOID param)
 {
+	IL2CPP::Initialize();
+	Unity::Camera::Initialize();
+	MH_Initialize();
+
 	hCurrentUIThread = CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)UI::Render, nullptr, NULL, nullptr);
 	RunHooks.Load(f);
 
