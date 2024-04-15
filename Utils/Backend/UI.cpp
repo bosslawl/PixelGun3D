@@ -263,11 +263,11 @@ void UI::Render()
         RECT rect;
         GetWindowRect(PG3D, &rect);
 
-        Variables::ScreenSize.x = rect.right - rect.left;
-        Variables::ScreenSize.y = rect.bottom - rect.top;
+        Variables::Screen::Size.x = rect.right - rect.left;
+        Variables::Screen::Size.y = rect.bottom - rect.top;
 
-        Variables::ScreenCenter.x = Variables::ScreenSize.x / 2;
-        Variables::ScreenCenter.y = Variables::ScreenSize.y / 2;
+        Variables::Screen::Center.x = Variables::Screen::Size.x / 2;
+        Variables::Screen::Center.y = Variables::Screen::Size.y / 2;
 
         static float isRed = 0.0f, isGreen = 0.01f, isBlue = 0.0f;
         int FrameCount = ImGui::GetFrameCount();
@@ -284,7 +284,7 @@ void UI::Render()
             if (isRed < 0.01f) isGreen = 0.01f;
         }
 
-        Variables::RainbowColor = ImVec4(isRed, isGreen, isBlue, 1.0f);
+        Variables::Visuals::RainbowColor = ImVec4(isRed, isGreen, isBlue, 1.0f);
 
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();

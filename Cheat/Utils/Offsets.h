@@ -16,13 +16,13 @@ inline uintptr_t String2Offset(const char* c) {
 }
 
 namespace Offsets {
+	// UnityEngine
 	inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t TextMesh = String2Offset(OBFUSCATE("0x0"));
 	inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C38D0")); // string.Ctor
 
 #	// Anticheat bypass
-
 	inline uintptr_t ACOne = String2Offset(OBFUSCATE("0xB16E90")); // DataSystem.DataValidiation.GClass264 smethod_0
 	inline uintptr_t ACTwo = String2Offset(OBFUSCATE("0xB18F10")); // DataSystem.DataValidation.FluentValidators.Class2536 .ctor
 	inline uintptr_t ACThree = String2Offset(OBFUSCATE("0x6FE690")); // DveeloperConsoleController HandleBanUs
@@ -78,7 +78,6 @@ namespace Offsets {
 	inline uintptr_t ACFiftyThree = String2Offset(OBFUSCATE("0xBBC220")); // Rilisoft.GClass317 smethod_158
 
 	// Player_move_c
-
 	inline uintptr_t PlayerMoveCUpdate = String2Offset(OBFUSCATE("0x1B677D0")); // Player_move_c Update
 	inline uintptr_t XRay = String2Offset(OBFUSCATE("0x1B290B0")); // Player_move_c method_205
 	inline uintptr_t MatchInvisibility = String2Offset(OBFUSCATE("0x1AC54B0")); // Player_move_c MakeInvisibleForSeconds
@@ -86,19 +85,16 @@ namespace Offsets {
 	inline uintptr_t GodmodeOne = String2Offset(OBFUSCATE("0x1AD8570")); // Player_move_c method_451
 
 	// WeaponSounds
-
 	inline uintptr_t WeaponSoundsUpdate = String2Offset(OBFUSCATE("0x7F0070")); // WeaponSounds Update
 	inline uintptr_t NextHitCritical = String2Offset(OBFUSCATE("0x7E91C0"));// WeaponSounds SetNextHitCritical
 
 	// PetEngine
-
 	inline uintptr_t PetEngineUpdate = String2Offset(OBFUSCATE("0xDFD690")); // Rilisoft.PetEngine Update
 	inline uintptr_t PetHealth = String2Offset(OBFUSCATE("0xDD7B20")); // PetEngine method_37
 	inline uintptr_t PetDamage = String2Offset(OBFUSCATE("0x213E3D0")); // PetInfo get_Attack
 	inline uintptr_t PetSpeed = String2Offset(OBFUSCATE("0x213E860")); // PetInfo get_SpeedModif
 
 	// Misc
-
 	inline uintptr_t SpeedModifier = String2Offset(OBFUSCATE("0x7757F0")); // ItemRecord get_SpeedModifier
 	inline uintptr_t GodmodeTwo = String2Offset(OBFUSCATE("0x2180FC0")); // GClass147 method_16
 	inline uintptr_t InfiniteGems = String2Offset(OBFUSCATE("0x4BBE80")); // Class9 smethod_6
@@ -120,10 +116,11 @@ template<typename T> inline T& GetField(void* instance, uint64_t offset) {
 	return (T&)(*(T*)((uint64_t)instance + offset));
 }
 namespace FieldOffsets {
+	// Player_move_c
 	inline uintptr_t NickLabel = String2Offset(OBFUSCATE("0x3B8")); // Player_move_c nickLabel
-	inline uintptr_t WSPlayerMoveC = String2Offset(OBFUSCATE("0x500")); // WeaponSounds player_move_c_0
 
 	// WeaponSounds
+	inline uintptr_t WeaponSoundsPlayer = String2Offset(OBFUSCATE("0x500")); // WeaponSounds player_move_c_0
 
 	inline uintptr_t RecoilCeoff = String2Offset(OBFUSCATE("0xC0")); // recoilCeoff
 	inline uintptr_t RecoilCeoffZoom = String2Offset(OBFUSCATE("0x124")); // recoilCeoffZoom
@@ -204,26 +201,20 @@ namespace FieldOffsets {
 	inline uintptr_t StunTime = String2Offset(OBFUSCATE("0x240")); // stunTime
 	inline uintptr_t StunCeoff = String2Offset(OBFUSCATE("0x23C")); // stunCeoff
 	inline uintptr_t StunRadius = String2Offset(OBFUSCATE("0x244")); // stunRadius
-
 	inline uintptr_t Blind = String2Offset(OBFUSCATE("0x268")); // isBlindEffect
 	inline uintptr_t BlindTime = String2Offset(OBFUSCATE("0x270")); // isBlindEffectTime
-
 	inline uintptr_t Lightning = String2Offset(OBFUSCATE("0x155")); // isLightning
-
 	inline uintptr_t Weakness = String2Offset(OBFUSCATE("0x27C")); // isWeaknessEffect
 	inline uintptr_t WeaknessTime = String2Offset(OBFUSCATE("0x280")); // weaknessEffectTime
-
 	inline uintptr_t Charm = String2Offset(OBFUSCATE("0x274")); // isCharm
 	inline uintptr_t CharmTime = String2Offset(OBFUSCATE("0x278")); // charmTime
-
 	inline uintptr_t Shocker = String2Offset(OBFUSCATE("0x484")); // shocker
 	inline uintptr_t ShockerRange = String2Offset(OBFUSCATE("0x48C")); // shockerRange
 	inline uintptr_t ShockerMultiplier = String2Offset(OBFUSCATE("0x488")); // shockerDamageMultiplier
-
 	inline uintptr_t Cursing = String2Offset(OBFUSCATE("0x214")); // isCursing
 	inline uintptr_t CursingTime = String2Offset(OBFUSCATE("0x218")); // curseTime
 	inline uintptr_t CursingMultiplier = String2Offset(OBFUSCATE("0x21C")); // curseDamageMultiplier
-
+	
 	inline uintptr_t HeadMagnifier = String2Offset(OBFUSCATE("0x260")); // isHeadMagnifier
 	inline uintptr_t MagnifierTime = String2Offset(OBFUSCATE("0x264")); // headMagnifierTime
 
@@ -252,16 +243,11 @@ namespace FieldOffsets {
 	inline uintptr_t MarkerChargeTime = String2Offset(OBFUSCATE("0x250")); // enemyMarketChargeTime
 
 	inline uintptr_t Flamethrower = String2Offset(OBFUSCATE("0x34C")); // flamethrower
-
 	inline uintptr_t ExplosiveBullets = String2Offset(OBFUSCATE("0x1A5")); // bulletExplode
-
 	inline uintptr_t Shotgun = String2Offset(OBFUSCATE("0x1A6")); // isShotGun
-
 	inline uintptr_t Railgun = String2Offset(OBFUSCATE("0x1BC")); // railgun
 	inline uintptr_t RailgunClipping = String2Offset(OBFUSCATE("0x1C8")); // railgunStopAtWall
-
 	inline uintptr_t Bazooka = String2Offset(OBFUSCATE("0x12B")); // bazooka
-
 	inline uintptr_t Harpoon = String2Offset(OBFUSCATE("0x2B8")); // harpoon
 	inline uintptr_t HarpoonDistance = String2Offset(OBFUSCATE("0x2E0")); // harpoonMaxDistance
 

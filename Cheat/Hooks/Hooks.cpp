@@ -6,7 +6,7 @@ Signatures RunSignatures;
 
 void Hooks::Load(FILE* f)
 {
-	Hooks::LoadConsole(f); // need to put this first in case of melonloader junking your console
+	Hooks::LoadConsole(f); 
 	Hooks::LoadModules();
 	// this function calls when ur injecting ur dll
 	#ifdef _DEBUG
@@ -61,224 +61,224 @@ void Hooks::LoadMinHookHooks()
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild), &GameFunctions::isdebug_h, (LPVOID*)&GameFunctions::isdebug) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::IsDebugBuild));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PreRender), &GameFunctions::PreRenderHook, (LPVOID*)&GameFunctions::OPreRenderHook) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PreRender), &GameFunctions::Miscellaneous::PreRenderHook, (LPVOID*)&GameFunctions::Miscellaneous::OPreRenderHook) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PreRender));
 
 	// AntiCheat bypass
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACOne), &GameFunctions::ACOne, (LPVOID*)&GameFunctions::OACOne) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACOne), &GameFunctions::ACBypass::ACOne, (LPVOID*)&GameFunctions::ACBypass::OACOne) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACOne));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwo), &GameFunctions::ACTwo, (LPVOID*)&GameFunctions::OACTwo) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwo), &GameFunctions::ACBypass::ACTwo, (LPVOID*)&GameFunctions::ACBypass::OACTwo) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThree), &GameFunctions::ACThree, (LPVOID*)&GameFunctions::OACThree) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThree), &GameFunctions::ACBypass::ACThree, (LPVOID*)&GameFunctions::ACBypass::OACThree) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThree));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFour), &GameFunctions::ACFour, (LPVOID*)&GameFunctions::OACFour) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFour), &GameFunctions::ACBypass::ACFour, (LPVOID*)&GameFunctions::ACBypass::OACFour) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFour));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFive), &GameFunctions::ACFive, (LPVOID*)&GameFunctions::OACFive) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFive), &GameFunctions::ACBypass::ACFive, (LPVOID*)&GameFunctions::ACBypass::OACFive) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFive));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSix), &GameFunctions::ACSix, (LPVOID*)&GameFunctions::OACSix) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSix), &GameFunctions::ACBypass::ACSix, (LPVOID*)&GameFunctions::ACBypass::OACSix) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACSix));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSeven), &GameFunctions::ACSeven, (LPVOID*)&GameFunctions::OACSeven) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSeven), &GameFunctions::ACBypass::ACSeven, (LPVOID*)&GameFunctions::ACBypass::OACSeven) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACSeven));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACEight), &GameFunctions::ACEight, (LPVOID*)&GameFunctions::OACEight) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACEight), &GameFunctions::ACBypass::ACEight, (LPVOID*)&GameFunctions::ACBypass::OACEight) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACEight));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACNine), &GameFunctions::ACNine, (LPVOID*)&GameFunctions::OACNine) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACNine), &GameFunctions::ACBypass::ACNine, (LPVOID*)&GameFunctions::ACBypass::OACNine) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACNine));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTen), &GameFunctions::ACTen, (LPVOID*)&GameFunctions::OACTen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTen), &GameFunctions::ACBypass::ACTen, (LPVOID*)&GameFunctions::ACBypass::OACTen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACEleven), &GameFunctions::ACEleven, (LPVOID*)&GameFunctions::OACEleven) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACEleven), &GameFunctions::ACBypass::ACEleven, (LPVOID*)&GameFunctions::ACBypass::OACEleven) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACEleven));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwelve), &GameFunctions::ACTwelve, (LPVOID*)&GameFunctions::OACTwelve) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwelve), &GameFunctions::ACBypass::ACTwelve, (LPVOID*)&GameFunctions::ACBypass::OACTwelve) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwelve));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirteen), &GameFunctions::ACThirteen, (LPVOID*)&GameFunctions::OACThirteen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirteen), &GameFunctions::ACBypass::ACThirteen, (LPVOID*)&GameFunctions::ACBypass::OACThirteen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirteen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourteen), &GameFunctions::ACFourteen, (LPVOID*)&GameFunctions::OACFourteen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourteen), &GameFunctions::ACBypass::ACFourteen, (LPVOID*)&GameFunctions::ACBypass::OACFourteen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourteen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFifteen), &GameFunctions::ACFifteen, (LPVOID*)&GameFunctions::OACFifteen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFifteen), &GameFunctions::ACBypass::ACFifteen, (LPVOID*)&GameFunctions::ACBypass::OACFifteen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFifteen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSixteen), &GameFunctions::ACSixteen, (LPVOID*)&GameFunctions::OACSixteen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSixteen), &GameFunctions::ACBypass::ACSixteen, (LPVOID*)&GameFunctions::ACBypass::OACSixteen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACSixteen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSeventeen), &GameFunctions::ACSeventeen, (LPVOID*)&GameFunctions::OACSeventeen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACSeventeen), &GameFunctions::ACBypass::ACSeventeen, (LPVOID*)&GameFunctions::ACBypass::OACSeventeen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACSeventeen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACEighteen), &GameFunctions::ACEighteen, (LPVOID*)&GameFunctions::OACEighteen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACEighteen), &GameFunctions::ACBypass::ACEighteen, (LPVOID*)&GameFunctions::ACBypass::OACEighteen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACEighteen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACNineteen), &GameFunctions::ACNineteen, (LPVOID*)&GameFunctions::OACNineteen) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACNineteen), &GameFunctions::ACBypass::ACNineteen, (LPVOID*)&GameFunctions::ACBypass::OACNineteen) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACNineteen));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwenty), &GameFunctions::ACTwenty, (LPVOID*)&GameFunctions::OACTwenty) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwenty), &GameFunctions::ACBypass::ACTwenty, (LPVOID*)&GameFunctions::ACBypass::OACTwenty) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwenty));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyOne), &GameFunctions::ACTwentyOne, (LPVOID*)&GameFunctions::OACTwentyOne) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyOne), &GameFunctions::ACBypass::ACTwentyOne, (LPVOID*)&GameFunctions::ACBypass::OACTwentyOne) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyOne));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyTwo), &GameFunctions::ACTwentyTwo, (LPVOID*)&GameFunctions::OACTwentyTwo) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyTwo), &GameFunctions::ACBypass::ACTwentyTwo, (LPVOID*)&GameFunctions::ACBypass::OACTwentyTwo) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyThree), &GameFunctions::ACTwentyThree, (LPVOID*)&GameFunctions::OACTwentyThree) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyThree), &GameFunctions::ACBypass::ACTwentyThree, (LPVOID*)&GameFunctions::ACBypass::OACTwentyThree) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyThree));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyFour), &GameFunctions::ACTwentyFour, (LPVOID*)&GameFunctions::OACTwentyFour) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyFour), &GameFunctions::ACBypass::ACTwentyFour, (LPVOID*)&GameFunctions::ACBypass::OACTwentyFour) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyFour));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyFive), &GameFunctions::ACTwentyFive, (LPVOID*)&GameFunctions::OACTwentyFive) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyFive), &GameFunctions::ACBypass::ACTwentyFive, (LPVOID*)&GameFunctions::ACBypass::OACTwentyFive) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyFive));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentySix), &GameFunctions::ACTwentySix, (LPVOID*)&GameFunctions::OACTwentySix) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentySix), &GameFunctions::ACBypass::ACTwentySix, (LPVOID*)&GameFunctions::ACBypass::OACTwentySix) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentySix));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentySeven), &GameFunctions::ACTwentySeven, (LPVOID*)&GameFunctions::OACTwentySeven) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentySeven), &GameFunctions::ACBypass::ACTwentySeven, (LPVOID*)&GameFunctions::ACBypass::OACTwentySeven) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentySeven));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyEight), &GameFunctions::ACTwentyEight, (LPVOID*)&GameFunctions::OACTwentyEight) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyEight), &GameFunctions::ACBypass::ACTwentyEight, (LPVOID*)&GameFunctions::ACBypass::OACTwentyEight) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyEight));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyNine), &GameFunctions::ACTwentyNine, (LPVOID*)&GameFunctions::OACTwentyNine) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACTwentyNine), &GameFunctions::ACBypass::ACTwentyNine, (LPVOID*)&GameFunctions::ACBypass::OACTwentyNine) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACTwentyNine));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirty), &GameFunctions::ACThirty, (LPVOID*)&GameFunctions::OACThirty) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirty), &GameFunctions::ACBypass::ACThirty, (LPVOID*)&GameFunctions::ACBypass::OACThirty) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirty));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyOne), &GameFunctions::ACThirtyOne, (LPVOID*)&GameFunctions::OACThirtyOne) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyOne), &GameFunctions::ACBypass::ACThirtyOne, (LPVOID*)&GameFunctions::ACBypass::OACThirtyOne) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyOne));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyTwo), &GameFunctions::ACThirtyTwo, (LPVOID*)&GameFunctions::OACThirtyTwo) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyTwo), &GameFunctions::ACBypass::ACThirtyTwo, (LPVOID*)&GameFunctions::ACBypass::OACThirtyTwo) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyThree), &GameFunctions::ACThirtyThree, (LPVOID*)&GameFunctions::OACThirtyThree) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyThree), &GameFunctions::ACBypass::ACThirtyThree, (LPVOID*)&GameFunctions::ACBypass::OACThirtyThree) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyThree));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyFour), &GameFunctions::ACThirtyFour, (LPVOID*)&GameFunctions::OACThirtyFour) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyFour), &GameFunctions::ACBypass::ACThirtyFour, (LPVOID*)&GameFunctions::ACBypass::OACThirtyFour) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyFour));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyFive), &GameFunctions::ACThirtyFive, (LPVOID*)&GameFunctions::OACThirtyFive) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyFive), &GameFunctions::ACBypass::ACThirtyFive, (LPVOID*)&GameFunctions::ACBypass::OACThirtyFive) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyFive));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtySix), &GameFunctions::ACThirtySix, (LPVOID*)&GameFunctions::OACThirtySix) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtySix), &GameFunctions::ACBypass::ACThirtySix, (LPVOID*)&GameFunctions::ACBypass::OACThirtySix) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtySix));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtySeven), &GameFunctions::ACThirtySeven, (LPVOID*)&GameFunctions::OACThirtySeven) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtySeven), &GameFunctions::ACBypass::ACThirtySeven, (LPVOID*)&GameFunctions::ACBypass::OACThirtySeven) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtySeven));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyEight), &GameFunctions::ACThirtyEight, (LPVOID*)&GameFunctions::OACThirtyEight) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyEight), &GameFunctions::ACBypass::ACThirtyEight, (LPVOID*)&GameFunctions::ACBypass::OACThirtyEight) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyEight));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyNine), &GameFunctions::ACThirtyNine, (LPVOID*)&GameFunctions::OACThirtyNine) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACThirtyNine), &GameFunctions::ACBypass::ACThirtyNine, (LPVOID*)&GameFunctions::ACBypass::OACThirtyNine) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACThirtyNine));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourty), &GameFunctions::ACFourty, (LPVOID*)&GameFunctions::OACFourty) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourty), &GameFunctions::ACBypass::ACFourty, (LPVOID*)&GameFunctions::ACBypass::OACFourty) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourty));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyOne), &GameFunctions::ACFourtyOne, (LPVOID*)&GameFunctions::OACFourtyOne) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyOne), &GameFunctions::ACBypass::ACFourtyOne, (LPVOID*)&GameFunctions::ACBypass::OACFourtyOne) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyOne));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyTwo), &GameFunctions::ACFourtyTwo, (LPVOID*)&GameFunctions::OACFourtyTwo) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyTwo), &GameFunctions::ACBypass::ACFourtyTwo, (LPVOID*)&GameFunctions::ACBypass::OACFourtyTwo) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyThree), &GameFunctions::ACFourtyThree, (LPVOID*)&GameFunctions::OACFourtyThree) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyThree), &GameFunctions::ACBypass::ACFourtyThree, (LPVOID*)&GameFunctions::ACBypass::OACFourtyThree) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyThree));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyFour), &GameFunctions::ACFourtyFour, (LPVOID*)&GameFunctions::OACFourtyFour) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyFour), &GameFunctions::ACBypass::ACFourtyFour, (LPVOID*)&GameFunctions::ACBypass::OACFourtyFour) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyFour));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyFive), &GameFunctions::ACFourtyFive, (LPVOID*)&GameFunctions::OACFourtyFive) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyFive), &GameFunctions::ACBypass::ACFourtyFive, (LPVOID*)&GameFunctions::ACBypass::OACFourtyFive) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyFive));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtySix), &GameFunctions::ACFourtySix, (LPVOID*)&GameFunctions::OACFourtySix) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtySix), &GameFunctions::ACBypass::ACFourtySix, (LPVOID*)&GameFunctions::ACBypass::OACFourtySix) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtySix));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtySeven), &GameFunctions::ACFourtySeven, (LPVOID*)&GameFunctions::OACFourtySeven) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtySeven), &GameFunctions::ACBypass::ACFourtySeven, (LPVOID*)&GameFunctions::ACBypass::OACFourtySeven) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtySeven));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyEight), &GameFunctions::ACFourtyEight, (LPVOID*)&GameFunctions::OACFourtyEight) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyEight), &GameFunctions::ACBypass::ACFourtyEight, (LPVOID*)&GameFunctions::ACBypass::OACFourtyEight) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyEight));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyNine), &GameFunctions::ACFourtyNine, (LPVOID*)&GameFunctions::OACFourtyNine) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFourtyNine), &GameFunctions::ACBypass::ACFourtyNine, (LPVOID*)&GameFunctions::ACBypass::OACFourtyNine) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFourtyNine));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFifty), &GameFunctions::ACFifty, (LPVOID*)&GameFunctions::OACFifty) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFifty), &GameFunctions::ACBypass::ACFifty, (LPVOID*)&GameFunctions::ACBypass::OACFifty) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFifty));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyOne), &GameFunctions::ACFiftyOne, (LPVOID*)&GameFunctions::OACFiftyOne) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyOne), &GameFunctions::ACBypass::ACFiftyOne, (LPVOID*)&GameFunctions::ACBypass::OACFiftyOne) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFiftyOne));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyTwo), &GameFunctions::ACFiftyTwo, (LPVOID*)&GameFunctions::OACFiftyTwo) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyTwo), &GameFunctions::ACBypass::ACFiftyTwo, (LPVOID*)&GameFunctions::ACBypass::OACFiftyTwo) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFiftyTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyThree), &GameFunctions::ACFiftyThree, (LPVOID*)&GameFunctions::OACFiftyThree) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ACFiftyThree), &GameFunctions::ACBypass::ACFiftyThree, (LPVOID*)&GameFunctions::ACBypass::OACFiftyThree) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ACFiftyThree));
 
 	// Player_move_c
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC, (LPVOID*)&GameFunctions::OPlayerMoveC) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate), &GameFunctions::PlayerMoveC::PlayerMoveC, (LPVOID*)&GameFunctions::PlayerMoveC::OPlayerMoveC) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PlayerMoveCUpdate));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::SpeedModifier), &GameFunctions::SpeedModifier, (LPVOID*)&GameFunctions::OSpeedModifier) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::SpeedModifier), &GameFunctions::PlayerMoveC::SpeedModifier, (LPVOID*)&GameFunctions::PlayerMoveC::OSpeedModifier) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::SpeedModifier));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GodmodeOne), &GameFunctions::GodmodeOne, (LPVOID*)&GameFunctions::OGodmodeOne) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GodmodeOne), &GameFunctions::PlayerMoveC::GodmodeOne, (LPVOID*)&GameFunctions::PlayerMoveC::OGodmodeOne) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::GodmodeOne));
 
 	// WeaponSounds
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate), &GameFunctions::WeaponSounds, (LPVOID*)&GameFunctions::OWeaponSounds) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate), &GameFunctions::WeaponSounds::WeaponSounds, (LPVOID*)&GameFunctions::WeaponSounds::OWeaponSounds) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::WeaponSoundsUpdate));
 
 	// PetEngine
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetEngineUpdate), &GameFunctions::PetEngine, (LPVOID*)&GameFunctions::OPetEngine) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetEngineUpdate), &GameFunctions::PetEngine::PetEngine, (LPVOID*)&GameFunctions::PetEngine::OPetEngine) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PetEngineUpdate));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetDamage), &GameFunctions::PetDamage, (LPVOID*)&GameFunctions::OPetDamage) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetDamage), &GameFunctions::PetEngine::PetDamage, (LPVOID*)&GameFunctions::PetEngine::OPetDamage) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PetDamage));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetSpeed), &GameFunctions::PetSpeed, (LPVOID*)&GameFunctions::OPetSpeed) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PetSpeed), &GameFunctions::PetEngine::PetSpeed, (LPVOID*)&GameFunctions::PetEngine::OPetSpeed) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PetSpeed));
 
 	// Misc
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GodmodeTwo), &GameFunctions::GodmodeTwo, (LPVOID*)&GameFunctions::OGodmodeTwo) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GodmodeTwo), &GameFunctions::Miscellaneous::GodmodeTwo, (LPVOID*)&GameFunctions::Miscellaneous::OGodmodeTwo) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::GodmodeTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::InfiniteGems), &GameFunctions::InfiniteGems, (LPVOID*)&GameFunctions::OInfiniteGems) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::InfiniteGems), &GameFunctions::Miscellaneous::InfiniteGems, (LPVOID*)&GameFunctions::Miscellaneous::OInfiniteGems) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::InfiniteGems));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ReloadModifier), &GameFunctions::ReloadModifier, (LPVOID*)&GameFunctions::OReloadModifier) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::ReloadModifier), &GameFunctions::Miscellaneous::ReloadModifier, (LPVOID*)&GameFunctions::Miscellaneous::OReloadModifier) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::ReloadModifier));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GadgetCooldown), &GameFunctions::GadgetCooldown, (LPVOID*)&GameFunctions::OGadgetCooldown) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::GadgetCooldown), &GameFunctions::Miscellaneous::GadgetCooldown, (LPVOID*)&GameFunctions::Miscellaneous::OGadgetCooldown) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::GadgetCooldown));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Lottery), &GameFunctions::Lottery, (LPVOID*)&GameFunctions::OLottery) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Lottery), &GameFunctions::Miscellaneous::Lottery, (LPVOID*)&GameFunctions::Miscellaneous::OLottery) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Lottery));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::FireRate), &GameFunctions::FireRate, (LPVOID*)&GameFunctions::OFireRate) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::FireRate), &GameFunctions::Miscellaneous::FireRate, (LPVOID*)&GameFunctions::Miscellaneous::OFireRate) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::FireRate));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelOne), &GameFunctions::Level, (LPVOID*)&GameFunctions::OLevel) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelOne), &GameFunctions::Miscellaneous::Level, (LPVOID*)&GameFunctions::Miscellaneous::OLevel) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MaxLevelOne));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo), &GameFunctions::Experience, (LPVOID*)&GameFunctions::OExperience) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo), &GameFunctions::Miscellaneous::Experience, (LPVOID*)&GameFunctions::Miscellaneous::OExperience) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PixelPass), &GameFunctions::PremiumPass, (LPVOID*)&GameFunctions::OPremiumPass) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PixelPass), &GameFunctions::Miscellaneous::PremiumPass, (LPVOID*)&GameFunctions::Miscellaneous::OPremiumPass) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PixelPass));
 }
 

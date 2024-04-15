@@ -132,14 +132,14 @@ namespace Utils {
 
 		Unity::Vector3 buffer = CameraMain->CallMethodSafe<Unity::Vector3>(OBFUSCATE("WorldToScreenPoint"), world, Unity::eye::mono); // Call the worldtoscren function using monoeye (2)
 
-		if (buffer.x > Variables::ScreenSize.x || buffer.y > Variables::ScreenSize.y || buffer.x < 0 || buffer.y < 0 || buffer.z < 0) // check if point is on screen
+		if (buffer.x > Variables::Screen::Size.x || buffer.y > Variables::Screen::Size.y || buffer.x < 0 || buffer.y < 0 || buffer.z < 0) // check if point is on screen
 		{
 			return false;
 		}
 
 		if (buffer.z > 0.0f) // Check if point is in view
 		{
-			screen = Vector2(buffer.x, Variables::ScreenSize.y - buffer.y);
+			screen = Vector2(buffer.x, Variables::Screen::Size.y - buffer.y);
 		}
 
 		if (screen.x > 0 || screen.y > 0) // Check if point is in view
@@ -151,22 +151,22 @@ namespace Utils {
 	inline void UseFov(static bool IsRainbow)
 	{
 		if(IsRainbow)
-			ImGui::GetForegroundDrawList()->AddCircle(ImVec2(Variables::ScreenCenter.x, Variables::ScreenCenter.y), Variables::CircleFov, ImColor(Variables::RainbowColor.x, Variables::RainbowColor.y, Variables::RainbowColor.z, Variables::RainbowColor.w), 360);
+			ImGui::GetForegroundDrawList()->AddCircle(ImVec2(Variables::Screen::Center.x, Variables::Screen::Center.y), Variables::Visuals::CircleFov, ImColor(Variables::Visuals::RainbowColor.x, Variables::Visuals::RainbowColor.y, Variables::Visuals::RainbowColor.z, Variables::Visuals::RainbowColor.w), 360);
 		else
-			ImGui::GetForegroundDrawList()->AddCircle(ImVec2(Variables::ScreenCenter.x, Variables::ScreenCenter.y), Variables::CircleFov, Variables::CircleColour, 360);
+			ImGui::GetForegroundDrawList()->AddCircle(ImVec2(Variables::Screen::Center.x, Variables::Screen::Center.y), Variables::Visuals::CircleFov, Variables::Visuals::CircleColor, 360);
 	}
 
 	inline void UseCrosshair(static bool IsRainbow)
 	{
 		if (IsRainbow)
 		{
-			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::ScreenCenter.x - Variables::CrosshairSize, Variables::ScreenCenter.y), ImVec2((Variables::ScreenCenter.x - Variables::CrosshairSize) + (Variables::CrosshairSize * 2), Variables::ScreenCenter.y), ImColor(Variables::RainbowColor.x, Variables::RainbowColor.y, Variables::RainbowColor.z, Variables::RainbowColor.w), 1.2f);
-			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::ScreenCenter.x, Variables::ScreenCenter.y - Variables::CrosshairSize), ImVec2(Variables::ScreenCenter.x, (Variables::ScreenCenter.y - Variables::CrosshairSize) + (Variables::CrosshairSize * 2)), ImColor(Variables::RainbowColor.x, Variables::RainbowColor.y, Variables::RainbowColor.z, Variables::RainbowColor.w), 1.2f);
+			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::Screen::Center.x - Variables::Visuals::CrosshairSize, Variables::Screen::Center.y), ImVec2((Variables::Screen::Center.x - Variables::Visuals::CrosshairSize) + (Variables::Visuals::CrosshairSize * 2), Variables::Screen::Center.y), ImColor(Variables::Visuals::RainbowColor.x, Variables::Visuals::RainbowColor.y, Variables::Visuals::RainbowColor.z, Variables::Visuals::RainbowColor.w), 1.2f);
+			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::Screen::Center.x, Variables::Screen::Center.y - Variables::Visuals::CrosshairSize), ImVec2(Variables::Screen::Center.x, (Variables::Screen::Center.y - Variables::Visuals::CrosshairSize) + (Variables::Visuals::CrosshairSize * 2)), ImColor(Variables::Visuals::RainbowColor.x, Variables::Visuals::RainbowColor.y, Variables::Visuals::RainbowColor.z, Variables::Visuals::RainbowColor.w), 1.2f);
 		}
 		else 
 		{
-			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::ScreenCenter.x - Variables::CrosshairSize, Variables::ScreenCenter.y), ImVec2((Variables::ScreenCenter.x - Variables::CrosshairSize) + (Variables::CrosshairSize * 2), Variables::ScreenCenter.y), Variables::CrosshairColor, 1.2f);
-			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::ScreenCenter.x, Variables::ScreenCenter.y - Variables::CrosshairSize), ImVec2(Variables::ScreenCenter.x, (Variables::ScreenCenter.y - Variables::CrosshairSize) + (Variables::CrosshairSize * 2)), Variables::CrosshairColor, 1.2f);
+			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::Screen::Center.x - Variables::Visuals::CrosshairSize, Variables::Screen::Center.y), ImVec2((Variables::Screen::Center.x - Variables::Visuals::CrosshairSize) + (Variables::Visuals::CrosshairSize * 2), Variables::Screen::Center.y), Variables::Visuals::CrosshairColor, 1.2f);
+			ImGui::GetForegroundDrawList()->AddLine(ImVec2(Variables::Screen::Center.x, Variables::Screen::Center.y - Variables::Visuals::CrosshairSize), ImVec2(Variables::Screen::Center.x, (Variables::Screen::Center.y - Variables::Visuals::CrosshairSize) + (Variables::Visuals::CrosshairSize * 2)), Variables::Visuals::CrosshairColor, 1.2f);
 		}
 	}
 
