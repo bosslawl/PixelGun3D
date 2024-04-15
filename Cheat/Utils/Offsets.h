@@ -113,6 +113,7 @@ namespace Offsets {
 	inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x42D0540")); // PostProcessLayer OnPreRender
 	inline uintptr_t HealthOnline = String2Offset(OBFUSCATE("0x1AABE00")); // PlayerDamageable AddHealthFromWeaponOnline
 	inline uintptr_t AmmoOnline = String2Offset(OBFUSCATE("0x1AABC70")); // PlayerDamageable AddAmmoFromWeaponOnline
+	inline uintptr_t PixelPass = String2Offset(OBFUSCATE("0x18881E0")); // Class5646 get_Boolean_3
 }
 
 template<typename T> inline T& GetField(void* instance, uint64_t offset) {

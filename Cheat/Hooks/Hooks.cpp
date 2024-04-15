@@ -277,6 +277,9 @@ void Hooks::LoadMinHookHooks()
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo), &GameFunctions::Experience, (LPVOID*)&GameFunctions::OExperience) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::MaxLevelTwo));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::PixelPass), &GameFunctions::PremiumPass, (LPVOID*)&GameFunctions::OPremiumPass) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::PixelPass));
 }
 
 void Hooks::UnloadMinHookHooks()

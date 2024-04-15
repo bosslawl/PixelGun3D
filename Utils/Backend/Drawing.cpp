@@ -541,6 +541,9 @@ namespace Tabs {
 			ImGui::Checkbox(OBFUSCATE("Lottery"), &Variables::Lottery);
 			HelpMarker(OBFUSCATE("Makes lottery boxes free."));
 
+			ImGui::Checkbox(OBFUSCATE("Premium Pass"), &Variables::PremiumPass);
+			HelpMarker(OBFUSCATE("Gives you the premium pixel pass."));
+
 			ImGui::Checkbox(OBFUSCATE("Max Level"), &Variables::MaxLevel);
 			HelpMarker(OBFUSCATE("Gives you max level. Click 1 and Click 2 when it says."));
 			if (Variables::MaxLevel)

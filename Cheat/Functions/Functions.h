@@ -925,4 +925,13 @@ namespace GameFunctions {
 
 		return OPreRenderHook(obj);
 	}
+
+	inline bool(__stdcall* OPremiumPass)(void* obj);
+	inline bool __stdcall PremiumPass(void* obj)
+	{
+		if (Variables::PremiumPass)
+			return true;
+
+		return OPremiumPass(obj);
+	}
 }

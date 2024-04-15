@@ -167,4 +167,5 @@ namespace Variables {
 		inline bool IsAddCurrency = false;
 	inline bool AmmoOnline = false;
 	inline bool HealOnline = false;
+	inline bool PremiumPass = false;
 }
