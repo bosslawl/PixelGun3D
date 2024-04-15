@@ -3,8 +3,6 @@
 #include "../../Utils/Utils.h"
 #include "../../Utils/Math/Vectors/Vector2.h"
 
-// inline
-
 namespace Variables {
 	// Screen
 	namespace Screen {
@@ -215,6 +213,5 @@ namespace Variables {
 
 		inline bool GadgetCooldown = false;
 		inline float CooldownValue = 0.0f;
-		// Add other miscellaneous variables here...
 	}
 }
