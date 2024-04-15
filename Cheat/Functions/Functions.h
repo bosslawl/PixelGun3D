@@ -550,14 +550,14 @@ namespace GameFunctions {
 		inline void(__stdcall* OWeaponSounds)(void* obj);
 		inline void __stdcall WeaponSounds(void* obj)
 		{
+			if (Variables::Miscellaneous::IsAddCurrency)
+			{
+				Internal::Miscellaneous::AddCurrency(Internal::Miscellaneous::WebInstance(), Internal::CreateIL2CPPString(CurrencyList[Variables::Miscellaneous::SelectedCurrency]), Variables::Miscellaneous::CurrencyAmount, 0, URLParams);
+				Variables::Miscellaneous::IsAddCurrency = false;
+			}
+
 			if (Internal::WeaponSounds::IsMyWeaponSounds(obj))
 			{
-				if (Variables::Miscellaneous::IsAddCurrency)
-				{
-					Internal::Miscellaneous::AddCurrency(Internal::Miscellaneous::WebInstance(), Internal::CreateIL2CPPString(CurrencyList[Variables::Miscellaneous::SelectedCurrency]), Variables::Miscellaneous::CurrencyAmount, 0, URLParams);
-					Variables::Miscellaneous::IsAddCurrency = false;
-				}
-
 				if (Variables::Weapon::RecoilModifier)
 				{
 					*(float*)((uint64_t)obj + FieldOffsets::WeaponSounds::RecoilCeoff) = Variables::Weapon::RecoilValue;
