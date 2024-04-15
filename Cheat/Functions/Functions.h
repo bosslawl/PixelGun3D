@@ -81,6 +81,18 @@ namespace Internal {
 		return fn(obj, a1);
 	}
 
+	inline float AddHealthFromWeaponOnline(void* obj, float a1, std::string a2) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float, std::string)) (getAbsolute(Offsets::HealthOnline));
+		return fn(obj, a1, a2);
+	}
+
+	inline float AddAmmoFromWeaponOnline(void* obj, float a1) {
+		if (!obj) return 0;
+		static const auto fn = (float(*)(void*, float)) (getAbsolute(Offsets::AmmoOnline));
+		return fn(obj, a1);
+	}
+
 	// WeaponSounds
 
 	inline void NextHitCritical(void* obj, bool a1) {
@@ -498,6 +510,14 @@ namespace GameFunctions {
 				Internal::JetpackFly(obj, true);
 			else
 				Internal::JetpackFly(obj, false);
+
+			void* playerDamageable = *(void**)((uintptr_t)obj + 0x650);
+
+			if (Variables::HealOnline)
+				Internal::AddHealthFromWeaponOnline(playerDamageable, 999999.0f, "");
+
+			if (Variables::AmmoOnline)
+				Internal::AddAmmoFromWeaponOnline(playerDamageable, 999999.0f); 
 		}
 
 		if (Variables::MatchInvisibility)
@@ -599,17 +619,17 @@ namespace GameFunctions {
 
 			if (Variables::AOEBullets)
 			{
-				*(bool*)((uint64_t)obj + FieldOffsets::SectorsAOE) = true; // isSectorsAOE 
-				*(bool*)((uint64_t)obj + FieldOffsets::Flamethrower) = false; // flamethrower 
-				*(bool*)((uint64_t)obj + FieldOffsets::Railgun) = false; // railgun 
-				*(bool*)((uint64_t)obj + FieldOffsets::Bazooka) = false; // bazooka 
-				*(bool*)((uint64_t)obj + FieldOffsets::Harpoon) = false; // harpoon 
-				*(float*)((uint64_t)obj + FieldOffsets::FrontAngle) = Variables::FrontAngle; // sectorsAOEAngleFront 
-				*(float*)((uint64_t)obj + FieldOffsets::BackAngle) = Variables::BackAngle; // sectorsAOEAngleBack
-				*(float*)((uint64_t)obj + FieldOffsets::FrontMultiplier) = Variables::FrontMultiplier; // sectorsAOEDamageMultiplierFront 
-				*(float*)((uint64_t)obj + FieldOffsets::BackMultiplier) = Variables::BackMultiplier; // sectorsAOEDamageMultiplierBack 
-				*(float*)((uint64_t)obj + FieldOffsets::SideMultiplier) = Variables::SideMultiplier; // sectorsAOEDamageMultiplierSide 
-				*(float*)((uint64_t)obj + FieldOffsets::SectorsRadiusAOE) = Variables::AOERadius; // sectorsAOERadiusSectorsAoE 
+				*(bool*)((uint64_t)obj + FieldOffsets::SectorsAOE) = true;  
+				*(bool*)((uint64_t)obj + FieldOffsets::Flamethrower) = false;  
+				*(bool*)((uint64_t)obj + FieldOffsets::Railgun) = false;  
+				*(bool*)((uint64_t)obj + FieldOffsets::Bazooka) = false;  
+				*(bool*)((uint64_t)obj + FieldOffsets::Harpoon) = false;  
+				*(float*)((uint64_t)obj + FieldOffsets::FrontAngle) = Variables::FrontAngle;  
+				*(float*)((uint64_t)obj + FieldOffsets::BackAngle) = Variables::BackAngle; 
+				*(float*)((uint64_t)obj + FieldOffsets::FrontMultiplier) = Variables::FrontMultiplier;  
+				*(float*)((uint64_t)obj + FieldOffsets::BackMultiplier) = Variables::BackMultiplier;  
+				*(float*)((uint64_t)obj + FieldOffsets::SideMultiplier) = Variables::SideMultiplier;  
+				*(float*)((uint64_t)obj + FieldOffsets::SectorsRadiusAOE) = Variables::AOERadius;  
 			}
 
 			if (Variables::NoSpread)
@@ -698,12 +718,6 @@ namespace GameFunctions {
 				*(float*)((uint64_t)obj + FieldOffsets::ShockerMultiplier) = Variables::ShockerMultiplier;
 			}
 
-			if (Variables::IgnoreReflection)
-			{
-				*(bool*)((uint64_t)obj + FieldOffsets::ReflectionDamage) = false;
-				*(bool*)((uint64_t)obj + FieldOffsets::AbsorptionDamage) = false;
-			}
-
 			if (Variables::HeadMagnifier) {
 				*(bool*)((uint64_t)obj + FieldOffsets::HeadMagnifier) = true;
 				*(float*)((uint64_t)obj + FieldOffsets::MagnifierTime) = Variables::MagnifierDuration;
@@ -777,6 +791,21 @@ namespace GameFunctions {
 			{
 				*(bool*)((uint64_t)obj + FieldOffsets::Harpoon) = true;
 				*(float*)((uint64_t)obj + FieldOffsets::HarpoonDistance) = Variables::HarpoonDistance;
+			}
+
+			if (Variables::DoubleJump)
+				*(bool*)((uint64_t)obj + FieldOffsets::DoubleJump) = true;
+
+			if (Variables::AntiHeadshot)
+			{
+				*(bool*)((uint64_t)obj + FieldOffsets::ReducedHeadshotDamage) = true;
+				*(float*)((uint64_t)obj + FieldOffsets::ReducedHeadshotDamageMultiplier) = Variables::ReductionMultiplier;
+			}
+
+			if (Variables::ArmourRegeneration)
+			{
+				*(bool*)((uint64_t)obj + FieldOffsets::ArmourRegeneration) = true;
+				*(float*)((uint64_t)obj + FieldOffsets::RegenerationPercent) = Variables::RegenerationPercent;
 			}
 		}
 		return OWeaponSounds(obj);

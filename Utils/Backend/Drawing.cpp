@@ -97,6 +97,9 @@ namespace Tabs {
 
 			ImGui::Checkbox(OBFUSCATE("Jetpack Fly"), &Variables::JetpackFly);
 			HelpMarker(OBFUSCATE("Hold space to fly. Only press it once, it will toggle itself off, to deactivate press it once again."));
+
+			ImGui::Checkbox(OBFUSCATE("Double Jump"), &Variables::DoubleJump);
+			HelpMarker(OBFUSCATE("Allows you to jump twice."));
 		}
 
 		if (ImGui::CollapsingHeader(OBFUSCATE("Immunities")))
@@ -138,6 +141,25 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##GadgetCooldown"), &Variables::CooldownValue, 0.0f, 1000000.0f, OBFUSCATE("Gadget Cooldown: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for instant cooldown."));
 			}
+
+			ImGui::Checkbox(OBFUSCATE("Anti Headshot"), &Variables::AntiHeadshot);
+			HelpMarker(OBFUSCATE("Reduces the damage you take from headshots."));
+			if (Variables::AntiHeadshot)
+			{
+				Utils::FSlider(OBFUSCATE("##ReductionMultiplier"), &Variables::ReductionMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Reduction Multiplier: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest reduction."));
+			}
+
+			ImGui::Checkbox(OBFUSCATE("Armour Regeneration"), &Variables::ArmourRegeneration);
+			HelpMarker(OBFUSCATE("Changes how fast and much you regenerate your armour."));
+			if (Variables::ArmourRegeneration)
+			{
+				Utils::FSlider(OBFUSCATE("##RegenerationPercent"), &Variables::RegenerationPercent, 0.0f, 100.0f, OBFUSCATE("Regeneration Percent: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it set at 100 for highest reduction."));
+			}
+
+			ImGui::Checkbox(OBFUSCATE("Heal"), &Variables::HealOnline);
+			HelpMarker(OBFUSCATE("Heals you as you shoot."));
 
 			ImGui::Checkbox(OBFUSCATE("Godmode"), &Variables::Godmode);
 			HelpMarker(OBFUSCATE("Stops you taking any damage."));
@@ -203,6 +225,12 @@ namespace Tabs {
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 0 for no recoil."));
 			}
 
+			ImGui::Checkbox(OBFUSCATE("Infinite Ammo"), &Variables::InfiniteAmmo);
+			HelpMarker(OBFUSCATE("Gives you unlimited ammo, still have to reload."));
+
+			ImGui::Checkbox(OBFUSCATE("Infinite Ammo v2"), &Variables::AmmoOnline);
+			HelpMarker(OBFUSCATE("Gives you unlimited ammo, no reload required."));
+
 			ImGui::Checkbox(OBFUSCATE("Range Modifier"), &Variables::RangeModifier);
 			HelpMarker(OBFUSCATE("Modifys your weapon range."));
 			if (Variables::RangeModifier)
@@ -252,9 +280,6 @@ namespace Tabs {
 
 			ImGui::Checkbox(OBFUSCATE("No Spread"), &Variables::NoSpread);
 			HelpMarker(OBFUSCATE("Stops bullets spreading on guns like shotguns."));
-
-			ImGui::Checkbox(OBFUSCATE("Infinite Ammo"), &Variables::InfiniteAmmo);
-			HelpMarker(OBFUSCATE("Gives you unlimited ammo, still have to reload."));
 
 			ImGui::Checkbox(OBFUSCATE("Zoom XRay"), &Variables::ZoomXRay);
 			HelpMarker(OBFUSCATE("Gives you XRay vision when aiming down a scope."));
@@ -335,9 +360,6 @@ namespace Tabs {
 
 			ImGui::Checkbox(OBFUSCATE("Lightning Effect"), &Variables::LightningEffect);
 			HelpMarker(OBFUSCATE("Gives your damage the lightning effect."));
-
-			ImGui::Checkbox(OBFUSCATE("Ignore Reflection"), &Variables::IgnoreReflection);
-			HelpMarker(OBFUSCATE("Ignores the reflection effect."));
 		}
 
 		if (ImGui::CollapsingHeader(OBFUSCATE("Bullets")))

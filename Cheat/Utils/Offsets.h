@@ -111,6 +111,8 @@ namespace Offsets {
 	inline uintptr_t WebInstance = String2Offset(OBFUSCATE("0x37C38D0")); // Progress.Class2248 get_CLass2248_0
 	inline uintptr_t AddCurrency = String2Offset(OBFUSCATE("0x9E3BD0")); // Progress.Class2248 method_144
 	inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x42D0540")); // PostProcessLayer OnPreRender
+	inline uintptr_t HealthOnline = String2Offset(OBFUSCATE("0x1AABE00")); // PlayerDamageable AddHealthFromWeaponOnline
+	inline uintptr_t AmmoOnline = String2Offset(OBFUSCATE("0x1AABC70")); // PlayerDamageable AddAmmoFromWeaponOnline
 }
 
 template<typename T> inline T& GetField(void* instance, uint64_t offset) {
@@ -262,6 +264,11 @@ namespace FieldOffsets {
 	inline uintptr_t Harpoon = String2Offset(OBFUSCATE("0x2B8")); // harpoon
 	inline uintptr_t HarpoonDistance = String2Offset(OBFUSCATE("0x2E0")); // harpoonMaxDistance
 
-	inline uintptr_t ReflectionDamage = String2Offset(OBFUSCATE("0x311")); // isDamageReflection
-	inline uintptr_t AbsorptionDamage = String2Offset(OBFUSCATE("0x312")); // isDamageAbsorption
+	inline uintptr_t DoubleJump = String2Offset(OBFUSCATE("0x477")); // isDoubleJump
+
+	inline uintptr_t ReducedHeadshotDamage = String2Offset(OBFUSCATE("0x28C")); // isReducedHeadshotDamage
+	inline uintptr_t ReducedHeadshotDamageMultiplier = String2Offset(OBFUSCATE("0x290")); // reducedHeadshotDamageMultiplier
+
+	inline uintptr_t ArmourRegeneration = String2Offset(OBFUSCATE("0x3EC")); // isArmorRegeneration
+	inline uintptr_t RegenerationPercent = String2Offset(OBFUSCATE("0x3F0")); // armorRegenerationPercent
 }

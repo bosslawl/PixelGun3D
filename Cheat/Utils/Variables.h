@@ -111,7 +111,6 @@ namespace Variables {
 	inline bool Shocker = false;
 		inline float ShockerRange = 1000000.0f;
 		inline float ShockerMultiplier = 5.0f;
-	inline bool IgnoreReflection = false;
 	inline bool HeadMagnifier = false;
 		inline float MagnifierDuration = 1000000.0f;
 	inline bool ReflectionRays = false;
@@ -134,6 +133,11 @@ namespace Variables {
 	inline bool Bazooka = false;
 	inline bool Harpoon = false;
 		inline float HarpoonDistance = 1000000.0f;
+	inline bool DoubleJump = false;
+	inline bool AntiHeadshot = false;
+		inline float ReductionMultiplier = 1000000.0f;
+	inline bool ArmourRegeneration = false;
+		inline float RegenerationPercent = 100.0f;
 
 	// PetEngine
 
@@ -161,4 +165,6 @@ namespace Variables {
 		inline float CurrencyAmount = 1000.0f;
 		inline int SelectedCurrency;
 		inline bool IsAddCurrency = false;
+	inline bool AmmoOnline = false;
+	inline bool HealOnline = false;
 }
