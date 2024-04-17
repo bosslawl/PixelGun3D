@@ -6,7 +6,8 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     Offsets::UnityEngine::TimeOffset = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time")), OBFUSCATE("set_timeScale"));
     Offsets::UnityEngine::IsDebugBuild = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug")), OBFUSCATE("get_isDebugBuild"));
     Offsets::UnityEngine::TextMesh = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh")), OBFUSCATE("get_text"));
-    Offsets::UnityEngine::PreRender = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("UnityEngine.Rendering.PostProcessing.PostProcessLayer"), ("OnPreRender"));
+    Offsets::UnityEngine::PreRender = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("UnityEngine.Rendering.PostProcessing.PostProcessLayer"), ("OnPreRender")) - UnitySDK::UnityGameAssembly;
+    Utils::AddressLog(Offsets::UnityEngine::PreRender, OBFUSCATE("PreRender"));
 
     // Player_move_c
     Offsets::PlayerMoveC::PlayerMoveCUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
