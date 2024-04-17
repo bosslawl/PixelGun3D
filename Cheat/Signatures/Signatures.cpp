@@ -2,17 +2,22 @@
 
 bool Signatures::SearchSignatures(bool NeedDebug)
 {
-    Unity::il2cppClass* UnityTimeClass = IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time"));
-    Offsets::UnityEngine::TimeOffset = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(UnityTimeClass, OBFUSCATE("set_timeScale"));
+    // UnityEngine
+    Offsets::UnityEngine::TimeOffset = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time")), OBFUSCATE("set_timeScale"));
+    Offsets::UnityEngine::IsDebugBuild = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug")), OBFUSCATE("get_isDebugBuild"));
+    Offsets::UnityEngine::TextMesh = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh")), OBFUSCATE("get_text"));
 
-    Unity::il2cppClass* UnityDebugClass = IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug"));
-    Offsets::UnityEngine::IsDebugBuild = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(UnityDebugClass, OBFUSCATE("get_isDebugBuild"));
+    // Player_move_c
+    //Offsets::PlayerMoveC::PlayerMoveCUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update"));
+    //Offsets::PlayerMoveC::MatchInvisibility = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("MakeInvisibleForSeconds"));
 
-    Unity::il2cppClass* TextMeshName = IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh"));
-    Offsets::UnityEngine::TextMesh = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(TextMeshName, OBFUSCATE("get_text"));
+    // WeaponSounds
+    //Offsets::WeaponSounds::WeaponSoundsUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("Update"));
+    //Offsets::WeaponSounds::NextHitCritical = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("SetNextHitCritical"));
 
     if (NeedDebug)
     {
+        // UnityEngine
         Utils::AddressLog(Offsets::UnityEngine::IsDebugBuild - UnitySDK::UnityGameAssembly, OBFUSCATE("IsDebugBuild"));
         Utils::AddressLog(Offsets::UnityEngine::TimeOffset - UnitySDK::UnityGameAssembly, OBFUSCATE("TimeOffset"));
         Utils::AddressLog(Offsets::UnityEngine::TextMesh - UnitySDK::UnityGameAssembly, OBFUSCATE("TextMesh"));
