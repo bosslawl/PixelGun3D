@@ -11,7 +11,7 @@ namespace Internal
 {
     inline void *MainCamera;
 
-    inline uintptr_t getAbsolute(uintptr_t addr)
+    inline uintptr_t GetAbsolute(uintptr_t addr)
     {
         if(addr != 0) {
             return UnitySDK::UnityGameAssembly + addr;
@@ -21,7 +21,7 @@ namespace Internal
 
     inline MonoString *CreateIL2CPPString(const char *str)
     {
-        static MonoString *(*CreateIl2cppString)(const char *str, int *startIndex, int *length) = (MonoString * (*)(const char *str, int *startIndex, int *length))(getAbsolute(Offsets::UnityEngine::StringOffset));
+        static MonoString *(*CreateIl2cppString)(const char *str, int *startIndex, int *length) = (MonoString * (*)(const char *str, int *startIndex, int *length))(GetAbsolute(Offsets::UnityEngine::StringOffset));
         int *startIndex                                                                         = 0;
         int *length                                                                             = (int *)strlen(str);
         return CreateIl2cppString(str, startIndex, length);
@@ -79,7 +79,7 @@ namespace Internal
         {
             if(!obj)
                 return;
-            static const auto fn = (void (*)(void *, bool, int, int))(getAbsolute(Offsets::PlayerMoveC::XRay));
+            static const auto fn = (void (*)(void *, bool, int, int))(GetAbsolute(Offsets::PlayerMoveC::XRay));
             return fn(obj, a1, a2, a3);
         }
 
@@ -87,7 +87,7 @@ namespace Internal
         {
             if(!obj)
                 return 0;
-            static const auto fn = (float (*)(void *, float))(getAbsolute(Offsets::PlayerMoveC::MatchInvisibility));
+            static const auto fn = (float (*)(void *, float))(GetAbsolute(Offsets::PlayerMoveC::MatchInvisibility));
             return fn(obj, a1);
         }
 
@@ -95,7 +95,7 @@ namespace Internal
         {
             if(!obj)
                 return;
-            static const auto fn = (void (*)(void *, bool))(getAbsolute(Offsets::PlayerMoveC::JetpackFly));
+            static const auto fn = (void (*)(void *, bool))(GetAbsolute(Offsets::PlayerMoveC::JetpackFly));
             return fn(obj, a1);
         }
 
@@ -103,7 +103,7 @@ namespace Internal
         {
             if(!obj)
                 return 0;
-            static const auto fn = (float (*)(void *, float, std::string))(getAbsolute(Offsets::Miscellaneous::HealthOnline));
+            static const auto fn = (float (*)(void *, float, std::string))(GetAbsolute(Offsets::Miscellaneous::HealthOnline));
             return fn(obj, a1, a2);
         }
 
@@ -111,7 +111,7 @@ namespace Internal
         {
             if(!obj)
                 return 0;
-            static const auto fn = (float (*)(void *, float))(getAbsolute(Offsets::Miscellaneous::AmmoOnline));
+            static const auto fn = (float (*)(void *, float))(GetAbsolute(Offsets::Miscellaneous::AmmoOnline));
             return fn(obj, a1);
         }
     } // namespace PlayerMoveC
@@ -131,7 +131,7 @@ namespace Internal
         {
             if(!obj)
                 return;
-            static const auto fn = (void (*)(void *, bool))(getAbsolute(Offsets::WeaponSounds::NextHitCritical));
+            static const auto fn = (void (*)(void *, bool))(GetAbsolute(Offsets::WeaponSounds::NextHitCritical));
             return fn(obj, a1);
         }
     } // namespace WeaponSounds
@@ -143,7 +143,7 @@ namespace Internal
         {
             if(!obj)
                 return 0;
-            static const auto fn = (float (*)(void *, float))(getAbsolute(Offsets::PetEngine::PetHealth));
+            static const auto fn = (float (*)(void *, float))(GetAbsolute(Offsets::PetEngine::PetHealth));
             return fn(obj, a1);
         }
     } // namespace PetEngine
@@ -153,7 +153,7 @@ namespace Internal
     {
         inline void *WebInstance()
         {
-            static void *(*WebInstance)() = (void *(*)())(getAbsolute(Offsets::Miscellaneous::WebInstance));
+            static void *(*WebInstance)() = (void *(*)())(GetAbsolute(Offsets::Miscellaneous::WebInstance));
             return WebInstance();
         }
 
@@ -161,7 +161,7 @@ namespace Internal
         {
             if(!obj)
                 return nullptr;
-            static const auto fn = (void *(*)(void *, MonoString *, int, int, bool, bool, AnalyticsParams))(getAbsolute(Offsets::Miscellaneous::AddCurrency));
+            static const auto fn = (void *(*)(void *, MonoString *, int, int, bool, bool, AnalyticsParams))(GetAbsolute(Offsets::Miscellaneous::AddCurrency));
             return fn(obj, type, value, reason, false, false, params);
         }
     } // namespace Miscellaneous
