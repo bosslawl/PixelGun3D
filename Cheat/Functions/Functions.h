@@ -39,7 +39,11 @@ struct AnalyticsParams {
 inline AnalyticsParams URLParams = { 0x0, 0x82, 0x18, 0x0, 0x0, 0x0, 0x0, false, nullptr, 0x0, false, 0x0, nullptr, false, 0x1, 0 };
 inline const char* CurrencyList[] = { OBFUSCATE("GemsCurrency"), OBFUSCATE("Coins"), OBFUSCATE("ClanSilver"), OBFUSCATE("ClanLootBoxPoints"),  OBFUSCATE("Coupons"), OBFUSCATE("PixelPassCurrency"), OBFUSCATE("RouletteAdsCurrency"), OBFUSCATE("RouletteAdsSpin"), OBFUSCATE("PixelBucks"), OBFUSCATE("BattlePassCurrency"), OBFUSCATE("CurrencyCompetitionTier1"), OBFUSCATE("CurrencyCompetitionTier2"), OBFUSCATE("KeySmallChest"), OBFUSCATE("KeyEventChest"), OBFUSCATE("KeyBigChest"), OBFUSCATE("EventChestsSuperSpin"), OBFUSCATE("EventRouletteSuperSpin"), OBFUSCATE("EventRouletteSuperSpin"), OBFUSCATE("Exp"), OBFUSCATE("TankKeys"), OBFUSCATE("PixelPassExp"), OBFUSCATE("clan_building_black_market_point"), OBFUSCATE("MainModeSlotTokens"), OBFUSCATE("SmallChest"), OBFUSCATE("BigChest"), OBFUSCATE("EventChest"), OBFUSCATE("MegaChest") };
 inline void (*SetSomething) (void* instance, int value, int number, MonoString* type);
+
+
 namespace Internal {
+	inline void* MainCamera;
+
 	inline uintptr_t getAbsolute(uintptr_t addr) {
 		if (addr != 0) {
 			return UnitySDK::UnityGameAssembly + addr;
@@ -64,10 +68,19 @@ namespace Internal {
 			reinterpret_cast<decltype(set_time_scale)>(Offsets::UnityEngine::TimeOffset)(TimeScale);
 		}
 
-		inline Unity::CCamera* MainCamera()
+		inline Unity::CCamera* FindMainCamera()
 		{
-			Unity::CCamera* camera = Unity::Camera::GetMain();
-			return camera;
+			Unity::il2cppClass* CameraClass = IL2CPP::Class::Find("UnityEngine.Camera");
+			Unity::il2cppObject* CameraType = IL2CPP::Class::GetSystemType(CameraClass);
+			Unity::il2cppArray<Unity::CCamera*>* Cameras = Unity::Object::FindObjectsOfType<Unity::CCamera>(CameraType);
+			for (int i = 0; i < Cameras->m_uMaxLength; i++)
+			{
+				Unity::CCamera* Camera = Cameras->At(i);
+				std::string name = Utils::CleanString((*Camera->GetName()).ToString());
+				if (name == "ThirdPersonCamera(Clone)") return Camera;
+			}
+
+			return Unity::Camera::GetMain();
 		}
 
 		inline void* TextMeshGetText(void* obj)
@@ -501,6 +514,10 @@ namespace GameFunctions {
 		{
 			if (Internal::PlayerMoveC::IsMyPlayer(obj))
 			{
+				Internal::MainCamera = Internal::UnityEngine::FindMainCamera();
+				if (Internal::MainCamera == nullptr)
+					return;
+
 				if (Variables::Gameplay::XRay)
 					Internal::PlayerMoveC::ShowXray(obj, true, 0, 0);
 
@@ -926,7 +943,11 @@ namespace GameFunctions {
 		inline float __stdcall PreRenderHook(void* obj)
 		{
 			if (Variables::Gameplay::FOVChanger)
-				((Unity::CCamera*)Internal::UnityEngine::MainCamera)->SetFieldOfView(Variables::Gameplay::FOVValue);
+			{
+				if (Internal::MainCamera == nullptr)
+					return 1;
+				((Unity::CCamera*)Internal::MainCamera)->SetFieldOfView(Variables::Gameplay::FOVValue);
+			}
 
 			return OPreRenderHook(obj);
 		}

@@ -170,7 +170,7 @@ namespace Tabs {
 			if (Variables::Gameplay::FOVChanger)
 			{
 				Utils::FSlider(OBFUSCATE("##FOVValue"), &Variables::Gameplay::FOVValue, 0.0f, 360.0f, OBFUSCATE("FOV Value: %.1f"));
-				HelpMarker(OBFUSCATE("I recommend keeping it set at 140 for highest FOV while keeping camera functionality."));
+				HelpMarker(OBFUSCATE("I recommend setting it set at 140 for highest FOV while keeping camera functionality."));
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Enemy Marker"), &Variables::Gameplay::EnemyMarker);
