@@ -58,11 +58,11 @@ void Hooks::LoadConsole(FILE* f)
 
 void Hooks::LoadMinHookHooks()
 {
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::UnityEngine::IsDebugBuild), &GameFunctions::isdebug_h, (LPVOID*)&GameFunctions::isdebug) == MH_OK)
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(Offsets::UnityEngine::IsDebugBuild), &GameFunctions::UnityEngine::IsDebug, (LPVOID*)&GameFunctions::UnityEngine::OIsDebug) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*>(Offsets::UnityEngine::IsDebugBuild));
 
-	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::PreRender), &GameFunctions::Miscellaneous::PreRenderHook, (LPVOID*)&GameFunctions::Miscellaneous::OPreRenderHook) == MH_OK)
-		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::PreRender));
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::UnityEngine::PreRender), &GameFunctions::UnityEngine::PreRenderHook, (LPVOID*)&GameFunctions::UnityEngine::OPreRenderHook) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::UnityEngine::PreRender));
 
 	// AntiCheat bypass
 

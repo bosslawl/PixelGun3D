@@ -6,14 +6,15 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     Offsets::UnityEngine::TimeOffset = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time")), OBFUSCATE("set_timeScale"));
     Offsets::UnityEngine::IsDebugBuild = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug")), OBFUSCATE("get_isDebugBuild"));
     Offsets::UnityEngine::TextMesh = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh")), OBFUSCATE("get_text"));
+    Offsets::UnityEngine::
 
     // Player_move_c
-    //Offsets::PlayerMoveC::PlayerMoveCUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update"));
-    //Offsets::PlayerMoveC::MatchInvisibility = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("MakeInvisibleForSeconds"));
+    Offsets::PlayerMoveC::PlayerMoveCUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
+    Offsets::PlayerMoveC::MatchInvisibility = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("MakeInvisibleForSeconds")) - UnitySDK::UnityGameAssembly;
 
     // WeaponSounds
-    //Offsets::WeaponSounds::WeaponSoundsUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("Update"));
-    //Offsets::WeaponSounds::NextHitCritical = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("SetNextHitCritical"));
+    Offsets::WeaponSounds::WeaponSoundsUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
+    Offsets::WeaponSounds::NextHitCritical = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("SetNextHitCritical")) - UnitySDK::UnityGameAssembly;
 
     if (NeedDebug)
     {

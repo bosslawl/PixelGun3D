@@ -181,9 +181,26 @@ namespace Internal {
 }
 
 namespace GameFunctions {
-	inline bool (UNITY_CALLING_CONVENTION isdebug)();
-	inline bool isdebug_h() {
-		return true;
+
+	// UnityEngine
+	namespace UnityEngine {
+		inline bool (UNITY_CALLING_CONVENTION OIsDebug)();
+		inline bool IsDebug() {
+			return true;
+		}
+
+		inline float(__stdcall* OPreRenderHook)(void* obj);
+		inline float __stdcall PreRenderHook(void* obj)
+		{
+			if (Variables::Gameplay::FOVChanger)
+			{
+				if (Internal::MainCamera == nullptr)
+					return 1;
+				((Unity::CCamera*)Internal::MainCamera)->SetFieldOfView(Variables::Gameplay::FOVValue);
+			}
+
+			return OPreRenderHook(obj);
+		}
 	}
 
 	// AntiCheat bypass
@@ -937,19 +954,6 @@ namespace GameFunctions {
 			}
 
 			return OLevel();
-		}
-
-		inline float(__stdcall* OPreRenderHook)(void* obj);
-		inline float __stdcall PreRenderHook(void* obj)
-		{
-			if (Variables::Gameplay::FOVChanger)
-			{
-				if (Internal::MainCamera == nullptr)
-					return 1;
-				((Unity::CCamera*)Internal::MainCamera)->SetFieldOfView(Variables::Gameplay::FOVValue);
-			}
-
-			return OPreRenderHook(obj);
 		}
 
 		inline bool(__stdcall* OPremiumPass)(void* obj);

@@ -22,6 +22,7 @@ namespace Offsets {
 		inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 		inline uintptr_t TextMesh = String2Offset(OBFUSCATE("0x0"));
 		inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C38D0")); // string.Ctor
+		inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x42D0540")); // PostProcessLayer OnPreRender
 	}
 
 #	// Anticheat bypass
@@ -83,16 +84,16 @@ namespace Offsets {
 
 	// Player_move_c
 	namespace PlayerMoveC {
-		inline uintptr_t PlayerMoveCUpdate = String2Offset(OBFUSCATE("0x1B677D0")); // Player_move_c Update
+		inline uintptr_t PlayerMoveCUpdate = String2Offset(OBFUSCATE("0x0")); // Player_move_c Update
 		inline uintptr_t XRay = String2Offset(OBFUSCATE("0x1B290B0")); // Player_move_c method_205
-		inline uintptr_t MatchInvisibility = String2Offset(OBFUSCATE("0x1AC54B0")); // Player_move_c MakeInvisibleForSeconds
+		inline uintptr_t MatchInvisibility = String2Offset(OBFUSCATE("0x0")); // Player_move_c MakeInvisibleForSeconds
 		inline uintptr_t JetpackFly = String2Offset(OBFUSCATE("0x1AD22B0")); // Player_move_c method_159
 		inline uintptr_t GodmodeOne = String2Offset(OBFUSCATE("0x1AD8570")); // Player_move_c method_451
 	}
 
 	// WeaponSounds
 	namespace WeaponSounds {
-		inline uintptr_t WeaponSoundsUpdate = String2Offset(OBFUSCATE("0x7F0070")); // WeaponSounds Update
+		inline uintptr_t WeaponSoundsUpdate = String2Offset(OBFUSCATE("0x0")); // WeaponSounds Update
 		inline uintptr_t NextHitCritical = String2Offset(OBFUSCATE("0x7E91C0"));// WeaponSounds SetNextHitCritical
 	}
 
@@ -117,7 +118,6 @@ namespace Offsets {
 		inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x7530A0")); // ExperienceController get_Int32_1
 		inline uintptr_t WebInstance = String2Offset(OBFUSCATE("0x37C38D0")); // Progress.Class2248 get_CLass2248_0
 		inline uintptr_t AddCurrency = String2Offset(OBFUSCATE("0x9E3BD0")); // Progress.Class2248 method_144
-		inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x42D0540")); // PostProcessLayer OnPreRender
 		inline uintptr_t HealthOnline = String2Offset(OBFUSCATE("0x1AABE00")); // PlayerDamageable AddHealthFromWeaponOnline
 		inline uintptr_t AmmoOnline = String2Offset(OBFUSCATE("0x1AABC70")); // PlayerDamageable AddAmmoFromWeaponOnline
 		inline uintptr_t PixelPass = String2Offset(OBFUSCATE("0x18881E0")); // Class5646 get_Boolean_3
