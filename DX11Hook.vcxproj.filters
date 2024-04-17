@@ -108,6 +108,9 @@
     <ClCompile Include="Utils\Backend\Drawing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Dumper\Dumper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\ImGui\imgui.h">
@@ -264,6 +267,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Backend\Drawing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Dumper\Dumper.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

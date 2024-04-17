@@ -1,6 +1,7 @@
 #include "Drawing.h"
 #include "../../Cheat/Functions/Functions.h"
 #include "../../Cheat/Utils/Variables.h"
+#include "../Dumper/Dumper.hpp"
 
 ImGuiWindowFlags Drawing::WindowFlags = 0;
 bool Drawing::bDraw = true;
@@ -9,6 +10,104 @@ UI::WindowItem Drawing::lpSelectedWindow = { nullptr, "", "" };
 bool Drawing::isActive()
 {
 	return bDraw == true;
+}
+
+void DrawInspector() {
+	ImGui::SetNextWindowSize(ImVec2(600.000f, 1000.000f), ImGuiCond_Once);
+	if (!ImGui::Begin("Inspector", nullptr, 2)) {
+		ImGui::End();
+		return;
+	}
+
+	static std::vector<std::string> components;
+	static std::vector<std::string> classes;
+	static std::vector<std::string> methods;
+	static std::string current_comp = "";
+
+	ImGui::Text("Components");
+	if (ImGui::Button("Update##comp")) {
+		components = Dumper::DumpComponentsString();
+	}
+	ImGui::SetNextItemWidth(150.000f);
+	static int component_current_idx = 0; // Here we store our selection data as an index.
+	static ImGuiTextFilter c_filter;
+	c_filter.Draw("Search##compfilter");
+	if (ImGui::BeginListBox("##Components", ImVec2(-FLT_MIN, 200)))
+	{
+		for (size_t n = 0; n < components.size(); n++)
+		{
+			if (!c_filter.PassFilter(components[n].c_str())) {
+				continue;
+			}
+			const bool comp_is_selected = (component_current_idx == (int)n);
+			if (ImGui::Selectable(components[n].c_str(), comp_is_selected))
+				component_current_idx = (int)n;
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (comp_is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndListBox();
+	}
+	ImGui::Spacing();
+	ImGui::Text("Classes");
+	if (ImGui::Button("Update##class")) {
+		classes = Dumper::DumpClassesString(components[component_current_idx]);
+		current_comp = components[component_current_idx];
+	}
+
+	ImGui::SetNextItemWidth(150.000f);
+	static int class_current_idx = 0; // Here we store our selection data as an index.
+	static ImGuiTextFilter cl_filter;
+	cl_filter.Draw("Search##classfilter");
+	if (ImGui::BeginListBox("##Class", ImVec2(-FLT_MIN, 200)))
+	{
+		for (size_t n = 0; n < classes.size(); n++)
+		{
+			if (!cl_filter.PassFilter(classes[n].c_str())) {
+				continue;
+			}
+			const bool class_is_selected = (class_current_idx == (int)n);
+			if (ImGui::Selectable(classes[n].c_str(), class_is_selected)) {
+				class_current_idx = (int)n;
+			}
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (class_is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndListBox();
+	}
+
+	ImGui::Spacing();
+	ImGui::Text("Methods");
+	if (ImGui::Button("Update##Methods")) {
+		methods = Dumper::DumpMethodsString(current_comp, classes[class_current_idx]);
+	}
+
+	ImGui::SetNextItemWidth(150.000f);
+	static int method_current_idx = 0; // Here we store our selection data as an index.
+	static ImGuiTextFilter me_filter;
+	me_filter.Draw("Search##methodfilter");
+	if (ImGui::BeginListBox("##Methods", ImVec2(-FLT_MIN, 200)))
+	{
+		for (size_t n = 0; n < methods.size(); n++)
+		{
+			if (!me_filter.PassFilter(methods[n].c_str())) {
+				continue;
+			}
+			const bool meth_is_selected = (method_current_idx == (int)n);
+			if (ImGui::Selectable(methods[n].c_str(), meth_is_selected))
+				method_current_idx = (int)n;
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (meth_is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndListBox();
+	}
+
+	ImGui::End();
 }
 
 namespace Tabs {
@@ -148,14 +247,6 @@ namespace Tabs {
 			{
 				Utils::FSlider(OBFUSCATE("##ReductionMultiplier"), &Variables::Gameplay::ReductionMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Reduction Multiplier: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest reduction."));
-			}
-
-			ImGui::Checkbox(OBFUSCATE("Armour Regeneration"), &Variables::Gameplay::ArmourRegeneration);
-			HelpMarker(OBFUSCATE("Changes how fast and much you regenerate your armour."));
-			if (Variables::Gameplay::ArmourRegeneration)
-			{
-				Utils::FSlider(OBFUSCATE("##RegenerationPercent"), &Variables::Gameplay::RegenerationPercent, 0.0f, 100.0f, OBFUSCATE("Regeneration Percent: %.1f"));
-				HelpMarker(OBFUSCATE("I recommend keeping it set at 100 for highest reduction."));
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Heal"), &Variables::Miscellaneous::HealthOnline);
@@ -445,6 +536,9 @@ namespace Tabs {
 				Utils::FSlider(OBFUSCATE("##ReflectionCount"), &Variables::Weapon::ReflectionCount, 0.0f, 1000000.0f, OBFUSCATE("Reflection Count: %.1f"));
 				HelpMarker(OBFUSCATE("I recommend keeping it set at 50 the most amount of reflections, without freezing your game."));
 			}
+
+			ImGui::Checkbox(OBFUSCATE("Anti Barrier"), &Variables::Weapon::AntiBarrier);
+			HelpMarker(OBFUSCATE("Allows you to shoot through barriers."));
 		}
 	}
 
@@ -547,7 +641,15 @@ namespace Tabs {
 			}
 
 			ImGui::Checkbox(OBFUSCATE("Premium Pass"), &Variables::Miscellaneous::PremiumPass);
-			HelpMarker(OBFUSCATE("Gives you the premium pixel pass."));
+			HelpMarker(OBFUSCATE("Gives you the premium pixel pass. Click on the pass to claim the rewards. Removes the pass when feature is turned off."));
+
+			ImGui::Checkbox(OBFUSCATE("Reward Multiplier"), &Variables::Miscellaneous::RewardMultiplier);
+			HelpMarker(OBFUSCATE("Changes the amount of rewards you get from doing something."));
+			if (Variables::Miscellaneous::RewardMultiplier)
+			{
+				Utils::FSlider(OBFUSCATE("##Multiplier"), &Variables::Miscellaneous::RewardMultiplierAmount, 0.0f, 250.0f, OBFUSCATE("Multiplier: %.1f"));
+				HelpMarker(OBFUSCATE("I recommend keeping it at 10 for safest usage."));
+			}
 
 			ImGui::Checkbox(OBFUSCATE("Max Level"), &Variables::Miscellaneous::MaxLevel);
 			HelpMarker(OBFUSCATE("Gives you max level. Click 1 and Click 2 when it says."));
@@ -563,6 +665,9 @@ namespace Tabs {
 
 	void Settings() {
 		ImGui::Checkbox(OBFUSCATE("ImGui Demo"), &Variables::Visuals::ImGuiDemo);
+		HelpMarker(OBFUSCATE("Shows the ImGui demo window."));
+		ImGui::Checkbox(OBFUSCATE("Dumper"), &Variables::Visuals::EnableDumper);
+		HelpMarker(OBFUSCATE("Dumps the game assembly."));
 #ifdef _DEBUG
 		ImGui::Separator();
 		ImGui::Text(OBFUSCATE("Developer Logs"));
@@ -572,15 +677,18 @@ namespace Tabs {
 
 void Drawing::Draw()
 {
+	if (Variables::Visuals::EnableDumper)
+		DrawInspector();
+
 	if (isActive())
 	{
+		StyleInnit();
+
 		if (!ImGui::Begin(OBFUSCATE("@bosslawl"), 0, 96))
 		{
 			ImGui::End();
 			return;
 		}
-
-		StyleInnit();
 
 		if (ImGui::BeginTabBar(OBFUSCATE("##tabs"), ImGuiTabBarFlags_None))
 		{

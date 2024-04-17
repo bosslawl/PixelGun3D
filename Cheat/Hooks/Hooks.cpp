@@ -280,6 +280,12 @@ void Hooks::LoadMinHookHooks()
 
 	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::PixelPass), &GameFunctions::Miscellaneous::PremiumPass, (LPVOID*)&GameFunctions::Miscellaneous::OPremiumPass) == MH_OK)
 		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::PixelPass));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::RewardMultiplier), &GameFunctions::Miscellaneous::RewardMultiplier, (LPVOID*)&GameFunctions::Miscellaneous::ORewardMultiplier) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::RewardMultiplier));
+
+	if (MH_CreateHook(reinterpret_cast<LPVOID*>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::DoubleRewards), &GameFunctions::Miscellaneous::DoubleRewards, (LPVOID*)&GameFunctions::Miscellaneous::ODoubleRewards) == MH_OK)
+		MH_EnableHook(reinterpret_cast<LPVOID*> (UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::DoubleRewards));
 }
 
 void Hooks::UnloadMinHookHooks()

@@ -804,10 +804,11 @@ namespace GameFunctions {
 					*(float*)((uint64_t)obj + FieldOffsets::WeaponSounds::ReducedHeadshotDamageMultiplier) = Variables::Gameplay::ReductionMultiplier;
 				}
 
-				if (Variables::Gameplay::ArmourRegeneration)
+				if (Variables::Weapon::AntiBarrier)
 				{
-					*(bool*)((uint64_t)obj + FieldOffsets::WeaponSounds::ArmourRegeneration) = true;
-					*(float*)((uint64_t)obj + FieldOffsets::WeaponSounds::RegenerationPercent) = Variables::Gameplay::RegenerationPercent;
+					*(bool*)((uint64_t)obj + FieldOffsets::WeaponSounds::IgnoreBarrier) = true;
+					*(bool*)((uint64_t)obj + FieldOffsets::WeaponSounds::IgnoreReflector) = true;
+					*(bool*)((uint64_t)obj + FieldOffsets::WeaponSounds::IgnoreSly) = true;
 				}
 			}
 			return OWeaponSounds(obj);
@@ -937,6 +938,24 @@ namespace GameFunctions {
 				return true;
 
 			return OPremiumPass(obj);
+		}
+
+		inline int(__stdcall* ORewardMultiplier)(void* obj);
+		inline int __stdcall RewardMultiplier(void* obj)
+		{
+			if (Variables::Miscellaneous::RewardMultiplier)
+				return Variables::Miscellaneous::RewardMultiplierAmount;
+
+			return ORewardMultiplier(obj);
+		}
+
+		inline bool(__stdcall* ODoubleRewards)(void* obj);
+		inline bool __stdcall DoubleRewards(void* obj)
+		{
+			if (Variables::Miscellaneous::RewardMultiplier)
+				return true;
+
+			return ODoubleRewards(obj);
 		}
 	}
 }

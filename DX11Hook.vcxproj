@@ -182,6 +182,7 @@
     <ClCompile Include="Cheat\Signatures\Signatures.cpp" />
     <ClCompile Include="Utils\Backend\Drawing.cpp" />
     <ClCompile Include="Utils\Backend\UI.cpp" />
+    <ClCompile Include="Utils\Dumper\Dumper.cpp" />
     <ClCompile Include="Utils\ImGui\imgui.cpp" />
     <ClCompile Include="Utils\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Utils\ImGui\imgui_draw.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Cheat\Signatures\Signatures.h" />
     <ClInclude Include="Utils\Backend\Drawing.h" />
     <ClInclude Include="Utils\Backend\UI.h" />
+    <ClInclude Include="Utils\Dumper\Dumper.hpp" />
     <ClInclude Include="Utils\IL2CPPHeader\il2cpp.h" />
     <ClInclude Include="Utils\ImGui\imconfig.h" />
     <ClInclude Include="Utils\ImGui\imgui.h" />

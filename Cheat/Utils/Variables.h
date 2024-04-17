@@ -31,6 +31,7 @@ namespace Variables {
 		inline ImVec4 RainbowColor = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		inline bool ImGuiDemo = false;
+		inline bool EnableDumper = false;
 	}
 
 	// Gameplay
@@ -69,9 +70,6 @@ namespace Variables {
 
 		inline bool AntiHeadshot = false;
 		inline float ReductionMultiplier = 1000000.0f;
-
-		inline bool ArmourRegeneration = false;
-		inline float RegenerationPercent = 100.0f;
 
 		inline bool FrostAura = false;
 		inline float AuraAngle = 360.0f;
@@ -178,6 +176,8 @@ namespace Variables {
 
 		inline bool ReloadModifier = false;
 		inline float ReloadValue = 99999.0f;
+
+		inline bool AntiBarrier = false;
 	}
 
 	// Pet
@@ -213,5 +213,8 @@ namespace Variables {
 
 		inline bool GadgetCooldown = false;
 		inline float CooldownValue = 0.0f;
+
+		inline bool RewardMultiplier = false;
+		inline float RewardMultiplierAmount = 10.0f;
 	}
 }

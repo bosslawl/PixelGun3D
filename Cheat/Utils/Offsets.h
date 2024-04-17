@@ -121,6 +121,8 @@ namespace Offsets {
 		inline uintptr_t HealthOnline = String2Offset(OBFUSCATE("0x1AABE00")); // PlayerDamageable AddHealthFromWeaponOnline
 		inline uintptr_t AmmoOnline = String2Offset(OBFUSCATE("0x1AABC70")); // PlayerDamageable AddAmmoFromWeaponOnline
 		inline uintptr_t PixelPass = String2Offset(OBFUSCATE("0x18881E0")); // Class5646 get_Boolean_3
+		inline uintptr_t RewardMultiplier = String2Offset(OBFUSCATE("0xC326E0")); // Class2905 method_3
+		inline uintptr_t DoubleRewards = String2Offset(OBFUSCATE("0xC33660")); // Class2905 method_7
 	}
 }
 
@@ -271,7 +273,8 @@ namespace FieldOffsets {
 		inline uintptr_t ReducedHeadshotDamage = String2Offset(OBFUSCATE("0x28C")); // isReducedHeadshotDamage
 		inline uintptr_t ReducedHeadshotDamageMultiplier = String2Offset(OBFUSCATE("0x290")); // reducedHeadshotDamageMultiplier
 
-		inline uintptr_t ArmourRegeneration = String2Offset(OBFUSCATE("0x3EC")); // isArmorRegeneration
-		inline uintptr_t RegenerationPercent = String2Offset(OBFUSCATE("0x3F0")); // armorRegenerationPercent
+		inline uintptr_t IgnoreBarrier = String2Offset(OBFUSCATE("0x128")); // ignoreBarrier
+		inline uintptr_t IgnoreSly = String2Offset(OBFUSCATE("0x129")); // ignoreSlyWolf
+		inline uintptr_t IgnoreReflector = String2Offset(OBFUSCATE("0x12A")); // ignoreReflector
 	}
 }
