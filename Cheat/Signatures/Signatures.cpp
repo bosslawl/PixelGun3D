@@ -6,7 +6,7 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     Offsets::UnityEngine::TimeOffset = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time")), OBFUSCATE("set_timeScale"));
     Offsets::UnityEngine::IsDebugBuild = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug")), OBFUSCATE("get_isDebugBuild"));
     Offsets::UnityEngine::TextMesh = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh")), OBFUSCATE("get_text"));
-    Offsets::UnityEngine::
+    Offsets::UnityEngine::PreRender = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("UnityEngine.Rendering.PostProcessing.PostProcessLayer"), ("OnPreRender"));
 
     // Player_move_c
     Offsets::PlayerMoveC::PlayerMoveCUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
@@ -15,6 +15,18 @@ bool Signatures::SearchSignatures(bool NeedDebug)
     // WeaponSounds
     Offsets::WeaponSounds::WeaponSoundsUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
     Offsets::WeaponSounds::NextHitCritical = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("SetNextHitCritical")) - UnitySDK::UnityGameAssembly;
+
+    // PetEngine
+    Offsets::PetEngine::PetEngineUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Rilisoft.PetEngine")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
+    Offsets::PetEngine::PetSpeed = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PetInfo"), ("get_SpeedModif")) - UnitySDK::UnityGameAssembly;
+    Offsets::PetEngine::PetDamage = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PetInfo"), ("get_Attack")) - UnitySDK::UnityGameAssembly;
+
+    // ItemRecord
+    Offsets::Miscellaneous::SpeedModifier = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("ItemRecord"), ("get_SpeedModifier")) - UnitySDK::UnityGameAssembly;
+
+    // PlayerDamageable
+    Offsets::Miscellaneous::AmmoOnline = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PlayerDamageable"), ("AddAmmoFromWeaponOnline")) - UnitySDK::UnityGameAssembly;
+    Offsets::Miscellaneous::HealthOnline = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PlayerDamageable"), ("AddHealthFromWeaponOnline")) - UnitySDK::UnityGameAssembly;
 
     if (NeedDebug)
     {

@@ -21,8 +21,8 @@ namespace Offsets {
 		inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
 		inline uintptr_t TimeOffset = String2Offset(OBFUSCATE("0x0"));
 		inline uintptr_t TextMesh = String2Offset(OBFUSCATE("0x0"));
-		inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C38D0")); // string.Ctor
-		inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x42D0540")); // PostProcessLayer OnPreRender
+		inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C38D0")); // string.Ctor (char* int int)
+		inline uintptr_t PreRender = String2Offset(OBFUSCATE("0x0")); // PostProcessLayer OnPreRender
 	}
 
 #	// Anticheat bypass
@@ -94,20 +94,20 @@ namespace Offsets {
 	// WeaponSounds
 	namespace WeaponSounds {
 		inline uintptr_t WeaponSoundsUpdate = String2Offset(OBFUSCATE("0x0")); // WeaponSounds Update
-		inline uintptr_t NextHitCritical = String2Offset(OBFUSCATE("0x7E91C0"));// WeaponSounds SetNextHitCritical
+		inline uintptr_t NextHitCritical = String2Offset(OBFUSCATE("0x0"));// WeaponSounds SetNextHitCritical
 	}
 
 	// PetEngine
 	namespace PetEngine {
-		inline uintptr_t PetEngineUpdate = String2Offset(OBFUSCATE("0xDFD690")); // Rilisoft.PetEngine Update
+		inline uintptr_t PetEngineUpdate = String2Offset(OBFUSCATE("0x0")); // Rilisoft.PetEngine Update
 		inline uintptr_t PetHealth = String2Offset(OBFUSCATE("0xDD7B20")); // PetEngine method_37
-		inline uintptr_t PetDamage = String2Offset(OBFUSCATE("0x213E3D0")); // PetInfo get_Attack
-		inline uintptr_t PetSpeed = String2Offset(OBFUSCATE("0x213E860")); // PetInfo get_SpeedModif
+		inline uintptr_t PetDamage = String2Offset(OBFUSCATE("0x0")); // PetInfo get_Attack
+		inline uintptr_t PetSpeed = String2Offset(OBFUSCATE("0x0")); // PetInfo get_SpeedModif
 	}
 
 	// Miscellaneous
 	namespace Miscellaneous {
-		inline uintptr_t SpeedModifier = String2Offset(OBFUSCATE("0x7757F0")); // ItemRecord get_SpeedModifier
+		inline uintptr_t SpeedModifier = String2Offset(OBFUSCATE("0x0")); // ItemRecord get_SpeedModifier
 		inline uintptr_t GodmodeTwo = String2Offset(OBFUSCATE("0x2180FC0")); // GClass147 method_16
 		inline uintptr_t InfiniteGems = String2Offset(OBFUSCATE("0x4BBE80")); // Class9 smethod_6
 		inline uintptr_t ReloadModifier = String2Offset(OBFUSCATE("0x729120")); // Class1837 smethod_13
@@ -118,8 +118,8 @@ namespace Offsets {
 		inline uintptr_t MaxLevelTwo = String2Offset(OBFUSCATE("0x7530A0")); // ExperienceController get_Int32_1
 		inline uintptr_t WebInstance = String2Offset(OBFUSCATE("0x37C38D0")); // Progress.Class2248 get_CLass2248_0
 		inline uintptr_t AddCurrency = String2Offset(OBFUSCATE("0x9E3BD0")); // Progress.Class2248 method_144
-		inline uintptr_t HealthOnline = String2Offset(OBFUSCATE("0x1AABE00")); // PlayerDamageable AddHealthFromWeaponOnline
-		inline uintptr_t AmmoOnline = String2Offset(OBFUSCATE("0x1AABC70")); // PlayerDamageable AddAmmoFromWeaponOnline
+		inline uintptr_t HealthOnline = String2Offset(OBFUSCATE("0x0")); // PlayerDamageable AddHealthFromWeaponOnline
+		inline uintptr_t AmmoOnline = String2Offset(OBFUSCATE("0x0")); // PlayerDamageable AddAmmoFromWeaponOnline
 		inline uintptr_t PixelPass = String2Offset(OBFUSCATE("0x18881E0")); // Class5646 get_Boolean_3
 		inline uintptr_t RewardMultiplier = String2Offset(OBFUSCATE("0xC326E0")); // Class2905 method_3
 		inline uintptr_t DoubleRewards = String2Offset(OBFUSCATE("0xC33660")); // Class2905 method_7
