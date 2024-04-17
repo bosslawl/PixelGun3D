@@ -158,7 +158,7 @@ namespace Tabs
             ImGui::Checkbox(OBFUSCATE("FOV Changer"), &Variables::Gameplay::FOVChanger);
             HelpMarker(OBFUSCATE("Changes your FOV."));
             if(Variables::Gameplay::FOVChanger) {
-                Utils::FSlider(OBFUSCATE("##FOVValue"), &Variables::Gameplay::FOVValue, 0.0f, 360.0f, OBFUSCATE("FOV Value: %.1f"));
+                Utils::FSlider(OBFUSCATE("##FOVValue"), &Variables::Gameplay::FOVValue, 0.0f, 360.0f, OBFUSCATE("FOV Value: %.0f"));
                 HelpMarker(OBFUSCATE("I recommend setting it set at 140 for highest FOV while keeping camera functionality."));
             }
 
@@ -601,6 +601,15 @@ namespace Tabs
                 HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning."));
                 ImGui::Checkbox(OBFUSCATE("Max Level 2"), &Variables::Miscellaneous::MaxLevelTwo);
                 HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning, repeat until you get all the rewards, normally twice."));
+            }
+
+            ImGui::Checkbox(OBFUSCATE("Add Weapons"), &Variables::Miscellaneous::AddWeapons);
+            HelpMarker(OBFUSCATE("Adds weapons to your account."));
+            if(Variables::Miscellaneous::AddWeapons) {
+                ImGui::Checkbox(OBFUSCATE("Spoof Dev"), &Variables::Miscellaneous::AddWeaponsDev);
+                HelpMarker(OBFUSCATE("Adds all weapons to your account through spoofing your user status, safer but less consistent. (Enable this & Add All Weapons to use)"));
+                ImGui::Checkbox(OBFUSCATE("Add All Weapons"), &Variables::Miscellaneous::AddAllWeapons);
+                HelpMarker(OBFUSCATE("Adds all weapons to your account. Only works while in the lottery superchest and might crash the game or freeze it, just restart and it should have everything unlocked."));
             }
         }
     }

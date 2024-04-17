@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <iostream>
 #include <WinUser.h>
+#include <winsock.h>
 #include <tchar.h>
 #include <thread>
 #include <stdlib.h>

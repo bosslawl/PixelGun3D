@@ -223,5 +223,9 @@ namespace Variables
 
         inline bool RewardMultiplier        = false;
         inline float RewardMultiplierAmount = 10.0f;
+
+        inline bool AddWeapons              = false;
+        inline bool AddAllWeapons           = false;
+        inline bool AddWeaponsDev           = false;
     } // namespace Miscellaneous
 } // namespace Variables

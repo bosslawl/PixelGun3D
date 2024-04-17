@@ -860,5 +860,29 @@ namespace GameFunctions
 
             return ODoubleRewards(obj);
         }
+
+        inline void(__stdcall *OAddWeapon)(void *obj, void *str, int src, bool a1, bool a2, void *a3, void *a4);
+
+        inline void __stdcall AddWeapon(void *obj, void *str, int src, bool a1, bool a2, bool *a3, void *a4)
+        {
+            if(Variables::Miscellaneous::AddWeapons) {
+                Unity::System_String *SysName = (Unity::System_String *)str;
+                if(Variables::Miscellaneous::AddAllWeapons) {
+                    for(int i = 0; i < WeaponNames.size(); i++) {
+                        SysName->Clear();
+
+                        std::string WeaponName = WeaponNames[i];
+                        SysName->m_iLength     = (u_long)WeaponName.length();
+                        for(u_long w = 0; w < WeaponName.length(); w++)
+                            SysName->m_wString[w] = WeaponName[w];
+
+                        OAddWeapon(obj, str, Variables::Miscellaneous::AddWeaponsDev ? 9999 : src, a1, a2, a3, a4);
+                    }
+                    Variables::Miscellaneous::AddWeapons = false;
+                    return;
+                }
+            }
+            return OAddWeapon(obj, str, src, a1, a2, a3, a4);
+        }
     } // namespace Miscellaneous
 } // namespace GameFunctions

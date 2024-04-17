@@ -130,6 +130,7 @@ namespace Offsets
         inline uintptr_t PixelPass        = String2Offset(OBFUSCATE("0x18881E0")); // Class5646 get_Boolean_3
         inline uintptr_t RewardMultiplier = String2Offset(OBFUSCATE("0xC326E0")); // Class2905 method_3
         inline uintptr_t DoubleRewards    = String2Offset(OBFUSCATE("0xC33660")); // Class2905 method_7
+        inline uintptr_t AddWeapon        = String2Offset(OBFUSCATE("0x638AC0")); // WeaponManager method_32
     }
 }
 
