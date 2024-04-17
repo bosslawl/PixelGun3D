@@ -272,5 +272,11 @@
     <ClInclude Include="Utils\Dumper\Dumper.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cheat\Functions\Unity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cheat\Functions\Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

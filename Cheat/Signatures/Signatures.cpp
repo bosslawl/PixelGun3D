@@ -3,33 +3,32 @@
 bool Signatures::SearchSignatures(bool NeedDebug)
 {
     // UnityEngine
-    Offsets::UnityEngine::TimeOffset = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time")), OBFUSCATE("set_timeScale"));
-    Offsets::UnityEngine::IsDebugBuild = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug")), OBFUSCATE("get_isDebugBuild"));
-    Offsets::UnityEngine::TextMesh = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh")), OBFUSCATE("get_text"));
-    Offsets::UnityEngine::PreRender = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("UnityEngine.Rendering.PostProcessing.PostProcessLayer"), ("OnPreRender")) - UnitySDK::UnityGameAssembly;
+    Offsets::UnityEngine::TimeOffset          = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Time")), OBFUSCATE("set_timeScale"));
+    Offsets::UnityEngine::IsDebugBuild        = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.Debug")), OBFUSCATE("get_isDebugBuild"));
+    Offsets::UnityEngine::TextMesh            = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("UnityEngine.TextMesh")), OBFUSCATE("get_text"));
+    Offsets::UnityEngine::PreRender           = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("UnityEngine.Rendering.PostProcessing.PostProcessLayer"), ("OnPreRender")) - UnitySDK::UnityGameAssembly;
 
     // Player_move_c
-    Offsets::PlayerMoveC::PlayerMoveCUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
-    Offsets::PlayerMoveC::MatchInvisibility = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("MakeInvisibleForSeconds")) - UnitySDK::UnityGameAssembly;
+    Offsets::PlayerMoveC::PlayerMoveCUpdate   = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
+    Offsets::PlayerMoveC::MatchInvisibility   = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Player_move_c")), OBFUSCATE("MakeInvisibleForSeconds")) - UnitySDK::UnityGameAssembly;
 
     // WeaponSounds
     Offsets::WeaponSounds::WeaponSoundsUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
-    Offsets::WeaponSounds::NextHitCritical = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("SetNextHitCritical")) - UnitySDK::UnityGameAssembly;
+    Offsets::WeaponSounds::NextHitCritical    = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("WeaponSounds")), OBFUSCATE("SetNextHitCritical")) - UnitySDK::UnityGameAssembly;
 
     // PetEngine
-    Offsets::PetEngine::PetEngineUpdate = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Rilisoft.PetEngine")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
-    Offsets::PetEngine::PetSpeed = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PetInfo"), ("get_SpeedModif")) - UnitySDK::UnityGameAssembly;
-    Offsets::PetEngine::PetDamage = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PetInfo"), ("get_Attack")) - UnitySDK::UnityGameAssembly;
+    Offsets::PetEngine::PetEngineUpdate       = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find(OBFUSCATE("Rilisoft.PetEngine")), OBFUSCATE("Update")) - UnitySDK::UnityGameAssembly;
+    Offsets::PetEngine::PetSpeed              = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PetInfo"), ("get_SpeedModif")) - UnitySDK::UnityGameAssembly;
+    Offsets::PetEngine::PetDamage             = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PetInfo"), ("get_Attack")) - UnitySDK::UnityGameAssembly;
 
     // ItemRecord
-    Offsets::Miscellaneous::SpeedModifier = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("ItemRecord"), ("get_SpeedModifier")) - UnitySDK::UnityGameAssembly;
+    Offsets::Miscellaneous::SpeedModifier     = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("ItemRecord"), ("get_SpeedModifier")) - UnitySDK::UnityGameAssembly;
 
     // PlayerDamageable
-    Offsets::Miscellaneous::AmmoOnline = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PlayerDamageable"), ("AddAmmoFromWeaponOnline")) - UnitySDK::UnityGameAssembly;
-    Offsets::Miscellaneous::HealthOnline = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PlayerDamageable"), ("AddHealthFromWeaponOnline")) - UnitySDK::UnityGameAssembly;
+    Offsets::Miscellaneous::AmmoOnline        = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PlayerDamageable"), ("AddAmmoFromWeaponOnline")) - UnitySDK::UnityGameAssembly;
+    Offsets::Miscellaneous::HealthOnline      = (uintptr_t)IL2CPP::Class::Utils::GetMethodPointer(IL2CPP::Class::Find("PlayerDamageable"), ("AddHealthFromWeaponOnline")) - UnitySDK::UnityGameAssembly;
 
-    if (NeedDebug)
-    {
+    if(NeedDebug) {
         // UnityEngine
         Utils::AddressLog(Offsets::UnityEngine::IsDebugBuild - UnitySDK::UnityGameAssembly, OBFUSCATE("IsDebugBuild"));
         Utils::AddressLog(Offsets::UnityEngine::TimeOffset - UnitySDK::UnityGameAssembly, OBFUSCATE("TimeOffset"));
@@ -111,14 +110,13 @@ bool Signatures::SearchSignatures(bool NeedDebug)
         Utils::AddressLog(Offsets::PetEngine::PetHealth, OBFUSCATE("PetHealth"));
         Utils::AddressLog(Offsets::PetEngine::PetDamage, OBFUSCATE("PetDamage"));
         Utils::AddressLog(Offsets::PetEngine::PetSpeed, OBFUSCATE("PetSpeed"));
-        
+
         // Misc
 
         Utils::AddressLog(Offsets::Miscellaneous::GodmodeTwo, OBFUSCATE("GodmodeTwo"));
         Utils::AddressLog(Offsets::Miscellaneous::InfiniteGems, OBFUSCATE("InfiniteGems"));
         Utils::AddressLog(Offsets::Miscellaneous::ReloadModifier, OBFUSCATE("NoReload"));
         Utils::AddressLog(Offsets::Miscellaneous::GadgetCooldown, OBFUSCATE("GadgetCooldown"));
-
     }
     return true;
 }

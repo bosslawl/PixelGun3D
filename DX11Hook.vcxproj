@@ -193,7 +193,9 @@
     <ClCompile Include="DllMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cheat\Functions\Data.h" />
     <ClInclude Include="Cheat\Functions\Functions.h" />
+    <ClInclude Include="Cheat\Functions\Unity.h" />
     <ClInclude Include="Cheat\Utils\Offsets.h" />
     <ClInclude Include="Cheat\Utils\SDK.h" />
     <ClInclude Include="Cheat\Hooks\Hooks.h" />

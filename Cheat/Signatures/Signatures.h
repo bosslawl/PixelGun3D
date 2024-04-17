@@ -4,7 +4,7 @@
 class Signatures
 {
 public:
-	bool SearchSignatures(bool NeedDebug);
+    bool SearchSignatures(bool NeedDebug);
 };
 
 extern Signatures RunSignatures;
