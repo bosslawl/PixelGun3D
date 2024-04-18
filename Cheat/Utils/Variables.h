@@ -199,14 +199,14 @@ namespace Variables
     // Miscellaneous
     namespace Miscellaneous
     {
-        inline bool InfiniteGems    = false;
+        inline bool InfiniteGems            = false;
 
-        inline bool Lottery         = false;
-        inline float LotteryPrice   = 0.0f;
+        inline bool Lottery                 = false;
+        inline float LotteryPrice           = 0.0f;
 
-        inline bool AddCurrency     = false;
-        inline float CurrencyAmount = 1000.0f;
-        inline int SelectedCurrency;
+        inline bool AddCurrency             = false;
+        inline float CurrencyAmount         = 1000.0f;
+        inline int SelectedCurrency         = 0;
         inline bool IsAddCurrency           = false;
 
         inline bool AmmoOnline              = false;
@@ -227,5 +227,6 @@ namespace Variables
         inline bool AddWeapons              = false;
         inline bool AddAllWeapons           = false;
         inline bool AddWeaponsDev           = false;
+        inline std::string WeaponName       = "";
     } // namespace Miscellaneous
 } // namespace Variables

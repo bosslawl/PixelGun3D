@@ -2,6 +2,7 @@
 #include "../../Cheat/Functions/Functions.h"
 #include "../../Cheat/Utils/Variables.h"
 #include "../Dumper/Dumper.hpp"
+#include "../../Cheat/Functions/Data.h"
 
 ImGuiWindowFlags Drawing::WindowFlags    = 0;
 bool Drawing::bDraw                      = true;
@@ -588,14 +589,14 @@ namespace Tabs
             HelpMarker(OBFUSCATE("Gives you the premium pixel pass. Click on the pass to claim the rewards. Removes the pass when feature is turned off."));
 
             ImGui::Checkbox(OBFUSCATE("Reward Multiplier"), &Variables::Miscellaneous::RewardMultiplier);
-            HelpMarker(OBFUSCATE("Changes the amount of rewards you get from doing something."));
+            HelpMarker(OBFUSCATE("Changes the amount of rewards you get from doing something. Possibility to get you banned."));
             if(Variables::Miscellaneous::RewardMultiplier) {
                 Utils::FSlider(OBFUSCATE("##Multiplier"), &Variables::Miscellaneous::RewardMultiplierAmount, 0.0f, 250.0f, OBFUSCATE("Multiplier: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it at 10 for safest usage."));
             }
 
             ImGui::Checkbox(OBFUSCATE("Max Level"), &Variables::Miscellaneous::MaxLevel);
-            HelpMarker(OBFUSCATE("Gives you max level. Click 1 and Click 2 when it says."));
+            HelpMarker(OBFUSCATE("Gives you max level. Click 1 and Click 2 when it says. Possibility to get you banned."));
             if(Variables::Miscellaneous::MaxLevel) {
                 ImGui::Checkbox(OBFUSCATE("Max Level 1"), &Variables::Miscellaneous::MaxLevelOne);
                 HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning."));
@@ -604,8 +605,19 @@ namespace Tabs
             }
 
             ImGui::Checkbox(OBFUSCATE("Add Weapons"), &Variables::Miscellaneous::AddWeapons);
-            HelpMarker(OBFUSCATE("Adds weapons to your account."));
+            HelpMarker(OBFUSCATE("Adds weapons to your account. Possibility to get you banned."));
             if(Variables::Miscellaneous::AddWeapons) {
+                static int WeaponIndex = 0;
+                if(ImGui::BeginCombo("##SelectWeapon", WeaponNames[WeaponIndex].c_str())) {
+                    for(int i = 0; i < WeaponNames.size(); ++i) {
+                        const bool isSelected = (WeaponIndex == i);
+                        if(ImGui::Selectable(WeaponNames[i].c_str(), isSelected)) {
+                            WeaponIndex                          = i;
+                            Variables::Miscellaneous::WeaponName = WeaponNames[i];
+                        }
+                    }
+                    ImGui::EndCombo();
+                }
                 ImGui::Checkbox(OBFUSCATE("Spoof Dev"), &Variables::Miscellaneous::AddWeaponsDev);
                 HelpMarker(OBFUSCATE("Adds all weapons to your account through spoofing your user status, safer but less consistent. (Enable this & Add All Weapons to use)"));
                 ImGui::Checkbox(OBFUSCATE("Add All Weapons"), &Variables::Miscellaneous::AddAllWeapons);

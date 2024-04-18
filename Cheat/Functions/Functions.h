@@ -880,6 +880,17 @@ namespace GameFunctions
                     }
                     Variables::Miscellaneous::AddWeapons = false;
                     return;
+                } else {
+                    if(Variables::Miscellaneous::WeaponName == "")
+                        return;
+                    std::string WeaponName = Variables::Miscellaneous::WeaponName;
+                    SysName->Clear();
+                    SysName->m_iLength = (u_long)WeaponName.length();
+                    for(u_long w = 0; w < WeaponName.length(); w++)
+                        SysName->m_wString[w] = WeaponName[w];
+
+                    OAddWeapon(obj, str, Variables::Miscellaneous::AddWeaponsDev ? 9999 : src, a1, a2, a3, a4);
+                    return;
                 }
             }
             return OAddWeapon(obj, str, src, a1, a2, a3, a4);
