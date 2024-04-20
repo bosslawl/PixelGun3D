@@ -285,9 +285,6 @@ void Hooks::LoadMinHookHooks()
     if(MH_CreateHook(reinterpret_cast<LPVOID *>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::DoubleRewards), &GameFunctions::Miscellaneous::DoubleRewards, (LPVOID *)&GameFunctions::Miscellaneous::ODoubleRewards) == MH_OK)
         MH_EnableHook(reinterpret_cast<LPVOID *>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::DoubleRewards));
 
-    if(MH_CreateHook(reinterpret_cast<LPVOID *>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::AddWeapon), &GameFunctions::Miscellaneous::AddWeapon, (LPVOID *)&GameFunctions::Miscellaneous::OAddWeapon) == MH_OK)
-        MH_EnableHook(reinterpret_cast<LPVOID *>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::AddWeapon));
-
     if(MH_CreateHook(reinterpret_cast<LPVOID *>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::DamageMultiplier), &GameFunctions::Miscellaneous::DamageMultiplier, (LPVOID *)&GameFunctions::Miscellaneous::ODamageMultiplier) == MH_OK)
         MH_EnableHook(reinterpret_cast<LPVOID *>(UnitySDK::UnityGameAssembly + Offsets::Miscellaneous::DamageMultiplier));
 }

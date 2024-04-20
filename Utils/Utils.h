@@ -71,6 +71,12 @@ namespace Utils
         return value_changed;
     }
 
+    inline void *SystemString(std::string string)
+    {
+        Unity::System_String *ns = IL2CPP::String::New(string);
+        return ns;
+    }
+
     inline std::string CleanString(const std::string &str)
     {
         std::string cleanStr;

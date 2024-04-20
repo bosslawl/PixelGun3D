@@ -228,7 +228,7 @@ namespace Variables
 
         inline bool AddWeapons              = false;
         inline bool AddAllWeapons           = false;
-        inline bool AddWeaponsDev           = false;
         inline std::string WeaponName       = "";
+        inline bool AutoUpgrade             = false;
     } // namespace Miscellaneous
 } // namespace Variables

@@ -609,7 +609,6 @@ namespace Tabs
             }
 
             ImGui::Checkbox(OBFUSCATE("Add Weapons"), &Variables::Miscellaneous::AddWeapons);
-            HelpMarker(OBFUSCATE("Adds weapons to your account. Possibility to get you banned."));
             if(Variables::Miscellaneous::AddWeapons) {
                 static int WeaponIndex = 0;
                 if(ImGui::BeginCombo("##SelectWeapon", WeaponNames[WeaponIndex].c_str())) {
@@ -622,10 +621,10 @@ namespace Tabs
                     }
                     ImGui::EndCombo();
                 }
-                ImGui::Checkbox(OBFUSCATE("Spoof Dev"), &Variables::Miscellaneous::AddWeaponsDev);
-                HelpMarker(OBFUSCATE("Adds all weapons to your account through spoofing your user status, safer but less consistent. (Enable this & Add All Weapons to use)"));
                 ImGui::Checkbox(OBFUSCATE("Add All Weapons"), &Variables::Miscellaneous::AddAllWeapons);
-                HelpMarker(OBFUSCATE("Adds all weapons to your account. Only works while in the lottery superchest and might crash the game or freeze it, just restart and it should have everything unlocked."));
+                HelpMarker(OBFUSCATE("Adds all weapons to your account. Might crash the game or freeze it, just restart and it should have everything unlocked."));
+                ImGui::Checkbox(OBFUSCATE("Auto Upgrade"), &Variables::Miscellaneous::AutoUpgrade);
+                HelpMarker(OBFUSCATE("Automatically upgrades the weapons you get. Works for Add All and Individal weapons."));
             }
         }
     }
@@ -702,6 +701,33 @@ void Drawing::Loops()
             Internal::UnityEngine::SetTimeScale(Variables::Gameplay::GameSpeedMultiplier);
         else
             Internal::UnityEngine::SetTimeScale(1.0f);
+    }
+
+    bool adding        = false;
+    int addingprogress = 0;
+    if(Variables::Miscellaneous::AddWeapons) {
+        if(Variables::Miscellaneous::AddAllWeapons) {
+            adding    = true;
+            int count = -1;
+            for(auto Weapon : WeaponNames) {
+                count++;
+                if(count < addingprogress)
+                    continue;
+                if(count > addingprogress + 25) {
+                    addingprogress = addingprogress + 25;
+                    break;
+                }
+                Internal::Miscellaneous::GiveWeapon(Utils::SystemString(Weapon), true, Variables::Miscellaneous::AutoUpgrade);
+            }
+            if(count >= WeaponNames.size() - 1) {
+                adding         = false;
+                addingprogress = 0;
+            };
+        } else {
+            Internal::Miscellaneous::GiveWeapon(Utils::SystemString(Variables::Miscellaneous::WeaponName), true, Variables::Miscellaneous::AutoUpgrade);
+        }
+        if(!adding)
+            Variables::Miscellaneous::AddAllWeapons = false;
     }
 
     if(Variables::Visuals::EnableCircleFov && Variables::Visuals::EnableRainbowCircle)
