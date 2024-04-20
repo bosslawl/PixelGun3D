@@ -172,12 +172,6 @@ namespace Internal
             return fn(obj, weapon, 62, false, false, nullptr, params);
         }
 
-        inline void GiveWeapon(void *id, bool event, bool upgrade)
-        {
-            static const auto fn = (void (*)(void *))(GetAbsolute(Offsets::Miscellaneous::AddWeapon));
-            return fn(id);
-        }
-
         inline void AddGadgets(MonoString *gadget, int *level)
         {
             static const auto fn = (void (*)(MonoString *, int *))(GetAbsolute(Offsets::Miscellaneous::AddGadgets));
