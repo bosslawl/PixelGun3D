@@ -608,42 +608,40 @@ namespace Tabs
                 HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning, repeat until you get all the rewards, normally twice."));
             }
 
+            ImGui::Separator();
             ImGui::Checkbox(OBFUSCATE("Add Weapons"), &Variables::Miscellaneous::AddWeapons);
-            if(Variables::Miscellaneous::AddWeapons) {
-                static int WeaponIndex = 0;
-                if(ImGui::BeginCombo("##SelectWeapon", WeaponNames[WeaponIndex].c_str())) {
-                    for(int i = 0; i < WeaponNames.size(); ++i) {
-                        const bool isSelected = (WeaponIndex == i);
-                        if(ImGui::Selectable(WeaponNames[i].c_str(), isSelected)) {
-                            WeaponIndex                          = i;
-                            Variables::Miscellaneous::WeaponName = WeaponNames[i];
-                        }
+            static int WeaponIndex = 0;
+            if(ImGui::BeginCombo("##SelectWeapon", WeaponNames[WeaponIndex].c_str())) {
+                for(int i = 0; i < WeaponNames.size(); ++i) {
+                    const bool isSelected = (WeaponIndex == i);
+                    if(ImGui::Selectable(WeaponNames[i].c_str(), isSelected)) {
+                        WeaponIndex                          = i;
+                        Variables::Miscellaneous::WeaponName = WeaponNames[i];
                     }
-                    ImGui::EndCombo();
                 }
-                ImGui::Checkbox(OBFUSCATE("Add All Weapons"), &Variables::Miscellaneous::AddAllWeapons);
-                HelpMarker(OBFUSCATE("Adds all weapons to your account. Might crash the game or freeze it, just restart and it should have everything unlocked."));
-                ImGui::Checkbox(OBFUSCATE("Auto Upgrade"), &Variables::Miscellaneous::AutoUpgrade);
-                HelpMarker(OBFUSCATE("Automatically upgrades the weapons you get. Works for Add All and Individal weapons."));
+                ImGui::EndCombo();
             }
+            ImGui::Checkbox(OBFUSCATE("Add All Weapons"), &Variables::Miscellaneous::AddAllWeapons);
+            HelpMarker(OBFUSCATE("Adds all weapons to your account. Might crash the game or freeze it, just restart and it should have everything unlocked."));
+            ImGui::Checkbox(OBFUSCATE("Auto Upgrade"), &Variables::Miscellaneous::AutoUpgrade);
+            HelpMarker(OBFUSCATE("Automatically upgrades the weapons you get. Works for Add All and Individal weapons."));
+            ImGui::Separator();
 
             ImGui::Checkbox(OBFUSCATE("Add Pets"), &Variables::Miscellaneous::AddPets);
             HelpMarker(OBFUSCATE("Adds pets to your account."));
-            if(Variables::Miscellaneous::AddPets) {
-                static int PetIndex = 0;
-                if(ImGui::BeginCombo("##SelectPet", PetNames[PetIndex].c_str())) {
-                    for(int i = 0; i < PetNames.size(); ++i) {
-                        const bool isSelected = (PetIndex == i);
-                        if(ImGui::Selectable(PetNames[i].c_str(), isSelected)) {
-                            PetIndex                          = i;
-                            Variables::Miscellaneous::PetName = PetNames[i];
-                        }
+            static int PetIndex = 0;
+            if(ImGui::BeginCombo("##SelectPet", PetNames[PetIndex].c_str())) {
+                for(int i = 0; i < PetNames.size(); ++i) {
+                    const bool isSelected = (PetIndex == i);
+                    if(ImGui::Selectable(PetNames[i].c_str(), isSelected)) {
+                        PetIndex                          = i;
+                        Variables::Miscellaneous::PetName = PetNames[i];
                     }
-                    ImGui::EndCombo();
                 }
-                ImGui::Checkbox(OBFUSCATE("Add All Pets"), &Variables::Miscellaneous::AddAllPets);
-                HelpMarker(OBFUSCATE("Adds all pets to your account."));
+                ImGui::EndCombo();
             }
+            ImGui::Checkbox(OBFUSCATE("Add All Pets"), &Variables::Miscellaneous::AddAllPets);
+            HelpMarker(OBFUSCATE("Adds all pets to your account."));
         }
     }
 
@@ -745,7 +743,7 @@ void Drawing::Loops()
             Internal::Miscellaneous::GiveWeapon(Utils::SystemString(Variables::Miscellaneous::WeaponName), true, Variables::Miscellaneous::AutoUpgrade);
         }
         if(!adding)
-            Variables::Miscellaneous::AddAllWeapons = false;
+            Variables::Miscellaneous::AddWeapons = false;
     }
 
     if(Variables::Miscellaneous::AddPets) {
@@ -756,7 +754,7 @@ void Drawing::Loops()
         } else {
             Internal::Miscellaneous::GivePet(Utils::SystemString(Variables::Miscellaneous::PetName), 9999);
         }
-        Variables::Miscellaneous::AddAllPets = false;
+        Variables::Miscellaneous::AddPets = false;
     }
 
     if(Variables::Visuals::EnableCircleFov && Variables::Visuals::EnableRainbowCircle)
