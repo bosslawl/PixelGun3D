@@ -7,6 +7,10 @@
 inline AnalyticsParams URLParams = { 0x0, 0x82, 0x18, 0x0, 0x0, 0x0, 0x0, false, nullptr, 0x0, false, 0x0, nullptr, false, 0x1, 0 };
 inline void (*SetSomething)(void *instance, int value, int number, MonoString *type);
 
+namespace Activate
+{
+}
+
 namespace Internal
 {
     inline void *MainCamera;
