@@ -164,6 +164,12 @@ namespace Internal
             static const auto fn = (void *(*)(void *, MonoString *, int, int, bool, bool, AnalyticsParams))(GetAbsolute(Offsets::Miscellaneous::AddCurrency));
             return fn(obj, type, value, reason, false, false, params);
         }
+
+        inline void AddWeapon(void *obj, MonoString *weapon, AnalyticsParams params)
+        {
+            static const auto fn = (void (*)(void *, MonoString *, int, bool, bool, void *, AnalyticsParams))(GetAbsolute(Offsets::Miscellaneous::AddWeapon));
+            return fn(obj, weapon, 62, false, false, nullptr, params);
+        }
     } // namespace Miscellaneous
 } // namespace Internal
 
@@ -435,7 +441,7 @@ namespace GameFunctions
                 if(Variables::Miscellaneous::HealthOnline)
                     Internal::PlayerMoveC::AddHealthFromWeaponOnline(playerDamageable, 999999.0f, "");
 
-                if(Variables::Miscellaneous::AmmoOnline)
+                if(Variables::Weapon::InfiniteAmmo)
                     Internal::PlayerMoveC::AddAmmoFromWeaponOnline(playerDamageable, 999999.0f);
             }
 

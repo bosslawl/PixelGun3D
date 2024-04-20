@@ -295,9 +295,6 @@ namespace Tabs
             ImGui::Checkbox(OBFUSCATE("Infinite Ammo"), &Variables::Weapon::InfiniteAmmo);
             HelpMarker(OBFUSCATE("Gives you unlimited ammo, still have to reload."));
 
-            ImGui::Checkbox(OBFUSCATE("Infinite Ammo v2"), &Variables::Miscellaneous::AmmoOnline);
-            HelpMarker(OBFUSCATE("Gives you unlimited ammo, no reload required."));
-
             ImGui::Checkbox(OBFUSCATE("Range Modifier"), &Variables::Weapon::RangeModifier);
             HelpMarker(OBFUSCATE("Modifys your weapon range."));
             if(Variables::Weapon::RangeModifier) {

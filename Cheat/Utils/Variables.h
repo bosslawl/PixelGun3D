@@ -209,7 +209,6 @@ namespace Variables
         inline int SelectedCurrency         = 0;
         inline bool IsAddCurrency           = false;
 
-        inline bool AmmoOnline              = false;
         inline bool HealthOnline            = false;
 
         inline bool PremiumPass             = false;
