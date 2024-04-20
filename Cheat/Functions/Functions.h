@@ -188,6 +188,18 @@ namespace Internal
             static const auto fn = (void (*)(void *))(GetAbsolute(Offsets::Miscellaneous::AddWear));
             return fn(id);
         }
+
+        inline void AddGems(int amount, bool a1, bool a2, int e1, int e2, int e3)
+        {
+            static const auto fn = (void (*)(int, bool, bool, int, int, int))(GetAbsolute(Offsets::Miscellaneous::AddGems));
+            return fn(amount, a1, a2, e1, e2, e3);
+        }
+
+        inline void AddCoins(int amount, bool a1, bool a2, int e1, int e2, int e3)
+        {
+            static const auto fn = (void (*)(int, bool, bool, int, int, int))(GetAbsolute(Offsets::Miscellaneous::AddCoins));
+            return fn(amount, a1, a2, e1, e2, e3);
+        }
     } // namespace Miscellaneous
 } // namespace Internal
 

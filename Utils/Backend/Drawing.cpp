@@ -556,11 +556,11 @@ namespace Tabs
             }
         }
 
-        if(ImGui::CollapsingHeader(OBFUSCATE("Account"))) {
+        if(ImGui::CollapsingHeader(OBFUSCATE("Currency"))) {
             ImGui::Checkbox(OBFUSCATE("Currency Modifier"), &Variables::Miscellaneous::AddCurrency);
             HelpMarker(OBFUSCATE("Adds currency to your account."));
             if(Variables::Miscellaneous::AddCurrency) {
-                Utils::FSlider(OBFUSCATE("##CurrencyAmount"), &Variables::Miscellaneous::CurrencyAmount, 0.0f, 1000000.0f, OBFUSCATE("Currency Amount: %.1f"));
+                Utils::FSlider(OBFUSCATE("##CurrencyAmount"), &Variables::Miscellaneous::CurrencyAmount, 0.0f, 1000000.0f, OBFUSCATE("Currency Amount: %.0f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
                 if(ImGui::BeginCombo(OBFUSCATE("##Select Currency"), CurrencyList[Variables::Miscellaneous::SelectedCurrency])) {
                     for(int i = 0; i < IM_ARRAYSIZE(CurrencyList); i++) {
@@ -579,6 +579,20 @@ namespace Tabs
                 }
             }
 
+            Utils::FSlider(OBFUSCATE("##Gems"), &Variables::Miscellaneous::AddGems, 0.0f, 1000000.0f, OBFUSCATE("Gems Amount: %.0f"));
+            HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
+            if(ImGui::Button(OBFUSCATE("Add Gems"))) {
+                Variables::Miscellaneous::IsAddGems = true;
+            }
+
+            Utils::FSlider(OBFUSCATE("##Coins"), &Variables::Miscellaneous::AddCoins, 0.0f, 1000000.0f, OBFUSCATE("Coins Amount: %.0f"));
+            HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
+            if(ImGui::Button(OBFUSCATE("Add Coins"))) {
+                Variables::Miscellaneous::IsAddCoins = true;
+            }
+        }
+
+        if(ImGui::CollapsingHeader(OBFUSCATE("Account"))) {
             ImGui::Checkbox(OBFUSCATE("Infinite Gems"), &Variables::Miscellaneous::InfiniteGems);
             HelpMarker(OBFUSCATE("Go into the armoury then double click any weapon and go to gallery, once enabled spam on any of the locked weapons."));
 
@@ -755,6 +769,16 @@ void Drawing::Loops()
             Internal::Miscellaneous::GivePet(Utils::SystemString(Variables::Miscellaneous::PetName), 9999);
         }
         Variables::Miscellaneous::AddPets = false;
+    }
+
+    if(Variables::Miscellaneous::IsAddGems) {
+        Internal::Miscellaneous::AddGems(Variables::Miscellaneous::AddGems, false, true, 0, 0x1D, 0);
+        Variables::Miscellaneous::IsAddGems = false;
+    }
+
+    if(Variables::Miscellaneous::IsAddCoins) {
+        Internal::Miscellaneous::AddCoins(Variables::Miscellaneous::AddCoins, false, true, 0, 0x1D, 0);
+        Variables::Miscellaneous::IsAddCoins = false;
     }
 
     if(Variables::Visuals::EnableCircleFov && Variables::Visuals::EnableRainbowCircle)
