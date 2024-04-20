@@ -626,6 +626,24 @@ namespace Tabs
                 ImGui::Checkbox(OBFUSCATE("Auto Upgrade"), &Variables::Miscellaneous::AutoUpgrade);
                 HelpMarker(OBFUSCATE("Automatically upgrades the weapons you get. Works for Add All and Individal weapons."));
             }
+
+            ImGui::Checkbox(OBFUSCATE("Add Pets"), &Variables::Miscellaneous::AddPets);
+            HelpMarker(OBFUSCATE("Adds pets to your account."));
+            if(Variables::Miscellaneous::AddPets) {
+                static int PetIndex = 0;
+                if(ImGui::BeginCombo("##SelectPet", PetNames[PetIndex].c_str())) {
+                    for(int i = 0; i < PetNames.size(); ++i) {
+                        const bool isSelected = (PetIndex == i);
+                        if(ImGui::Selectable(PetNames[i].c_str(), isSelected)) {
+                            PetIndex                          = i;
+                            Variables::Miscellaneous::PetName = PetNames[i];
+                        }
+                    }
+                    ImGui::EndCombo();
+                }
+                ImGui::Checkbox(OBFUSCATE("Add All Pets"), &Variables::Miscellaneous::AddAllPets);
+                HelpMarker(OBFUSCATE("Adds all pets to your account."));
+            }
         }
     }
 
@@ -728,6 +746,17 @@ void Drawing::Loops()
         }
         if(!adding)
             Variables::Miscellaneous::AddAllWeapons = false;
+    }
+
+    if(Variables::Miscellaneous::AddPets) {
+        if(Variables::Miscellaneous::AddAllPets) {
+            for(auto Pet : PetNames) {
+                Internal::Miscellaneous::GivePet(Utils::SystemString(Pet), 9999);
+            }
+        } else {
+            Internal::Miscellaneous::GivePet(Utils::SystemString(Variables::Miscellaneous::PetName), 9999);
+        }
+        Variables::Miscellaneous::AddAllPets = false;
     }
 
     if(Variables::Visuals::EnableCircleFov && Variables::Visuals::EnableRainbowCircle)

@@ -176,6 +176,18 @@ namespace Internal
             static const auto fn = (void (*)(void *))(GetAbsolute(Offsets::Miscellaneous::AddWeapon));
             return fn(id);
         }
+
+        inline void GivePet(void *id, int count)
+        {
+            static const auto fn = (void (*)(void *, int))(GetAbsolute(Offsets::Miscellaneous::AddPet));
+            return fn(id, count);
+        }
+
+        inline void GiveWear(void *id)
+        {
+            static const auto fn = (void (*)(void *))(GetAbsolute(Offsets::Miscellaneous::AddWear));
+            return fn(id);
+        }
     } // namespace Miscellaneous
 } // namespace Internal
 

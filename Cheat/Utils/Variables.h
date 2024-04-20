@@ -230,5 +230,13 @@ namespace Variables
         inline bool AddAllWeapons           = false;
         inline std::string WeaponName       = "";
         inline bool AutoUpgrade             = false;
+
+        inline bool AddPets                 = false;
+        inline bool AddAllPets              = false;
+        inline std::string PetName          = "";
+
+        inline bool AddWear                 = false;
+        inline bool AddAllWear              = false;
+        inline std::string WearName         = "";
     } // namespace Miscellaneous
 } // namespace Variables
