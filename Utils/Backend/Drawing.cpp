@@ -556,43 +556,18 @@ namespace Tabs
             }
         }
 
-        if(ImGui::CollapsingHeader(OBFUSCATE("Currency"))) {
+        if(ImGui::CollapsingHeader(OBFUSCATE("Account"))) {
             ImGui::Checkbox(OBFUSCATE("Currency Modifier"), &Variables::Miscellaneous::AddCurrency);
             HelpMarker(OBFUSCATE("Adds currency to your account."));
             if(Variables::Miscellaneous::AddCurrency) {
-                Utils::FSlider(OBFUSCATE("##CurrencyAmount"), &Variables::Miscellaneous::CurrencyAmount, 0.0f, 1000000.0f, OBFUSCATE("Currency Amount: %.0f"));
-                HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
-                if(ImGui::BeginCombo(OBFUSCATE("##Select Currency"), CurrencyList[Variables::Miscellaneous::SelectedCurrency])) {
-                    for(int i = 0; i < IM_ARRAYSIZE(CurrencyList); i++) {
-                        const bool is_selected = (Variables::Miscellaneous::SelectedCurrency == i);
-                        if(ImGui::Selectable(CurrencyList[i], is_selected))
-                            Variables::Miscellaneous::SelectedCurrency = i;
-
-                        if(is_selected)
-                            ImGui::SetItemDefaultFocus();
-                    }
-                    ImGui::EndCombo();
-                }
+                Utils::FSlider(OBFUSCATE("##CurrencyAmount"), &Variables::Miscellaneous::CurrencyAmount, 0.0f, 1000000.0f, OBFUSCATE("Currency Amount: %.1f"));
+                ImGui::Combo(OBFUSCATE("##CurrencyType"), &Variables::Miscellaneous::SelectedCurrency, CurrencyList, IM_ARRAYSIZE(CurrencyList), 4);
                 ImGui::SameLine();
                 if(ImGui::Button(OBFUSCATE("Add Currency"))) {
                     Variables::Miscellaneous::IsAddCurrency = true;
                 }
             }
 
-            Utils::FSlider(OBFUSCATE("##Gems"), &Variables::Miscellaneous::AddGems, 0.0f, 1000000.0f, OBFUSCATE("Gems Amount: %.0f"));
-            HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
-            if(ImGui::Button(OBFUSCATE("Add Gems"))) {
-                Variables::Miscellaneous::IsAddGems = true;
-            }
-
-            Utils::FSlider(OBFUSCATE("##Coins"), &Variables::Miscellaneous::AddCoins, 0.0f, 1000000.0f, OBFUSCATE("Coins Amount: %.0f"));
-            HelpMarker(OBFUSCATE("I recommend keeping it set at 1000 to be safe."));
-            if(ImGui::Button(OBFUSCATE("Add Coins"))) {
-                Variables::Miscellaneous::IsAddCoins = true;
-            }
-        }
-
-        if(ImGui::CollapsingHeader(OBFUSCATE("Account"))) {
             ImGui::Checkbox(OBFUSCATE("Infinite Gems"), &Variables::Miscellaneous::InfiniteGems);
             HelpMarker(OBFUSCATE("Go into the armoury then double click any weapon and go to gallery, once enabled spam on any of the locked weapons."));
 
@@ -622,40 +597,9 @@ namespace Tabs
                 HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning, repeat until you get all the rewards, normally twice."));
             }
 
-            ImGui::Separator();
-            ImGui::Checkbox(OBFUSCATE("Add Weapons"), &Variables::Miscellaneous::AddWeapons);
-            static int WeaponIndex = 0;
-            if(ImGui::BeginCombo("##SelectWeapon", WeaponNames[WeaponIndex].c_str())) {
-                for(int i = 0; i < WeaponNames.size(); ++i) {
-                    const bool isSelected = (WeaponIndex == i);
-                    if(ImGui::Selectable(WeaponNames[i].c_str(), isSelected)) {
-                        WeaponIndex                          = i;
-                        Variables::Miscellaneous::WeaponName = WeaponNames[i];
-                    }
-                }
-                ImGui::EndCombo();
+            if(ImGui::Button(OBFUSCATE("Unlock Gadgets"))) {
+                Variables::Miscellaneous::AddGadgets = true;
             }
-            ImGui::Checkbox(OBFUSCATE("Add All Weapons"), &Variables::Miscellaneous::AddAllWeapons);
-            HelpMarker(OBFUSCATE("Adds all weapons to your account. Might crash the game or freeze it, just restart and it should have everything unlocked."));
-            ImGui::Checkbox(OBFUSCATE("Auto Upgrade"), &Variables::Miscellaneous::AutoUpgrade);
-            HelpMarker(OBFUSCATE("Automatically upgrades the weapons you get. Works for Add All and Individal weapons."));
-            ImGui::Separator();
-
-            ImGui::Checkbox(OBFUSCATE("Add Pets"), &Variables::Miscellaneous::AddPets);
-            HelpMarker(OBFUSCATE("Adds pets to your account."));
-            static int PetIndex = 0;
-            if(ImGui::BeginCombo("##SelectPet", PetNames[PetIndex].c_str())) {
-                for(int i = 0; i < PetNames.size(); ++i) {
-                    const bool isSelected = (PetIndex == i);
-                    if(ImGui::Selectable(PetNames[i].c_str(), isSelected)) {
-                        PetIndex                          = i;
-                        Variables::Miscellaneous::PetName = PetNames[i];
-                    }
-                }
-                ImGui::EndCombo();
-            }
-            ImGui::Checkbox(OBFUSCATE("Add All Pets"), &Variables::Miscellaneous::AddAllPets);
-            HelpMarker(OBFUSCATE("Adds all pets to your account."));
         }
     }
 
@@ -731,54 +675,6 @@ void Drawing::Loops()
             Internal::UnityEngine::SetTimeScale(Variables::Gameplay::GameSpeedMultiplier);
         else
             Internal::UnityEngine::SetTimeScale(1.0f);
-    }
-
-    bool adding        = false;
-    int addingprogress = 0;
-    if(Variables::Miscellaneous::AddWeapons) {
-        if(Variables::Miscellaneous::AddAllWeapons) {
-            adding    = true;
-            int count = -1;
-            for(auto Weapon : WeaponNames) {
-                count++;
-                if(count < addingprogress)
-                    continue;
-                if(count > addingprogress + 25) {
-                    addingprogress = addingprogress + 25;
-                    break;
-                }
-                Internal::Miscellaneous::GiveWeapon(Utils::SystemString(Weapon), true, Variables::Miscellaneous::AutoUpgrade);
-            }
-            if(count >= WeaponNames.size() - 1) {
-                adding         = false;
-                addingprogress = 0;
-            };
-        } else {
-            Internal::Miscellaneous::GiveWeapon(Utils::SystemString(Variables::Miscellaneous::WeaponName), true, Variables::Miscellaneous::AutoUpgrade);
-        }
-        if(!adding)
-            Variables::Miscellaneous::AddWeapons = false;
-    }
-
-    if(Variables::Miscellaneous::AddPets) {
-        if(Variables::Miscellaneous::AddAllPets) {
-            for(auto Pet : PetNames) {
-                Internal::Miscellaneous::GivePet(Utils::SystemString(Pet), 9999);
-            }
-        } else {
-            Internal::Miscellaneous::GivePet(Utils::SystemString(Variables::Miscellaneous::PetName), 9999);
-        }
-        Variables::Miscellaneous::AddPets = false;
-    }
-
-    if(Variables::Miscellaneous::IsAddGems) {
-        Internal::Miscellaneous::AddGems(Variables::Miscellaneous::AddGems, false, true, 0, 0x1D, 0);
-        Variables::Miscellaneous::IsAddGems = false;
-    }
-
-    if(Variables::Miscellaneous::IsAddCoins) {
-        Internal::Miscellaneous::AddCoins(Variables::Miscellaneous::AddCoins, false, true, 0, 0x1D, 0);
-        Variables::Miscellaneous::IsAddCoins = false;
     }
 
     if(Variables::Visuals::EnableCircleFov && Variables::Visuals::EnableRainbowCircle)

@@ -4,12 +4,9 @@
 #include "Data.h"
 #include "Unity.h"
 
-inline AnalyticsParams URLParams = { 0x0, 0x82, 0x18, 0x0, 0x0, 0x0, 0x0, false, nullptr, 0x0, false, 0x0, nullptr, false, 0x1, 0 };
+inline AnalyticsParams Offerwall = { 0x0, 0x82, 0x18, 0x0, 0x0, 0x0, 0x0, false, nullptr, 0x0, false, 0x0, nullptr, false, 0x1, 0 };
 inline void (*SetSomething)(void *instance, int value, int number, MonoString *type);
-
-namespace Activate
-{
-}
+inline int CurrentLevel;
 
 namespace Internal
 {
@@ -181,35 +178,16 @@ namespace Internal
             return fn(id);
         }
 
-        inline void GivePet(void *id, int count)
+        inline void AddGadgets(MonoString *gadget, int *level)
         {
-            static const auto fn = (void (*)(void *, int))(GetAbsolute(Offsets::Miscellaneous::AddPet));
-            return fn(id, count);
-        }
-
-        inline void GiveWear(void *id)
-        {
-            static const auto fn = (void (*)(void *))(GetAbsolute(Offsets::Miscellaneous::AddWear));
-            return fn(id);
-        }
-
-        inline void AddGems(int amount, bool a1, bool a2, int e1, int e2, int e3)
-        {
-            static const auto fn = (void (*)(int, bool, bool, int, int, int))(GetAbsolute(Offsets::Miscellaneous::AddGems));
-            return fn(amount, a1, a2, e1, e2, e3);
-        }
-
-        inline void AddCoins(int amount, bool a1, bool a2, int e1, int e2, int e3)
-        {
-            static const auto fn = (void (*)(int, bool, bool, int, int, int))(GetAbsolute(Offsets::Miscellaneous::AddCoins));
-            return fn(amount, a1, a2, e1, e2, e3);
+            static const auto fn = (void (*)(MonoString *, int *))(GetAbsolute(Offsets::Miscellaneous::AddGadgets));
+            return fn(gadget, level);
         }
     } // namespace Miscellaneous
 } // namespace Internal
 
 namespace GameFunctions
 {
-
     // UnityEngine
     namespace UnityEngine
     {
@@ -513,8 +491,15 @@ namespace GameFunctions
         inline void __stdcall WeaponSounds(void *obj)
         {
             if(Variables::Miscellaneous::IsAddCurrency) {
-                Internal::Miscellaneous::AddCurrency(Internal::Miscellaneous::WebInstance(), Internal::CreateIL2CPPString(CurrencyList[Variables::Miscellaneous::SelectedCurrency]), Variables::Miscellaneous::CurrencyAmount, 0, URLParams);
+                Internal::Miscellaneous::AddCurrency(Internal::Miscellaneous::WebInstance(), Internal::CreateIL2CPPString(CurrencyList[Variables::Miscellaneous::SelectedCurrency]), Variables::Miscellaneous::CurrencyAmount, 145, Offerwall);
                 Variables::Miscellaneous::IsAddCurrency = false;
+            }
+
+            if(Variables::Miscellaneous::AddGadgets) {
+                for(int i = 0; i < 68; i++) {
+                    Internal::Miscellaneous::AddGadgets(Internal::CreateIL2CPPString(GadgetNames[i]), (int *)CurrentLevel);
+                }
+                Variables::Miscellaneous::AddGadgets = false;
             }
 
             if(Internal::WeaponSounds::IsMyWeaponSounds(obj)) {
@@ -867,6 +852,8 @@ namespace GameFunctions
             if(Variables::Miscellaneous::MaxLevelOne || Variables::Miscellaneous::MaxLevelTwo) {
                 return 65;
             }
+
+            CurrentLevel = OLevel();
 
             return OLevel();
         }

@@ -239,9 +239,6 @@ namespace Variables
         inline bool AddAllWear              = false;
         inline std::string WearName         = "";
 
-        inline bool IsAddGems               = false;
-        inline float AddGems                = 1000.0f;
-        inline bool IsAddCoins              = false;
-        inline float AddCoins               = 1000.0f;
+        inline bool AddGadgets              = false;
     } // namespace Miscellaneous
 } // namespace Variables

@@ -132,10 +132,7 @@ namespace Offsets
         inline uintptr_t DoubleRewards    = String2Offset(OBFUSCATE("0xC33660")); // Class2905 method_7
         inline uintptr_t AddWeapon        = String2Offset(OBFUSCATE("0x638AC0")); // WeaponManager method_32
         inline uintptr_t DamageMultiplier = String2Offset(OBFUSCATE("0x11296D0")); // BalanceController smethod_74
-        inline uintptr_t AddPet           = String2Offset(OBFUSCATE("0x1FF9740")); // Class1100 smethod_6
-        inline uintptr_t AddWear          = String2Offset(OBFUSCATE("0x1FF5810")); // Class1100 smethod_2
-        inline uintptr_t AddCoins         = String2Offset(OBFUSCATE("0x1FEF760")); // Class1090 smethod_5
-        inline uintptr_t AddGems          = String2Offset(OBFUSCATE("0x1FEE5B0")); // Class1090 smethod_6
+        inline uintptr_t AddGadgets       = String2Offset(OBFUSCATE("0x1EA6B60")); // Class897 smethod_8
     }
 }
 
