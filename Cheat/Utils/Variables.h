@@ -84,105 +84,108 @@ namespace Variables
     // Weapon
     namespace Weapon
     {
-        inline bool RecoilModifier        = false;
-        inline float RecoilValue          = 0.0f;
+        inline bool RecoilModifier         = false;
+        inline float RecoilValue           = 0.0f;
 
-        inline bool RangeModifier         = false;
-        inline float RangeValue           = 1000000.0f;
-        inline float DamageRange          = 1000000.0f;
-        inline float ShootDistance        = 1000000.0f;
+        inline bool RangeModifier          = false;
+        inline float RangeValue            = 1000000.0f;
+        inline float DamageRange           = 1000000.0f;
+        inline float ShootDistance         = 1000000.0f;
 
-        inline bool FullAuto              = false;
-        inline float ShootDelay           = 0.000001f;
-        inline float BulletDelay          = 0.000001f;
-        inline float DelayInBurstShooting = 0.000001f;
-        inline float ChargeTime           = 0.000001f;
+        inline bool FullAuto               = false;
+        inline float ShootDelay            = 0.000001f;
+        inline float BulletDelay           = 0.000001f;
+        inline float DelayInBurstShooting  = 0.000001f;
+        inline float ChargeTime            = 0.000001f;
 
-        inline bool ZoomXRay              = false;
+        inline bool ZoomXRay               = false;
 
-        inline bool ScopeModifier         = false;
-        inline float ScopeZoomValue       = 1000000.0f;
-        inline bool ForceScope            = false;
+        inline bool ScopeModifier          = false;
+        inline float ScopeZoomValue        = 1000000.0f;
+        inline bool ForceScope             = false;
 
-        inline bool ForceCriticals        = false;
+        inline bool ForceCriticals         = false;
 
-        inline bool InfiniteAmmo          = false;
+        inline bool InfiniteAmmo           = false;
 
-        inline bool ChargeModifier        = false;
-        inline float ChargeMax            = 0.0f;
-        inline float ChargeDuration       = 0.0f;
+        inline bool ChargeModifier         = false;
+        inline float ChargeMax             = 0.0f;
+        inline float ChargeDuration        = 0.0f;
 
-        inline bool ScoreModifier         = false;
-        inline float KillModifier         = 1000000.0f;
-        inline float AssistModifier       = 1000000.0f;
-        inline float RevengeModifier      = 1000000.0f;
+        inline bool ScoreModifier          = false;
+        inline float KillModifier          = 1000000.0f;
+        inline float AssistModifier        = 1000000.0f;
+        inline float RevengeModifier       = 1000000.0f;
 
-        inline bool AOEBullets            = false;
-        inline float FrontAngle           = 360.0f;
-        inline float BackAngle            = 360.0f;
-        inline float AOERadius            = 1000000.0f;
-        inline float FrontMultiplier      = 5.0f;
-        inline float BackMultiplier       = 5.0f;
-        inline float SideMultiplier       = 5.0f;
+        inline bool AOEBullets             = false;
+        inline float FrontAngle            = 360.0f;
+        inline float BackAngle             = 360.0f;
+        inline float AOERadius             = 1000000.0f;
+        inline float FrontMultiplier       = 5.0f;
+        inline float BackMultiplier        = 5.0f;
+        inline float SideMultiplier        = 5.0f;
 
-        inline bool NoSpread              = false;
+        inline bool NoSpread               = false;
 
-        inline bool ForcePolymorpher      = false;
-        inline float PolymorpherDuration  = 1000000.0f;
-        inline float PolymorpherHealth    = 1000000.0f;
-        inline int PolymorpherType        = 0;
+        inline bool ForcePolymorpher       = false;
+        inline float PolymorpherDuration   = 1000000.0f;
+        inline float PolymorpherHealth     = 1000000.0f;
+        inline int PolymorpherType         = 0;
 
-        inline bool PoisonEffect          = false;
-        inline float PoisonCount          = 1000000.0f;
-        inline float PoisonMultiplier     = 5.0f;
-        inline float PoisonDuration       = 1000000.0f;
-        inline bool StunEffect            = false;
-        inline float StunMultiplier       = 5.0f;
-        inline float StunDuration         = 1000000.0f;
-        inline float StunRadius           = 1000000.0f;
-        inline bool CurseEffect           = false;
-        inline float CurseDuration        = 1000000.0f;
-        inline float CurseMultiplier      = 5.0f;
-        inline bool CharmEffect           = false;
-        inline float CharmDuration        = 1000000.0f;
-        inline bool BlindEffect           = false;
-        inline float BlindDuration        = 1000000.0f;
-        inline bool WeaknessEffect        = false;
-        inline float WeaknessDuration     = 1000000.0f;
-        inline bool LightningEffect       = false;
-        inline bool Shocker               = false;
-        inline float ShockerRange         = 1000000.0f;
-        inline float ShockerMultiplier    = 5.0f;
+        inline bool PoisonEffect           = false;
+        inline float PoisonCount           = 1000000.0f;
+        inline float PoisonMultiplier      = 5.0f;
+        inline float PoisonDuration        = 1000000.0f;
+        inline bool StunEffect             = false;
+        inline float StunMultiplier        = 5.0f;
+        inline float StunDuration          = 1000000.0f;
+        inline float StunRadius            = 1000000.0f;
+        inline bool CurseEffect            = false;
+        inline float CurseDuration         = 1000000.0f;
+        inline float CurseMultiplier       = 5.0f;
+        inline bool CharmEffect            = false;
+        inline float CharmDuration         = 1000000.0f;
+        inline bool BlindEffect            = false;
+        inline float BlindDuration         = 1000000.0f;
+        inline bool WeaknessEffect         = false;
+        inline float WeaknessDuration      = 1000000.0f;
+        inline bool LightningEffect        = false;
+        inline bool Shocker                = false;
+        inline float ShockerRange          = 1000000.0f;
+        inline float ShockerMultiplier     = 5.0f;
 
-        inline bool HeadMagnifier         = false;
-        inline float MagnifierDuration    = 1000000.0f;
+        inline bool HeadMagnifier          = false;
+        inline float MagnifierDuration     = 1000000.0f;
 
-        inline bool ReflectionRays        = false;
-        inline float ReflectionCount      = 50.0f;
+        inline bool ReflectionRays         = false;
+        inline float ReflectionCount       = 50.0f;
 
-        inline bool JumpDisabler          = false;
-        inline float JumpDisabledDuration = 1000000.0f;
+        inline bool JumpDisabler           = false;
+        inline float JumpDisabledDuration  = 1000000.0f;
 
-        inline bool SilentAim             = false;
-        inline float SilentMultiplier     = 5.0f;
-        inline float SilentRange          = 1000000.0f;
+        inline bool SilentAim              = false;
+        inline float SilentMultiplier      = 5.0f;
+        inline float SilentRange           = 1000000.0f;
 
-        inline bool Flamethrower          = false;
-        inline bool ExplosiveBullets      = false;
-        inline bool Shotgun               = false;
-        inline bool Railgun               = false;
-        inline bool RailgunClipping       = false;
-        inline bool Bazooka               = false;
-        inline bool Harpoon               = false;
-        inline float HarpoonDistance      = 1000000.0f;
+        inline bool Flamethrower           = false;
+        inline bool ExplosiveBullets       = false;
+        inline bool Shotgun                = false;
+        inline bool Railgun                = false;
+        inline bool RailgunClipping        = false;
+        inline bool Bazooka                = false;
+        inline bool Harpoon                = false;
+        inline float HarpoonDistance       = 1000000.0f;
 
-        inline bool FireRate              = false;
-        inline float RapidValue           = 1000000.0f;
+        inline bool FireRate               = false;
+        inline float RapidValue            = 1000000.0f;
 
-        inline bool ReloadModifier        = false;
-        inline float ReloadValue          = 99999.0f;
+        inline bool ReloadModifier         = false;
+        inline float ReloadValue           = 99999.0f;
 
-        inline bool AntiBarrier           = false;
+        inline bool AntiBarrier            = false;
+
+        inline bool DamageMultiplier       = false;
+        inline float DamageMultiplierValue = 5.0f;
     } // namespace Weapon
 
     // Pet

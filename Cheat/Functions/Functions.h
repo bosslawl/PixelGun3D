@@ -901,5 +901,15 @@ namespace GameFunctions
             }
             return OAddWeapon(obj, str, src, a1, a2, a3, a4);
         }
+
+        inline int(__stdcall *ODamageMultiplier)();
+
+        inline int __stdcall DamageMultiplier()
+        {
+            if(Variables::Weapon::DamageMultiplier)
+                return Variables::Weapon::DamageMultiplierValue;
+
+            return ODamageMultiplier();
+        }
     } // namespace Miscellaneous
 } // namespace GameFunctions

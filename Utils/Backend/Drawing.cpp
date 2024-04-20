@@ -346,6 +346,13 @@ namespace Tabs
 
             ImGui::Checkbox(OBFUSCATE("Force Criticals"), &Variables::Weapon::ForceCriticals);
             HelpMarker(OBFUSCATE("Forces critical hits. Only visual?"));
+
+            ImGui::Checkbox(OBFUSCATE("Damage Multiplier"), &Variables::Weapon::DamageMultiplier);
+            HelpMarker(OBFUSCATE("Modifys your weapons damage."));
+            if(Variables::Weapon::DamageMultiplier) {
+                Utils::FSlider(OBFUSCATE("##DamageValue"), &Variables::Weapon::DamageMultiplierValue, 0.0f, 100.0f, OBFUSCATE("Damage Multiplier: %.1f"));
+                HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
+            }
         }
 
         if(ImGui::CollapsingHeader(OBFUSCATE("Effects"))) {
@@ -356,7 +363,7 @@ namespace Tabs
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest duration."));
                 Utils::FSlider(OBFUSCATE("##PoisonCount"), &Variables::Weapon::PoisonCount, 0.0f, 1000000.0f, OBFUSCATE("Poison Count: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest damage."));
-                Utils::FSlider(OBFUSCATE("##PoisonMultiplier"), &Variables::Weapon::PoisonMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Poison Multiplier: %.1f"));
+                Utils::FSlider(OBFUSCATE("##PoisonMultiplier"), &Variables::Weapon::PoisonMultiplier, 0.0f, 100.0f, OBFUSCATE("Poison Multiplier: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
             }
 
@@ -367,7 +374,7 @@ namespace Tabs
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for longest duration."));
                 Utils::FSlider(OBFUSCATE("##StunRadius"), &Variables::Weapon::StunRadius, 0.0f, 1000000.0f, OBFUSCATE("Stun Radius: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest area of effect."));
-                Utils::FSlider(OBFUSCATE("##StunMultiplier"), &Variables::Weapon::StunMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Stun Multiplier: %.1f"));
+                Utils::FSlider(OBFUSCATE("##StunMultiplier"), &Variables::Weapon::StunMultiplier, 0.0f, 100.0f, OBFUSCATE("Stun Multiplier: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
             }
 
@@ -376,7 +383,7 @@ namespace Tabs
             if(Variables::Weapon::CurseEffect) {
                 Utils::FSlider(OBFUSCATE("##CurseDuration"), &Variables::Weapon::CurseDuration, 0.0f, 1000000.0f, OBFUSCATE("Curse Duration: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest damage."));
-                Utils::FSlider(OBFUSCATE("##CurseMultiplier"), &Variables::Weapon::CurseMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Curse Multiplier: %.1f"));
+                Utils::FSlider(OBFUSCATE("##CurseMultiplier"), &Variables::Weapon::CurseMultiplier, 0.0f, 100.0f, OBFUSCATE("Curse Multiplier: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
             }
 
@@ -385,7 +392,7 @@ namespace Tabs
             if(Variables::Weapon::Shocker) {
                 Utils::FSlider(OBFUSCATE("##ShockerRange"), &Variables::Weapon::ShockerRange, 0.0f, 1000000.0f, OBFUSCATE("Shocker Range: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 1000000 for highest range."));
-                Utils::FSlider(OBFUSCATE("##ShockerMultiplier"), &Variables::Weapon::ShockerMultiplier, 0.0f, 1000000.0f, OBFUSCATE("Shocker Multiplier: %.1f"));
+                Utils::FSlider(OBFUSCATE("##ShockerMultiplier"), &Variables::Weapon::ShockerMultiplier, 0.0f, 100.0f, OBFUSCATE("Shocker Multiplier: %.1f"));
                 HelpMarker(OBFUSCATE("I recommend keeping it set at 5. Anything above around 7 will kick you for doing too much damage."));
             }
 

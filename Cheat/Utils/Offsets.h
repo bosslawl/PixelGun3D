@@ -131,6 +131,7 @@ namespace Offsets
         inline uintptr_t RewardMultiplier = String2Offset(OBFUSCATE("0xC326E0")); // Class2905 method_3
         inline uintptr_t DoubleRewards    = String2Offset(OBFUSCATE("0xC33660")); // Class2905 method_7
         inline uintptr_t AddWeapon        = String2Offset(OBFUSCATE("0x638AC0")); // WeaponManager method_32
+        inline uintptr_t DamageMultiplier = String2Offset(OBFUSCATE("0x11296D0")); // BalanceController smethod_74
     }
 }
 
