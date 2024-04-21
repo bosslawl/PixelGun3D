@@ -22,9 +22,9 @@ namespace Internal
 
     inline MonoString *CreateIL2CPPString(const char *str)
     {
-        static MonoString *(*CreateIl2cppString)(const char *str, int *startIndex, int *length) = (MonoString * (*)(const char *str, int *startIndex, int *length))(GetAbsolute(Offsets::UnityEngine::StringOffset));
-        int *startIndex                                                                         = 0;
-        int *length                                                                             = (int *)strlen(str);
+        static MonoString *(*CreateIl2cppString)(const char *str, int startIndex, int length) = (MonoString * (*)(const char *str, int startIndex, int length))(GetAbsolute(Offsets::UnityEngine::StringOffset));
+        int startIndex                                                                        = 0;
+        int length                                                                            = strlen(str);
         return CreateIl2cppString(str, startIndex, length);
     }
 
@@ -490,9 +490,8 @@ namespace GameFunctions
             }
 
             if(Variables::Miscellaneous::AddGadgets) {
-                for(int i = 0; i < 68; i++) {
+                for(int i = 0; i < 68; i++)
                     Internal::Miscellaneous::AddGadgets(Internal::CreateIL2CPPString(GadgetNames[i]), (int *)CurrentLevel);
-                }
                 Variables::Miscellaneous::AddGadgets = false;
             }
 

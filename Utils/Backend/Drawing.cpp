@@ -597,9 +597,8 @@ namespace Tabs
                 HelpMarker(OBFUSCATE("Tick this and spin the chest then untick when the chest is spinning, repeat until you get all the rewards, normally twice."));
             }
 
-            if(ImGui::Button(OBFUSCATE("Unlock Gadgets"))) {
+            if(ImGui::Button(OBFUSCATE("Unlock Gadgets")))
                 Variables::Miscellaneous::AddGadgets = true;
-            }
         }
     }
 

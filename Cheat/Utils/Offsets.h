@@ -22,7 +22,7 @@ namespace Offsets
         inline uintptr_t IsDebugBuild = String2Offset(OBFUSCATE("0x0"));
         inline uintptr_t TimeOffset   = String2Offset(OBFUSCATE("0x0"));
         inline uintptr_t TextMesh     = String2Offset(OBFUSCATE("0x0"));
-        inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C38D0")); // string.Ctor (char* int int)
+        inline uintptr_t StringOffset = String2Offset(OBFUSCATE("0x37C2FD0")); // string.Ctor (sbyte int int)
         inline uintptr_t PreRender    = String2Offset(OBFUSCATE("0x0")); // PostProcessLayer OnPreRender
     }
 
