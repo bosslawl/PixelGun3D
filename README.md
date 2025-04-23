@@ -14,4 +14,4 @@ This version is old and does not work on current versions of the game, this was 
 
 ## Other
 
-If you want a much better and more updated version of this you can DM me on discord @bosslawl and I'd be happy to sell my source which can be seen [here](https://www.youtube.com/watch?v=OoCWdlhC32M).
+Updated version can be seen [here](https://www.youtube.com/watch?v=OoCWdlhC32M).
